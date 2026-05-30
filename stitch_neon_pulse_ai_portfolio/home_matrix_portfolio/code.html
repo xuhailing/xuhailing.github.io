@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MATRIX_PORTFOLIO // HOME</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&amp;family=Space+Mono:wght@400;700&amp;family=Anybody:wght@800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-variant": "#2d382a",
+                "surface-container-lowest": "#071106",
+                "surface-container-high": "#222d20",
+                "secondary-fixed": "#26fedc",
+                "on-tertiary-fixed": "#390036",
+                "surface-container-highest": "#2d382a",
+                "inverse-surface": "#dae6d2",
+                "secondary-fixed-dim": "#00dfc1",
+                "surface-bright": "#313c2e",
+                "tertiary": "#fff7f9",
+                "on-error-container": "#ffdad6",
+                "surface": "#0c160a",
+                "surface-container": "#182216",
+                "on-error": "#690005",
+                "on-primary": "#003907",
+                "primary": "#ebffe2",
+                "tertiary-container": "#ffcef2",
+                "inverse-on-surface": "#283326",
+                "primary-fixed-dim": "#00e639",
+                "primary-container": "#00ff41",
+                "tertiary-fixed-dim": "#ffabee",
+                "error-container": "#93000a",
+                "on-tertiary": "#5c0058",
+                "on-surface-variant": "#b9ccb2",
+                "surface-tint": "#00e639",
+                "on-background": "#dae6d2",
+                "secondary": "#c7fff0",
+                "on-secondary-container": "#006a5a",
+                "on-secondary-fixed-variant": "#005144",
+                "on-secondary": "#00382f",
+                "primary-fixed": "#72ff70",
+                "background": "#0c160a",
+                "surface-dim": "#0c160a",
+                "inverse-primary": "#006e16",
+                "on-primary-fixed-variant": "#00530e",
+                "error": "#ffb4ab",
+                "secondary-container": "#00f2d1",
+                "on-tertiary-fixed-variant": "#82007c",
+                "on-primary-container": "#007117",
+                "outline": "#84967e",
+                "on-surface": "#dae6d2",
+                "on-primary-fixed": "#002203",
+                "on-secondary-fixed": "#00201a",
+                "tertiary-fixed": "#ffd7f3",
+                "outline-variant": "#3b4b37",
+                "surface-container-low": "#141e12",
+                "on-tertiary-container": "#ae00a7"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "margin-sm": "16px",
+                "margin-lg": "80px",
+                "gutter": "24px",
+                "unit": "4px",
+                "margin-md": "40px",
+                "grid-columns": "12"
+            },
+            "fontFamily": {
+                "headline-xl": ["Orbitron"],
+                "body-md": ["Space Mono"],
+                "body-lg": ["Space Mono"],
+                "headline-lg-mobile": ["Orbitron"],
+                "headline-lg": ["Orbitron"],
+                "display-lg": ["Orbitron"],
+                "label-mono": ["Space Mono"],
+                "callout": ["anybody"]
+            },
+            "fontSize": {
+                "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                "display-lg": ["84px", {"lineHeight": "90px", "letterSpacing": "0.1em", "fontWeight": "900"}],
+                "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "700"}],
+                "callout": ["20px", {"lineHeight": "24px", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        .glitch-hover:hover {
+            animation: glitch 0.2s infinite;
+        }
+        .scanline {
+            background: linear-gradient(to bottom, rgba(13, 43, 13, 0) 50%, rgba(0, 255, 65, 0.05) 50%);
+            background-size: 100% 4px;
+        }
+        .clip-chamfer {
+            clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 0 100%);
+        }
+        .shadow-stack {
+            box-shadow: 2px 2px 0px #7B2FFF, 4px 4px 0px #FF3AF2, 6px 6px 0px #00F5D4;
+        }
+        .shadow-stack-hover:hover {
+            box-shadow: 4px 4px 0px #7B2FFF, 8px 8px 0px #FF3AF2, 12px 12px 0px #00F5D4;
+        }
+        .animate-blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .diagonal-stripes {
+            background-image: repeating-linear-gradient(45deg, #0d160a 0, #0d160a 10px, #182216 10px, #182216 20px);
+        }
+        .dot-grid {
+            background-image: radial-gradient(#2d382a 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .mesh-gradient {
+            background: radial-gradient(circle at 20% 30%, rgba(255, 58, 242, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(0, 245, 212, 0.05) 0%, transparent 50%);
+        }
+        .cursor-crosshair { cursor: crosshair; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container cursor-crosshair">
+<!-- Top Navigation -->
+<header class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-margin-sm bg-surface/60 backdrop-blur-xl px-8 py-3 rounded-full border-4 border-primary shadow-[2px_2px_0px_#7B2FFF,4px_4px_0px_#FF3AF2,6px_6px_0px_#00F5D4] active:scale-95 transition-transform duration-75">
+<div class="font-headline-lg text-headline-lg text-primary drop-shadow-[0_0_8px_#00e639]">MATRIX_PORTFOLIO</div>
+<nav class="hidden md:flex items-center gap-6 ml-8">
+<a class="font-body-md text-body-md uppercase tracking-widest text-secondary-fixed border-b-2 border-secondary-fixed glitch-hover" href="#">HOME</a>
+<a class="font-body-md text-body-md uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors glitch-hover" href="#">PORTFOLIO</a>
+<a class="font-body-md text-body-md uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors glitch-hover" href="#">ABOUT</a>
+<a class="font-body-md text-body-md uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors glitch-hover" href="#">CONTACT</a>
+</nav>
+<button class="ml-4 text-primary">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+</button>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen flex flex-col justify-center items-center overflow-hidden diagonal-stripes">
+<div class="absolute inset-0 dot-grid opacity-50"></div>
+<div class="absolute inset-0 mesh-gradient"></div>
+<!-- Floating Decorative Shapes -->
+<div class="absolute top-[20%] left-[10%] opacity-20 text-secondary-fixed animate-pulse pointer-events-none">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="absolute bottom-[30%] right-[15%] opacity-20 text-tertiary-fixed-dim rotate-12 pointer-events-none">
+<span class="material-symbols-outlined text-8xl">change_history</span>
+</div>
+<div class="absolute top-[60%] left-[5%] opacity-10 text-primary-fixed-dim -rotate-45 pointer-events-none">
+<span class="material-symbols-outlined text-9xl">pentagon</span>
+</div>
+<div class="relative z-10 text-center px-margin-sm">
+<h1 class="font-display-lg text-display-lg md:text-[120px] uppercase tracking-tighter leading-none text-primary drop-shadow-[2px_2px_0px_#7B2FFF,4px_4px_0px_#FF3AF2,6px_6px_0px_#00F5D4] mb-6">
+                    SYSTEM<br/>OVERRIDE
+                </h1>
+<p class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-secondary-fixed-dim mb-12">
+                    AI Product Designer &amp; Developer<span class="inline-block w-4 h-8 ml-2 bg-secondary-fixed-dim animate-blink align-middle"></span>
+</p>
+<div class="flex flex-col md:flex-row gap-gutter justify-center items-center">
+<button class="px-10 py-5 bg-gradient-to-r from-primary-container to-secondary-container border-4 border-[#FFFF00] text-[#050F05] font-headline-lg uppercase tracking-widest shadow-stack shadow-stack-hover transition-all transform hover:-translate-y-1">
+                        INITIALIZE_WORK
+                    </button>
+<button class="px-10 py-5 bg-transparent border-2 border-dashed border-tertiary-fixed-dim text-tertiary-fixed-dim font-headline-lg uppercase tracking-widest hover:bg-tertiary-fixed-dim/10 transition-all">
+                        VIEW_DATA_STREAMS
+                    </button>
+</div>
+</div>
+<!-- Scanline Overlay -->
+<div class="absolute inset-0 pointer-events-none scanline"></div>
+</section>
+<!-- Work Experience Strip -->
+<section class="py-margin-lg bg-surface-container-lowest overflow-hidden">
+<h2 class="px-margin-lg font-headline-xl text-headline-xl text-primary mb-12 flex items-center gap-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">memory</span>
+                LOGGED_EXP_
+            </h2>
+<div class="flex overflow-x-auto gap-gutter px-margin-lg pb-12 no-scrollbar">
+<!-- Experience Card 1 -->
+<div class="flex-none w-[350px] bg-surface-variant p-6 clip-chamfer border-l-8 border-primary-container shadow-stack hover:translate-x-1 transition-transform group">
+<p class="font-label-mono text-label-mono text-primary mb-2">// 2022_PRESENT</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-4">NEURAL_WORKS</h3>
+<p class="font-body-md text-on-surface-variant mb-6">Lead AI interaction design for distributed neural nodes and cognitive interfaces.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-high text-primary border border-primary/30 font-label-mono">LLM_OPS</span>
+<span class="px-2 py-1 bg-surface-container-high text-primary border border-primary/30 font-label-mono">UI/UX</span>
+</div>
+</div>
+<!-- Experience Card 2 -->
+<div class="flex-none w-[350px] bg-surface-variant p-6 clip-chamfer border-l-8 border-secondary-container shadow-stack hover:translate-x-1 transition-transform group">
+<p class="font-label-mono text-label-mono text-secondary-container mb-2">// 2020_2022</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-4">CYBER_DYNE</h3>
+<p class="font-body-md text-on-surface-variant mb-6">Developing responsive matrix layouts and high-performance data visualizations.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-high text-secondary-container border border-secondary-container/30 font-label-mono">REACT</span>
+<span class="px-2 py-1 bg-surface-container-high text-secondary-container border border-secondary-container/30 font-label-mono">D3_JS</span>
+</div>
+</div>
+<!-- Experience Card 3 -->
+<div class="flex-none w-[350px] bg-surface-variant p-6 clip-chamfer border-l-8 border-tertiary-fixed-dim shadow-stack hover:translate-x-1 transition-transform group">
+<p class="font-label-mono text-label-mono text-tertiary-fixed-dim mb-2">// 2018_2020</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-4">VOID_STUDIOS</h3>
+<p class="font-body-md text-on-surface-variant mb-6">Visual identity and brutalist web architecture for underground tech collectives.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-high text-tertiary-fixed-dim border border-tertiary-fixed-dim/30 font-label-mono">BRUTALISM</span>
+<span class="px-2 py-1 bg-surface-container-high text-tertiary-fixed-dim border border-tertiary-fixed-dim/30 font-label-mono">WEBGL</span>
+</div>
+</div>
+<!-- Experience Card 4 -->
+<div class="flex-none w-[350px] bg-surface-variant p-6 clip-chamfer border-l-8 border-[#FFFF00] shadow-stack hover:translate-x-1 transition-transform group">
+<p class="font-label-mono text-label-mono text-[#FFFF00] mb-2">// 2015_2018</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-4">CORE_SYS</h3>
+<p class="font-body-md text-on-surface-variant mb-6">Infrastructure monitoring tools and legacy system interface modernization.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-high text-[#FFFF00] border border-[#FFFF00]/30 font-label-mono">DASHBOARDS</span>
+<span class="px-2 py-1 bg-surface-container-high text-[#FFFF00] border border-[#FFFF00]/30 font-label-mono">DESIGN_SYS</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Intro -->
+<section class="py-margin-lg px-margin-lg bg-surface">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 space-y-8">
+<div class="inline-block px-4 py-2 bg-primary-container text-on-primary-container font-headline-lg-mobile uppercase transform -skew-x-12">PROJECT_ARCHIVE</div>
+<h2 class="font-display-lg text-headline-xl text-primary leading-tight">DECODING DIGITAL COMPLEXITY</h2>
+<p class="font-body-lg text-on-surface-variant max-w-lg">
+                        Every interface is a communication protocol. I build bridges between complex machine intelligence and human intuition using brutalist aesthetics and high-fidelity interactions.
+                    </p>
+<div class="pt-8">
+<a class="group flex items-center gap-4 text-secondary-fixed font-headline-lg uppercase hover:gap-8 transition-all" href="#">
+                            EXPLORE_DATABASE <span class="material-symbols-outlined">trending_flat</span>
+</a>
+</div>
+</div>
+<div class="md:col-span-7 relative h-[600px]">
+<!-- Offset Project Preview Blocks -->
+<div class="absolute top-0 right-0 w-3/4 h-3/4 bg-[#0D2B0D] border-8 border-secondary-container clip-chamfer shadow-stack rotate-2 overflow-hidden group">
+<img alt="Work Preview 1" class="w-full h-full object-cover mix-blend-screen opacity-50 group-hover:scale-110 transition-transform duration-500" data-alt="A futuristic cyberpunk server room interface with glowing green code and neon cyan wiring. The environment is dark and technical, featuring high-contrast metallic surfaces and intricate digital displays. Minimalist brutalist layout with sharp edges and a sense of deep machine intelligence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUZLY1IqLXL-gCj50kj_Ny0aa2XNX3yoeRuUKqoFuseaYpU5j9NhptwZtJ9vS3hvqWlTezy7WozWLaIHj_9mVZTcmu_uTYhSn9aRS1XmBrOwpkwcOc8RZdYiJ_Pro9jkNMriOAf7SbWzWUS7EqLfS2Qagg7Ia2uqhcaTDyKh0nardtfKYrjFFP-y8UBMu2Svk881IJxf59O1nOeXqhTFt1zneLHjWlX2CcGaGyDVlkKvo5HlXs4OFB9lKC6xkd-B5p5QJ4X-147qM0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+<div class="absolute bottom-8 left-8">
+<span class="font-label-mono text-secondary-container">PROJECT_01</span>
+<h4 class="font-headline-lg text-primary">NEURAL_SYNC_UI</h4>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-2/3 h-1/2 bg-[#0D2B0D] border-8 border-tertiary-fixed-dim clip-chamfer shadow-stack -rotate-3 overflow-hidden group">
+<img alt="Work Preview 2" class="w-full h-full object-cover mix-blend-screen opacity-50 group-hover:scale-110 transition-transform duration-500" data-alt="Abstract digital artwork showing vibrant neon magenta and deep purple geometric fragments exploding in a void. The visual style is aggressive and maximalist with a heavy digital grain and scanline effect. Sharp edges and overlapping translucent layers create a sense of chaotic energy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDVSQTs6Jb9dz6whGU1o4MoSy2x6bTMbhBmbrwi7nvh-SAHqbNla7KGPPlPPKL7cKbJIUyaJdDZwDwysxrdvpjLm04jxgtMnDTwlXLaHwYyWKLds_9zIZQgu9YEEkyhNjaWOd__ShA3hCuw2KAXI2sOwDU0eFYkzDqeD09zufVM3Csz7znIecHFS2xWDHfP-x8raSZvVNfJLw6VkEdOYwZL0N7c8db2OEk5ZIBl-fA_T2xiyxPfcgkEgh0cr15iha-NlD4a7JfEKxY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+<div class="absolute bottom-8 left-8">
+<span class="font-label-mono text-tertiary-fixed-dim">PROJECT_02</span>
+<h4 class="font-headline-lg text-primary">KINETIC_FLOW</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 border-t-2 border-dashed border-outline-variant flex flex-col md:flex-row justify-between items-center px-margin-lg bg-[radial-gradient(#2d382a_1px,transparent_1px)] [background-size:24px_24px]">
+<div class="font-headline-lg text-headline-lg text-primary mb-4 md:mb-0">MATRIX_PORTFOLIO</div>
+<div class="flex gap-8 mb-4 md:mb-0">
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary-fixed-dim transition-colors" href="#">TERMINAL</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary-fixed-dim transition-colors" href="#">RESOURCES</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-secondary-fixed-dim transition-colors" href="#">STREAMS</a>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant">
+            ©2024//SYSTEM_OVERRIDE//ALL_RIGHTS_RESERVED
+        </div>
+</footer>
+<script>
+        // Custom interactive micro-interaction for the cursor
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.body;
+            // Additional interactions could be added here
+        });
+
+        // Simple typing simulation for subtitle could be added
+        const subtitle = document.querySelector('p span');
+        // Already handled by CSS animate-blink
+    </script>
+</body></html>

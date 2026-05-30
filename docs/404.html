@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>xuhailing</title>
+    <script>
+      // SPA fallback: 将路径存入 sessionStorage，跳转到 index.html
+      var path = window.location.pathname;
+      sessionStorage.setItem('redirect', path);
+      window.location.replace('/');
+    </script>
+  </head>
+  <body></body>
+</html>

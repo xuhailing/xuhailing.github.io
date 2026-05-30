@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Anybody:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#2d382a",
+                    "surface-container-lowest": "#071106",
+                    "surface-container-high": "#222d20",
+                    "secondary-fixed": "#26fedc",
+                    "on-tertiary-fixed": "#390036",
+                    "surface-container-highest": "#2d382a",
+                    "inverse-surface": "#dae6d2",
+                    "secondary-fixed-dim": "#00dfc1",
+                    "surface-bright": "#313c2e",
+                    "tertiary": "#fff7f9",
+                    "on-error-container": "#ffdad6",
+                    "surface": "#0c160a",
+                    "surface-container": "#182216",
+                    "on-error": "#690005",
+                    "on-primary": "#003907",
+                    "primary": "#ebffe2",
+                    "tertiary-container": "#ffcef2",
+                    "inverse-on-surface": "#283326",
+                    "primary-fixed-dim": "#00e639",
+                    "primary-container": "#00ff41",
+                    "tertiary-fixed-dim": "#ffabee",
+                    "error-container": "#93000a",
+                    "on-tertiary": "#5c0058",
+                    "on-surface-variant": "#b9ccb2",
+                    "surface-tint": "#00e639",
+                    "on-background": "#dae6d2",
+                    "secondary": "#c7fff0",
+                    "on-secondary-container": "#006a5a",
+                    "on-secondary-fixed-variant": "#005144",
+                    "on-secondary": "#00382f",
+                    "primary-fixed": "#72ff70",
+                    "background": "#0c160a",
+                    "surface-dim": "#0c160a",
+                    "inverse-primary": "#006e16",
+                    "on-primary-fixed-variant": "#00530e",
+                    "error": "#ffb4ab",
+                    "secondary-container": "#00f2d1",
+                    "on-tertiary-fixed-variant": "#82007c",
+                    "on-primary-container": "#007117",
+                    "outline": "#84967e",
+                    "on-surface": "#dae6d2",
+                    "on-primary-fixed": "#002203",
+                    "on-secondary-fixed": "#00201a",
+                    "tertiary-fixed": "#ffd7f3",
+                    "outline-variant": "#3b4b37",
+                    "surface-container-low": "#141e12",
+                    "on-tertiary-container": "#ae00a7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-sm": "16px",
+                    "margin-lg": "80px",
+                    "gutter": "24px",
+                    "unit": "4px",
+                    "margin-md": "40px",
+                    "grid-columns": "12"
+            },
+            "fontFamily": {
+                    "headline-xl": ["Orbitron"],
+                    "body-md": ["Space Mono"],
+                    "body-lg": ["Space Mono"],
+                    "headline-lg-mobile": ["Orbitron"],
+                    "headline-lg": ["Orbitron"],
+                    "display-lg": ["Orbitron"],
+                    "label-mono": ["Space Mono"],
+                    "callout": ["anybody"]
+            },
+            "fontSize": {
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["84px", {"lineHeight": "90px", "letterSpacing": "0.1em", "fontWeight": "900"}],
+                    "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.15em", "fontWeight": "700"}],
+                    "callout": ["20px", {"lineHeight": "24px", "fontWeight": "800"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glitch-shadow {
+            text-shadow: 
+                2px 2px 0px #7B2FFF, 
+                4px 4px 0px #FF3AF2, 
+                6px 6px 0px #00F5D4;
+        }
+        .scanline {
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 255, 65, 0.05) 50%
+            );
+            background-size: 100% 4px;
+        }
+        .hard-shadow-stack {
+            box-shadow: 2px 2px 0px #7B2FFF, 4px 4px 0px #FF3AF2, 6px 6px 0px #00F5D4;
+        }
+        .card-chamfer {
+            clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+        }
+        .cursor-crosshair { cursor: crosshair; }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .floating-icon { animation: float 6s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container min-h-screen font-body-md cursor-crosshair overflow-x-hidden">
+<!-- Background Decor -->
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute inset-0 bg-[radial-gradient(#2d382a_1px,transparent_1px)] [background-size:24px_24px] opacity-30"></div>
+<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-secondary/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-on-tertiary-container/10 blur-[150px] rounded-full"></div>
+<!-- Floating Symbols -->
+<span class="material-symbols-outlined absolute top-20 left-10 text-secondary-fixed opacity-20 text-[40px] floating-icon">star</span>
+<span class="material-symbols-outlined absolute bottom-40 right-20 text-primary-fixed-dim opacity-20 text-[32px] floating-icon" style="animation-delay: 1s">diamond</span>
+<span class="material-symbols-outlined absolute top-1/2 right-10 text-tertiary-fixed-dim opacity-20 text-[48px] floating-icon" style="animation-delay: 2s">change_history</span>
+</div>
+<!-- TopNavBar -->
+<nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-margin-sm bg-surface/60 backdrop-blur-xl px-8 py-3 rounded-full border-4 border-primary shadow-[2px_2px_0px_#7B2FFF,4px_4px_0px_#FF3AF2,6px_6px_0px_#00F5D4] active:scale-95 transition-transform duration-75">
+<div class="font-headline-lg text-headline-lg text-primary drop-shadow-[0_0_8px_#00e639]">
+            MATRIX_PORTFOLIO
+        </div>
+<div class="hidden md:flex gap-6">
+<a class="font-body-md text-body-md uppercase tracking-widest text-on-surface-variant hover:text-primary hover:translate-x-[2px] hover:skew-x-1 transition-transform duration-75" href="#">HOME</a>
+<a class="font-body-md text-body-md uppercase tracking-widest text-secondary-fixed border-b-2 border-secondary-fixed hover:translate-x-[2px] hover:skew-x-1 transition-transform duration-75" href="#">PORTFOLIO</a>
+<a class="font-body-md text-body-md uppercase tracking-widest text-on-surface-variant hover:text-primary hover:translate-x-[2px] hover:skew-x-1 transition-transform duration-75" href="#">ABOUT</a>
+<a class="font-body-md text-body-md uppercase tracking-widest text-on-surface-variant hover:text-primary hover:translate-x-[2px] hover:skew-x-1 transition-transform duration-75" href="#">CONTACT</a>
+</div>
+<div class="ml-4 flex items-center">
+<span class="material-symbols-outlined text-primary">terminal</span>
+</div>
+</nav>
+<main class="relative z-10 pt-40 pb-20 px-margin-sm md:px-margin-lg max-w-[1440px] mx-auto">
+<!-- Header Section -->
+<header class="mb-20 text-center md:text-left">
+<div class="inline-block relative">
+<h1 class="font-display-lg text-display-lg md:text-display-lg text-primary glitch-shadow uppercase leading-none">
+                    PROJECTS
+                </h1>
+<div class="absolute -top-4 -right-8 font-label-mono text-label-mono bg-primary-container text-on-primary-container px-2 py-1 rotate-12">
+                    V.2.04_STABLE
+                </div>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-6 max-w-2xl border-l-4 border-dashed border-secondary-fixed pl-6">
+                ARCHIVE OF EXECUTED PROTOCOLS. DECRYPTING HIGH-FIDELITY INTERFACES AND EXPERIMENTAL SYSTEMS.
+            </p>
+</header>
+<!-- Asymmetric Broken Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Project 01 -->
+<div class="md:col-span-5 lg:col-span-4 rotate-[-1deg] hover:rotate-0 transition-transform duration-300">
+<article class="bg-surface-container-high/90 border-8 border-solid border-secondary-container card-chamfer p-6 hard-shadow-stack scanline relative h-full group">
+<span class="absolute -top-6 -left-4 font-headline-xl text-secondary-container opacity-50 select-none">01</span>
+<div class="aspect-video bg-gradient-to-br from-secondary-container to-on-tertiary-fixed mb-6 overflow-hidden relative border-2 border-outline-variant">
+<img class="w-full h-full object-cover mix-blend-overlay group-hover:scale-110 transition-transform duration-500" data-alt="A cinematic, high-tech control panel interface with glowing emerald lines and complex data visualizations. The aesthetic is dark and cyberpunk, featuring digital glitches and neon green accents against a deep charcoal background. Professional studio lighting emphasizes the sharp textures and holographic depth of the futuristic terminal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK3t5F9QPqFhQ0dFhT-w84vahyFlZDXkaTODnuwbh9RMPPu9NoKmaL78_5vfKnEu028HM5ynINddcF4wANbZlBcetR_iP3MRsZAhLpAulroNa9_tyMdfkGOrBeXdKHb8rN6-bKxhLzidP8pXqh6JHnPgOMY5tGahzPaexKVghtlNAWTXIBigubTmf9_22JY_4sOVH2FDiA9FnykIpYhwKSCbKIkKqxd4O9bW8i71e-wLRfQ4Rpk-ypyJqvOButyMLpAwOpvwd0fmKv"/>
+</div>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-surface-container-lowest border border-primary px-2 py-0.5 font-label-mono text-[10px] text-primary">REACT_V18</span>
+<span class="bg-surface-container-lowest border border-secondary-fixed px-2 py-0.5 font-label-mono text-[10px] text-secondary-fixed">WEBGL</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary mb-2">NEURAL_DASH</h3>
+<p class="font-body-md text-on-surface-variant mb-6">Real-time biometric monitoring system for enhanced cognitive sync.</p>
+<button class="w-full bg-gradient-to-r from-primary-container to-secondary-container border-4 border-[#FFFF00] text-[#050F05] py-3 font-callout text-callout uppercase hover:translate-y-[-4px] active:translate-y-0 transition-all shadow-[0_6px_0_#000]">
+                        INITIALIZE_LINK
+                    </button>
+</article>
+</div>
+<!-- Project 02 -->
+<div class="md:col-span-7 lg:col-span-8 md:mt-24 rotate-[1deg] hover:rotate-0 transition-transform duration-300">
+<article class="bg-surface-container-high/90 border-8 border-dashed border-tertiary-container card-chamfer p-8 hard-shadow-stack scanline relative h-full group">
+<span class="absolute -top-10 -right-4 font-display-lg text-tertiary-container opacity-30 select-none">02</span>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="aspect-square bg-gradient-to-tr from-on-tertiary-container to-primary-fixed-dim overflow-hidden border-4 border-outline">
+<img class="w-full h-full object-cover mix-blend-screen group-hover:rotate-3 transition-transform duration-700" data-alt="A vibrant, neon-drenched abstract digital landscape featuring glowing magenta and cyan light trails that flow through a dark, brutalist architectural structure. The scene is captured with a shallow depth of field, highlighting the intense, shimmering particles and atmospheric haze typical of a futuristic city-glow aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAs37nDlC1iuR1WhTcGPJqEd3VtmDwti3Qfwvq2kCUsCeS-Sz-9YQiOetkb-XmV_L3iUESVq-JPUrwimSrNAw-tXmij-sDMXol4PL6iHEdNeNPEI5tNUR42rVzq8i7sQAJmMMpsxI_Xq_dMLlU1nkxSzUeqXIe8D_k-tiaw6D5C4uwL6XXUUTby6PSfgZxJ0c0luMkYjLGVdtDxmpNEmLKtpy99mUKSryZjH6yjtRAMG6VsILv_gDAyxodhrw6py7qEs3GeOURtdUkL"/>
+</div>
+<div class="flex flex-col justify-center">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-surface-container-lowest border border-tertiary-fixed-dim px-2 py-0.5 font-label-mono text-[10px] text-tertiary-fixed-dim">AI_ENGINE</span>
+<span class="bg-surface-container-lowest border border-on-secondary-container px-2 py-0.5 font-label-mono text-[10px] text-on-secondary-container">PYTHON_EXT</span>
+</div>
+<h3 class="font-headline-xl text-headline-xl text-tertiary-fixed-dim mb-4">CORE_FRAGMENTS</h3>
+<p class="font-body-lg text-on-surface-variant mb-8">Decentralized asset management protocol with zero-latency verification layers.</p>
+<div class="flex gap-4">
+<button class="flex-1 bg-gradient-to-r from-primary-container to-secondary-container border-4 border-[#FFFF00] text-[#050F05] py-3 font-callout text-callout uppercase hover:shadow-[0_10px_0_#7B2FFF]">
+                                    ACCESS
+                                </button>
+<button class="px-6 border-2 border-dashed border-tertiary-container text-tertiary-container font-label-mono hover:bg-tertiary-container/10">
+<span class="material-symbols-outlined align-middle">code</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Project 03 -->
+<div class="md:col-span-12 lg:col-span-6 rotate-[2deg] lg:mt-[-40px] hover:rotate-0 transition-transform duration-300">
+<article class="bg-surface-container-high/90 border-8 border-double border-primary-fixed-dim card-chamfer p-6 hard-shadow-stack scanline relative group">
+<span class="absolute top-4 right-4 font-headline-lg text-primary-fixed-dim opacity-40">SYSTEM.FILE_03</span>
+<div class="aspect-[21/9] bg-gradient-to-r from-on-primary-fixed-variant to-secondary-fixed-dim mb-6 border-2 border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-1000" data-alt="A wide, hyper-detailed panoramic view of a server room illuminated by pulsing neon blue and deep violet lights. Cables are organized in aggressive, geometric patterns along the walls, creating a sense of technical complexity. The atmosphere is filled with a soft digital fog, echoing a cyberpunk maximalism style with high contrast and sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmSYP0wPeNonn8sC2Pc3GYO9eeTDAueo3WpaAK10rN-MIZrQtVz-yXjH21kW25eBm7WCvfTfAIZ-DqddyKHsxasx5kBUB0KZQkoWAntrywNc4VcnJX0MPL3L2C4PtYnqQJhHCU4t4TxxGSWx2nf6pBRSLRpirumlLxJqYxVXm9Fejea6ny0Z67REtRQ35Wp959BZARf7HUHr5tRNGzWQfplRn8LFunAK0qwAFUc2Forj9Z7HUcXxUNYeRGmJBC-kjG0S5j-4brv2jv"/>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-primary-fixed-dim mb-2">GHOST_SHELL_OS</h3>
+<p class="font-body-md text-on-surface-variant mb-4">A custom Linux kernel modification optimized for neural link low-level operations.</p>
+<div class="flex items-center justify-between border-t border-outline-variant pt-4">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-fixed-dim">terminal</span>
+<span class="material-symbols-outlined text-on-surface-variant">share</span>
+</div>
+<span class="font-label-mono text-secondary-fixed text-[10px]">BUILD_STATUS: SUCCESSFUL</span>
+</div>
+</article>
+</div>
+<!-- Project 04 (Grid filler) -->
+<div class="md:col-span-12 lg:col-span-6 md:mt-12 rotate-[-1deg] hover:rotate-0 transition-transform duration-300">
+<article class="bg-surface-container-high/90 border-8 border-solid border-on-secondary-fixed-variant card-chamfer p-6 hard-shadow-stack scanline relative group">
+<div class="flex gap-6 items-start">
+<div class="w-32 h-32 flex-shrink-0 bg-on-secondary-fixed-variant flex items-center justify-center border-4 border-primary">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h3 class="font-headline-lg text-headline-lg text-secondary-fixed mb-2">VAULT_PROTO</h3>
+<p class="font-body-md text-on-surface-variant mb-4">End-to-end encrypted storage solution with biometric entropy-key generation.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-lowest border border-outline px-2 py-0.5 font-label-mono text-[10px] text-outline">RUST</span>
+<span class="bg-surface-container-lowest border border-outline px-2 py-0.5 font-label-mono text-[10px] text-outline">WASM</span>
+<span class="bg-surface-container-lowest border border-outline px-2 py-0.5 font-label-mono text-[10px] text-outline">AES-256</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Call to Action -->
+<section class="mt-40 text-center border-4 border-dashed border-outline-variant p-12 bg-surface-container-low/50 relative overflow-hidden">
+<div class="absolute inset-0 scanline opacity-10"></div>
+<h2 class="font-headline-xl text-headline-xl text-primary mb-6">READY_FOR_ENGAGEMENT?</h2>
+<p class="font-body-lg text-on-surface-variant mb-10 max-w-xl mx-auto">Systems are standing by for collaborative deployment and cross-functional synchronization.</p>
+<button class="bg-gradient-to-r from-primary-container to-secondary-container border-4 border-[#FFFF00] text-[#050F05] px-12 py-4 font-callout text-callout uppercase hard-shadow-stack hover:translate-x-[2px] hover:translate-y-[-2px] transition-all">
+                ESTABLISH_UPLINK
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 border-t-2 border-dashed border-outline-variant bg-surface-container-lowest flex flex-col md:flex-row justify-between items-center px-margin-lg bg-[radial-gradient(#2d382a_1px,transparent_1px)] [background-size:24px_24px] relative z-20">
+<div class="font-headline-lg text-headline-lg text-primary mb-4 md:mb-0">
+            MATRIX_PORTFOLIO
+        </div>
+<div class="flex gap-8 mb-4 md:mb-0">
+<a class="font-label-mono text-label-mono text-primary font-bold transition-colors duration-200 hover:text-secondary-fixed-dim" href="#">TERMINAL</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant transition-colors duration-200 hover:text-secondary-fixed-dim" href="#">RESOURCES</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant transition-colors duration-200 hover:text-secondary-fixed-dim" href="#">STREAMS</a>
+</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant opacity-50">
+            ©2024//SYSTEM_OVERRIDE//ALL_RIGHTS_RESERVED
+        </div>
+</footer>
+<script>
+        // Micro-interactions for glitch effect
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.style.textShadow = '2px 0 #FF3AF2, -2px 0 #00F5D4';
+                setTimeout(() => {
+                    link.style.textShadow = 'none';
+                }, 100);
+            });
+        });
+
+        // Hover expand for shadows
+        const cards = document.querySelectorAll('article');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.boxShadow = '4px 4px 0px #7B2FFF, 8px 8px 0px #FF3AF2, 12px 12px 0px #00F5D4';
+                card.style.transform = 'translate(-4px, -4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = '2px 2px 0px #7B2FFF, 4px 4px 0px #FF3AF2, 6px 6px 0px #00F5D4';
+                card.style.transform = '';
+            });
+        });
+    </script>
+</body></html>
