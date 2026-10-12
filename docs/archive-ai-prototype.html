@@ -752,7 +752,7 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px);} to { opacity: 1; transform: none;} }
 
     .modal {
-      position: fixed; inset: 0; z-index: 120;
+      position: fixed; inset: 0; z-index: 400;
       display: none; align-items: center; justify-content: center;
       background: rgba(0,0,0,.45);
     }
@@ -1755,8 +1755,298 @@
       font-size: 12px;
     }
     #viewQa .main.hist-mode .main-scroll,
-    #viewQa .main.hist-mode .composer {
+    #viewQa .main.hist-mode .composer,
+    #viewQa .main.cmp-mode .main-scroll,
+    #viewQa .main.cmp-mode .composer,
+    #viewQa .main.rev-mode .main-scroll,
+    #viewQa .main.rev-mode .composer {
       display: none;
+    }
+
+    .cmp-main {
+      display: none;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .cmp-main.show { display: flex; }
+    .cmp-work {
+      flex: 1;
+      min-width: 0;
+      overflow: auto;
+      padding: 28px 32px 40px;
+    }
+    .cmp-inner { width: 100%; }
+    .cmp-title-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .cmp-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+    }
+    .cmp-demo {
+      color: var(--blue-500);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 0;
+      background: none;
+    }
+    .cmp-demo:hover { color: var(--blue-600); }
+    .cmp-side {
+      width: 260px;
+      flex-shrink: 0;
+      background: #fff;
+      border-left: 1px solid var(--line);
+      overflow: auto;
+      padding: 16px 12px 24px;
+    }
+    .cmp-side-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .cmp-hist-item {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cmp-hist-item:hover { border-color: var(--blue-200); background: var(--blue-50); }
+    .cmp-hist-item.active {
+      border-color: var(--blue-300);
+      background: var(--blue-100);
+    }
+    .cmp-hist-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .cmp-hist-meta, .cmp-hist-when { font-size: 12px; color: var(--ink-3); line-height: 1.4; }
+    .cmp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .cmp-grid.single { grid-template-columns: minmax(0, 560px); }
+    .cmp-slot {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .cmp-slot-hd {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .cmp-drop {
+      min-height: 132px;
+      border: 1px dashed var(--blue-300);
+      border-radius: 10px;
+      background: var(--blue-50);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 16px;
+      text-align: center;
+      color: var(--ink-2);
+    }
+    .cmp-drop.ready {
+      border-style: solid;
+      background: #fff;
+    }
+    .cmp-drop.drag {
+      border-color: var(--blue-500);
+      background: var(--blue-100);
+    }
+    .cmp-drop:focus-visible {
+      outline: 2px solid var(--blue-400);
+      outline-offset: 2px;
+    }
+    .cmp-drop-ico {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--blue-600);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--blue-200);
+    }
+    .cmp-drop.ready .cmp-drop-ico { background: var(--blue-500); color: #fff; border-color: var(--blue-500); }
+    .cmp-drop-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      word-break: break-all;
+    }
+    .cmp-drop-meta { font-size: 12px; color: var(--ink-3); line-height: 1.45; }
+    .cmp-slot-ops { display: flex; gap: 12px; margin-top: 10px; }
+    .cmp-link {
+      color: var(--blue-600);
+      font-size: 13px;
+      padding: 0;
+    }
+    .cmp-link:hover { color: var(--blue-700); }
+    .cmp-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .cmp-run {
+      height: 36px;
+      padding: 0 18px;
+      border-radius: 8px;
+      background: var(--blue-500);
+      color: #fff;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .cmp-run:hover { background: var(--blue-600); }
+    .cmp-run:disabled { opacity: .65; cursor: default; }
+    .cmp-report { margin-top: 20px; }
+    .cmp-report, .cmp-report * { color: #000; }
+    .cmp-banner {
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 12px;
+      background: #fff;
+      border: 1px solid #d9d9d9;
+    }
+    .cmp-card {
+      background: #fff;
+      border: 1px solid #d9d9d9;
+      border-radius: 12px;
+      padding: 18px 18px 12px;
+    }
+    .cmp-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .cmp-card h3 { font-size: 20px; margin: 0; font-weight: 700; }
+    .cmp-save-wrap { position: relative; flex-shrink: 0; }
+    .cmp-save {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 1px solid #000;
+      border-radius: 6px;
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cmp-save svg { display: block; }
+    .cmp-save-menu {
+      position: absolute;
+      right: 0;
+      top: 36px;
+      min-width: 148px;
+      padding: 4px;
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 6px;
+      z-index: 3;
+    }
+    .cmp-save-menu button {
+      display: block;
+      width: 100%;
+      height: 32px;
+      padding: 0 10px;
+      text-align: left;
+      background: #fff;
+      border-radius: 4px;
+    }
+    .cmp-save-menu button:hover { background: #f5f5f5; }
+    .cmp-meta {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 8px 12px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .cmp-prose { font-size: 14px; line-height: 1.75; margin: 0 0 12px; }
+    .cmp-sec { margin: 18px 0; }
+    .cmp-sec h4 { font-size: 16px; margin-bottom: 10px; font-weight: 700; }
+    .cmp-diff { border-top: 1px solid #e5e5e5; padding: 12px 0; }
+    .cmp-diff h5 { font-size: 15px; margin-bottom: 8px; }
+    .cmp-diff p { font-size: 14px; line-height: 1.75; margin: 0 0 6px; }
+    .cmp-table-wrap { overflow-x: auto; margin-bottom: 10px; }
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .cmp-table th, .cmp-table td {
+      border: 1px solid #d9d9d9;
+      text-align: left;
+      padding: 8px 6px;
+      vertical-align: top;
+    }
+    .cmp-table th { font-weight: 700; }
+    .cmp-notes { margin: 0; padding-left: 20px; }
+    .cmp-notes li { margin-bottom: 10px; font-size: 14px; line-height: 1.75; }
+    .cmp-doc { display: flex; align-items: stretch; border-top: 1px solid #e5e5e5; min-height: 560px; }
+    .cmp-toc {
+      width: 148px;
+      flex-shrink: 0;
+      border-right: 1px solid #e5e5e5;
+      padding: 12px 8px 16px;
+    }
+    .cmp-toc-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; padding: 0 8px; }
+    .cmp-toc button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.4;
+      background: none;
+    }
+    .cmp-toc button.on { background: #f5f5f5; font-weight: 700; }
+    .cmp-editor-col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .cmp-toolbar {
+      display: flex;
+      gap: 6px;
+      padding: 8px 12px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .cmp-toolbar button {
+      height: 28px;
+      min-width: 28px;
+      padding: 0 8px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      background: #fff;
+      font-size: 13px;
+    }
+    .cmp-editor { min-height: 520px; padding: 12px 16px 24px; outline: none; }
+    .cmp-editor:focus { outline: none; }
+    @media (max-width: 800px) {
+      .cmp-main.show { flex-direction: column; }
+      .cmp-side { width: 100%; border-left: none; border-top: 1px solid var(--line); }
+      .cmp-doc { flex-direction: column; }
+      .cmp-toc { width: 100%; border-right: none; border-bottom: 1px solid #e5e5e5; }
+      .cmp-grid, .cmp-pair { grid-template-columns: 1fr; }
+      .cmp-bar { align-items: stretch; flex-direction: column; }
     }
 
     .side-ft {
@@ -1797,6 +2087,7 @@
       flex: 1;
       min-height: 0;
       overflow: auto;
+      overflow-anchor: none;
       padding: 28px 32px 12px;
     }
     .main-inner {
@@ -1874,6 +2165,29 @@
       margin-bottom: 10px;
     }
     .cap-title { font-size: 15px; font-weight: 650; }
+    .cap-guide { min-height: 0; }
+    .cap-guide .cap-desc {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--ink-3);
+    }
+    .jump-link {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      margin: 0 4px;
+      padding: 0 10px;
+      border: none;
+      border-radius: 6px;
+      background: var(--blue-500);
+      color: #fff;
+      font-size: 13px;
+      line-height: 1;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+    .jump-link:hover { background: var(--blue-600); }
     .badge {
       font-size: 11px;
       padding: 2px 8px;
@@ -1939,7 +2253,7 @@
     }
     .guess-hd h2 { font-size: 15px; font-weight: 600; }
     .guess-hd span { font-size: 12px; color: var(--ink-3); }
-    .guess-list { display: flex; flex-direction: column; gap: 8px; }
+    .guess-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .guess-q {
       display: flex;
       align-items: center;
@@ -2000,8 +2314,7 @@
       gap: 16px;
       padding-bottom: 8px;
     }
-    .app.chatting .home-block { display: none; }
-    .app.chatting .chat { display: flex; }
+    .app.chatting .chat { display: flex; margin-top: 28px; }
 
     .msg-row {
       display: flex;
@@ -2038,6 +2351,7 @@
       box-shadow: var(--shadow);
       border-top-left-radius: 4px;
     }
+    .msg-row.bot .bubble.report-bubble { max-width: 100%; }
     .msg-row.user .bubble {
       background: var(--blue-500);
       color: #fff;
@@ -2967,7 +3281,7 @@
           <button type="button" class="qa-feat" data-feat="review">
             <span class="feat-ico" aria-hidden="true">✓</span>
             <span class="feat-txt">
-              <span class="feat-name">文档审核</span>
+              <span class="feat-name">合同审核</span>
             </span>
           </button>
           <button type="button" class="qa-feat" data-feat="history">
@@ -2989,13 +3303,89 @@
           <div id="histList"></div>
         </div>
       </div>
+      <div class="cmp-main" id="cmpPanel" aria-label="文档比对">
+        <div class="cmp-work">
+        <div class="cmp-inner">
+          <div class="cmp-title-row">
+            <div class="cmp-title">文档比对</div>
+            <button type="button" class="cmp-demo" id="cmpLoadDemo">加载示例</button>
+          </div>
+          <div class="cmp-grid">
+            <div class="cmp-slot">
+              <div class="cmp-slot-hd">原版</div>
+              <div class="cmp-drop" id="cmpDropA" tabindex="0" role="button" aria-label="上传原版">
+                <span class="cmp-drop-ico">A</span>
+                <div class="cmp-drop-name" id="cmpNameA">点击或拖入原版文件</div>
+              </div>
+              <div class="cmp-slot-ops">
+                <button type="button" class="cmp-link" id="cmpPickA">选择文件</button>
+                <button type="button" class="cmp-link" id="cmpClearA" hidden>移除</button>
+              </div>
+              <input type="file" id="cmpFileA" hidden />
+            </div>
+            <div class="cmp-slot">
+              <div class="cmp-slot-hd">修改版</div>
+              <div class="cmp-drop" id="cmpDropB" tabindex="0" role="button" aria-label="上传修改版">
+                <span class="cmp-drop-ico">B</span>
+                <div class="cmp-drop-name" id="cmpNameB">点击或拖入修改版文件</div>
+              </div>
+              <div class="cmp-slot-ops">
+                <button type="button" class="cmp-link" id="cmpPickB">选择文件</button>
+                <button type="button" class="cmp-link" id="cmpClearB" hidden>移除</button>
+              </div>
+              <input type="file" id="cmpFileB" hidden />
+            </div>
+          </div>
+          <div class="cmp-bar">
+            <button type="button" class="cmp-run" id="cmpRun" hidden>开始比对</button>
+          </div>
+          <div id="cmpReport"></div>
+        </div>
+        </div>
+        <aside class="cmp-side" aria-label="比对历史">
+          <div class="cmp-side-title">历史记录</div>
+          <div id="cmpHistList"></div>
+        </aside>
+      </div>
+      <div class="cmp-main" id="revPanel" aria-label="合同审核">
+        <div class="cmp-work">
+        <div class="cmp-inner">
+          <div class="cmp-title-row">
+            <div class="cmp-title">合同审核</div>
+            <button type="button" class="cmp-demo" id="revLoadDemo">加载示例</button>
+          </div>
+          <div class="cmp-grid single">
+            <div class="cmp-slot">
+              <div class="cmp-slot-hd">待审合同</div>
+              <div class="cmp-drop" id="revDrop" tabindex="0" role="button" aria-label="上传待审合同">
+                <span class="cmp-drop-ico">合</span>
+                <div class="cmp-drop-name" id="revName">点击或拖入合同文件</div>
+              </div>
+              <div class="cmp-slot-ops">
+                <button type="button" class="cmp-link" id="revPick">选择文件</button>
+                <button type="button" class="cmp-link" id="revClear" hidden>移除</button>
+              </div>
+              <input type="file" id="revFile" hidden />
+            </div>
+          </div>
+          <div class="cmp-bar">
+            <button type="button" class="cmp-run" id="revRun" hidden>开始审核</button>
+          </div>
+          <div id="revReport"></div>
+        </div>
+        </div>
+        <aside class="cmp-side" aria-label="审核历史">
+          <div class="cmp-side-title">历史记录</div>
+          <div id="revHistList"></div>
+        </aside>
+      </div>
       <div class="main-scroll">
         <div class="main-inner">
           <div class="home-block" id="homeBlock">
             <div class="hero">
               <svg class="xz-logo lg" aria-hidden="true"><use href="#logo-qa"/></svg>
               <div class="hero-text">
-                <h1>我是你的<em>智能办公助手</em></h1>
+                <h1>您好，我是您的<em>智能办公助手</em></h1>
               </div>
             </div>
 
@@ -3003,53 +3393,37 @@
               <h2>我能帮你做什么</h2>
             </div>
             <div class="cap-grid" id="capGrid">
-              <button type="button" class="cap-card" data-agent="archive" data-prompt="帮我找一下去年关于数字化转型的会议纪要档案">
-                <div class="cap-top">
-                  <div class="cap-title">馆藏知识问答</div>
-                  <span class="badge badge-blue">档案</span>
-                </div>
-                <ul>
-                  <li>用自然语言检索权限内馆藏</li>
-                  <li>回答带档号 / 题名引用</li>
-                  <li>嵌在档案系统，有据可查</li>
-                </ul>
-                <span class="cap-btn">去问档案</span>
+              <button type="button" class="cap-card cap-guide" data-demo="archive">
+                <div class="cap-title">馆藏知识问答</div>
+                <div class="cap-desc">在当前问答里检索权限内馆藏，回答带档号和题名。</div>
               </button>
-              <button type="button" class="cap-card" data-agent="policy" data-prompt="帮我解读《山东省推进机关数字档案室建设实施方案》" data-qid="q5">
-                <div class="cap-top">
-                  <div class="cap-title">制度政策速查</div>
-                  <span class="badge badge-green">制度</span>
-                </div>
-                <ul>
-                  <li>整份政策结构化解读（建设/认定/指标）</li>
-                  <li>先说清结论，再给表格与实操建议</li>
-                  <li>关键口径附制度出处与原文入口</li>
-                </ul>
-                <span class="cap-btn">去解读政策</span>
+              <button type="button" class="cap-card cap-guide" data-demo="policy">
+                <div class="cap-title">制度政策查询</div>
+                <div class="cap-desc">在当前问答里按制度名称说明适用范围和条款口径。</div>
               </button>
-              <a class="cap-card" href="#" id="capGoWriting" title="打开智能写作">
-                <div class="cap-top">
-                  <div class="cap-title">公文智能写作</div>
-                  <span class="badge badge-orange">写作</span>
-                </div>
-                <ul>
-                  <li>通知、请示、报告、讲话稿等</li>
-                  <li>可结合馆藏材料起草</li>
-                  <li>支持大纲 → 正文协同修改</li>
-                </ul>
-                <span class="cap-btn">进入写作</span>
-              </a>
-              <button type="button" class="cap-card" data-agent="process" data-prompt="单位内部请休假和外出报备分别怎么走流程？">
-                <div class="cap-top">
-                  <div class="cap-title">办事流程指引</div>
-                  <span class="badge badge-green">办事</span>
-                </div>
-                <ul>
-                  <li>请假、用印、用车、采购申报等</li>
-                  <li>按步骤说明材料与审批节点</li>
-                  <li>减少「找谁问、卡在哪」</li>
-                </ul>
-                <span class="cap-btn">问怎么办</span>
+              <button type="button" class="cap-card cap-guide" data-demo="process">
+                <div class="cap-title">办事流程指引</div>
+                <div class="cap-desc">在当前问答里按步骤说明材料、发起人和审批节点。</div>
+              </button>
+              <button type="button" class="cap-card cap-guide" data-demo="help">
+                <div class="cap-title">系统使用说明</div>
+                <div class="cap-desc">在当前问答里说明各功能入口和怎么开始一次办理。</div>
+              </button>
+              <button type="button" class="cap-card cap-guide" data-demo="write">
+                <div class="cap-title">智能撰写</div>
+                <div class="cap-desc">识别写作意图后，进入智能撰写页面继续成稿。</div>
+              </button>
+              <button type="button" class="cap-card cap-guide" data-demo="compare">
+                <div class="cap-title">文档比对</div>
+                <div class="cap-desc">识别比对意图后，进入文档比对页面查看差异。</div>
+              </button>
+              <button type="button" class="cap-card cap-guide" data-demo="review">
+                <div class="cap-title">合同审核</div>
+                <div class="cap-desc">识别审核意图后，进入合同审核页面查看风险。</div>
+              </button>
+              <button type="button" class="cap-card cap-guide" data-demo="research">
+                <div class="cap-title">深度调研报告</div>
+                <div class="cap-desc">在当前问答里按主题整理发现、依据和建议。</div>
               </button>
             </div>
 
@@ -3058,30 +3432,37 @@
                 <h2>猜你想问</h2>
               </div>
               <div class="guess-list" id="guessList">
-                <button type="button" class="guess-q" data-agent="policy" data-qid="q5">
+                <button type="button" class="guess-q" data-demo="archive">
                   <span class="gq-mark">1</span>
-                  <span class="gq-txt">帮我解读《山东省推进机关数字档案室建设实施方案》</span>
-                  <span class="gq-go">政策解读 →</span>
+                  <span class="gq-txt">馆藏知识问答交互示例</span>
                 </button>
-                <button type="button" class="guess-q" data-agent="policy" data-qid="q1">
+                <button type="button" class="guess-q" data-demo="policy">
                   <span class="gq-mark">2</span>
-                  <span class="gq-txt">出差报销要准备哪些材料？差旅费标准怎么查？</span>
-                  <span class="gq-go">问问 →</span>
+                  <span class="gq-txt">制度政策查询交互示例</span>
                 </button>
-                <button type="button" class="guess-q" data-agent="archive" data-qid="q2">
+                <button type="button" class="guess-q" data-demo="process">
                   <span class="gq-mark">3</span>
-                  <span class="gq-txt">帮我找一下去年关于数字化转型的会议纪要档案</span>
-                  <span class="gq-go">问问 →</span>
+                  <span class="gq-txt">办事流程指引交互示例</span>
                 </button>
-                <button type="button" class="guess-q" data-agent="process" data-qid="q3">
+                <button type="button" class="guess-q" data-demo="help">
                   <span class="gq-mark">4</span>
-                  <span class="gq-txt">单位内部请休假和外出报备分别怎么走流程？</span>
-                  <span class="gq-go">问问 →</span>
+                  <span class="gq-txt">系统使用说明交互示例</span>
                 </button>
-                <button type="button" class="guess-q" data-agent="writing" data-qid="q4">
+                <button type="button" class="guess-q" data-demo="write">
                   <span class="gq-mark">5</span>
-                  <span class="gq-txt">通知类公文怎么起草？需要准备哪些材料？</span>
-                  <span class="gq-go">问问 →</span>
+                  <span class="gq-txt">智能撰写交互示例</span>
+                </button>
+                <button type="button" class="guess-q" data-demo="compare">
+                  <span class="gq-mark">6</span>
+                  <span class="gq-txt">文档比对交互示例</span>
+                </button>
+                <button type="button" class="guess-q" data-demo="review">
+                  <span class="gq-mark">7</span>
+                  <span class="gq-txt">合同审核交互示例</span>
+                </button>
+                <button type="button" class="guess-q" data-demo="research">
+                  <span class="gq-mark">8</span>
+                  <span class="gq-txt">深度调研报告交互示例</span>
                 </button>
               </div>
             </div>
@@ -3093,21 +3474,6 @@
 
       <div class="composer">
         <div class="composer-inner">
-          <div class="agents" id="agents" aria-label="子 Agent">
-            <button type="button" class="agent-chip" data-agent="archive" data-label="问档案">
-              <span class="ai">档</span>问档案
-            </button>
-            <button type="button" class="agent-chip" data-agent="policy" data-label="查制度">
-              <span class="ai">制</span>查制度
-            </button>
-            <button type="button" class="agent-chip" data-agent="writing" data-label="写公文">
-              <span class="ai">写</span>写公文
-            </button>
-            <button type="button" class="agent-chip" data-agent="process" data-label="问流程">
-              <span class="ai">办</span>问流程
-            </button>
-          </div>
-
           <div class="input-box">
             <span class="skill-tag" id="skillTag">
               <span id="skillTagName">问档案</span>
@@ -3190,7 +3556,6 @@
               <button type="button" class="scene-step" data-step="4"><span class="scene-step-main"><span class="mark">4</span>开始写作</span></button>
               </div>
               <div class="scene-top-side right">
-                <button type="button" class="save-link step-act hidden" data-show="2" id="btnSaveDraft">另存为</button>
                 <button type="button" class="btn btn-primary step-act hidden" data-show="2" id="btnBasicNext">下一步</button>
                 <button type="button" class="btn btn-primary step-act hidden" data-show="3" id="btnOutlineNext">开始写作</button>
                 <button type="button" class="btn btn-primary step-act hidden" data-show="4" id="btnWriteSave">保存成稿</button>
@@ -3328,18 +3693,6 @@
                   </div>
                   <article class="write-paper" id="writePaper" contenteditable="true" aria-label="正文"></article>
                 </div>
-                <button type="button" class="write-fab" id="btnWriteQa" aria-expanded="false" aria-controls="writeQa">问答</button>
-                <section class="write-qa hidden" id="writeQa" aria-label="问答">
-                  <div class="write-qa-hd">
-                    <h4>问答</h4>
-                    <button type="button" class="write-qa-close" id="btnCloseWriteQa" aria-label="关闭">×</button>
-                  </div>
-                  <div class="outline-chat" id="writeChat"></div>
-                  <div class="write-ask">
-                    <textarea class="field-area" id="writeAdjust" placeholder="针对正文提问，或说明要如何改写"></textarea>
-                    <button type="button" class="btn btn-primary" id="btnWriteApply">发送</button>
-                  </div>
-                </section>
               </div>
               <aside class="write-refs" aria-label="参考与底稿">
                 <section class="ref-docs">
@@ -4362,15 +4715,6 @@
           });
         }
 
-        function pushWriteChat(role, text) {
-          var log = document.getElementById('writeChat');
-          var bubble = document.createElement('div');
-          bubble.className = 'chat-bubble ' + role;
-          bubble.textContent = text;
-          log.appendChild(bubble);
-          log.scrollTop = log.scrollHeight;
-        }
-
         App.showSceneStep = showStep;
 
         document.querySelectorAll('#viewScene .scene-step[data-step]').forEach(function (btn) {
@@ -4415,31 +4759,6 @@
           document.getElementById('writePaper').focus();
           document.execCommand(btn.dataset.cmd, false, btn.dataset.val || null);
         });
-        document.getElementById('btnWriteQa').onclick = function () {
-          var box = document.getElementById('writeQa');
-          var open = box.classList.toggle('hidden') === false;
-          this.setAttribute('aria-expanded', open ? 'true' : 'false');
-          if (open) document.getElementById('writeAdjust').focus();
-        };
-        document.getElementById('btnCloseWriteQa').onclick = function () {
-          document.getElementById('writeQa').classList.add('hidden');
-          document.getElementById('btnWriteQa').setAttribute('aria-expanded', 'false');
-        };
-        document.getElementById('btnWriteApply').onclick = function () {
-          var req = document.getElementById('writeAdjust').value.trim();
-          if (!req) {
-            App.toast('请先输入问题或改写要求', 'warn');
-            return;
-          }
-          readWriteBodies();
-          pushWriteChat('user', req);
-          writeSections.forEach(function (sec) {
-            if (sec.body.indexOf(req.slice(0, 12)) < 0) sec.body += '（已按问答要求调整：' + req.slice(0, 18) + '）';
-          });
-          renderWritePage();
-          pushWriteChat('agent', '已根据问题更新上方正文。可继续追问，或直接在文档里改字。');
-          document.getElementById('writeAdjust').value = '';
-        };
         document.getElementById('sceneWrite').addEventListener('click', function (e) {
           var opener = e.target.closest('.ref-open');
           if (!opener) return;
@@ -4519,9 +4838,6 @@
           }
           document.getElementById('keywordPop').classList.add('hidden');
           setKeywords(keywordsFromTitle(title));
-        };
-        document.getElementById('btnSaveDraft').onclick = function () {
-          App.toast('已另存为草稿');
         };
         var recommendBatches = [
           [
@@ -5588,6 +5904,65 @@
           { title: "质量门禁与结构化成稿", at: "七段式报告 · 引用对齐通过" }
         ],
         html: "<p>正在加载示范解读文稿…</p>"
+      },
+      demoArchive: {
+        inlineDemo: true,
+        mode: "qa",
+        query: "正在识别意图：馆藏知识问答",
+        found: "已在当前问答页完成",
+        html: "<p>识别到您的意图是馆藏知识问答。本次在当前问答页完成，不跳转其他功能。</p><p>检索示例：权限范围内可查阅 <strong>A001-WS-2023-0112</strong>《数字化转型推进会会议纪要》。补充年度、责任者或档号后，可以继续在本页缩小范围。</p>"
+      },
+      demoPolicy: {
+        inlineDemo: true,
+        mode: "qa",
+        query: "正在识别意图：制度政策查询",
+        found: "已在当前问答页完成",
+        html: "<p>识别到您的意图是制度政策查询。本次在当前问答页完成，不跳转其他功能。</p><p>查询示例：先核对发文机关、文号和施行日期，再看本单位是否在适用范围内。把制度名称发过来，可以继续在本页按条款说明。</p>"
+      },
+      demoProcess: {
+        inlineDemo: true,
+        mode: "qa",
+        query: "正在识别意图：办事流程指引",
+        found: "已在当前问答页完成",
+        html: "<p>识别到您的意图是办事流程指引。本次在当前问答页完成，不跳转其他功能。</p><ol><li>请休假：本人发起请假单，部门负责人审核，超过规定天数报分管领导，返岗后销假。</li><li>外出报备：另填报备单，写明时间、地点和同行人，由部门负责人和办公室备案。</li></ol><p>两条路径不要混用同一张单。</p>"
+      },
+      demoHelp: {
+        inlineDemo: true,
+        mode: "qa",
+        query: "正在识别意图：系统使用说明",
+        found: "已在当前问答页完成",
+        html: "<p>识别到您的意图是系统使用说明。本次在当前问答页完成，不跳转其他功能。</p><ol><li>馆藏知识问答、制度政策查询、办事流程指引、系统使用说明、深度调研报告，点上方入口后在输入框标出模块，再在本页提问。</li><li>智能撰写、文档比对、合同审核可从上方入口直接进入；在猜你想问里点对应示例，回答里会给出跳转按钮。</li><li>需要带材料时，用输入框旁的加号从本地上传，或从档案库选择。</li></ol>"
+      },
+      demoWrite: {
+        inlineDemo: true,
+        plainAnswer: true,
+        mode: "qa",
+        query: "正在识别意图：智能撰写",
+        found: "等待进入写作页面",
+        html: "<p>识别到您的意图是智能撰写，<button type=\"button\" class=\"jump-link\" data-jump=\"write\">点击此处</button>跳转到写作页面</p>"
+      },
+      demoCompare: {
+        inlineDemo: true,
+        typeReport: "compare",
+        mode: "qa",
+        query: "正在识别意图：文档比对",
+        found: "等待进入比对页面",
+        html: ""
+      },
+      demoReview: {
+        inlineDemo: true,
+        typeReport: "review",
+        mode: "qa",
+        query: "正在识别意图：合同审核",
+        found: "等待进入审核页面",
+        html: ""
+      },
+      demoResearch: {
+        inlineDemo: true,
+        mode: "qa",
+        query: "正在识别意图：深度调研报告",
+        found: "已在当前问答页完成",
+        html: "<p>识别到您的意图是深度调研报告。本次在当前问答页完成，不跳转其他功能。</p><p><strong>一、调研目的</strong></p><p>围绕给定主题，说明要回答的问题和材料范围。</p><p><strong>二、主要发现</strong></p><p>先写能够从材料中直接核对的事实，再写还缺哪类材料。</p><p><strong>三、建议</strong></p><p>按“先补材料、再下结论”排列。把调研主题和已有材料发过来，可以继续在本页把报告写完整。</p>"
       }
     };
 
@@ -5632,7 +6007,7 @@
       ]}
     ];
 
-    var state = { agent: null, chatting: false, activeHist: null, attachments: [] };
+    var state = { agent: null, skillName: null, chatting: false, activeHist: null, attachments: [] };
     var app = document.getElementById("app");
     var chatEl = document.getElementById("chat");
     var inputEl = document.getElementById("qaInput");
@@ -5676,12 +6051,1056 @@
       if (panel) panel.classList.toggle("show", !!show);
     }
 
+    function setCmpVisible(show) {
+      var main = document.getElementById("qaMain");
+      var panel = document.getElementById("cmpPanel");
+      if (main) main.classList.toggle("cmp-mode", !!show);
+      if (panel) panel.classList.toggle("show", !!show);
+    }
+
+    function setRevVisible(show) {
+      var main = document.getElementById("qaMain");
+      var panel = document.getElementById("revPanel");
+      if (main) main.classList.toggle("rev-mode", !!show);
+      if (panel) panel.classList.toggle("show", !!show);
+    }
+
     function setQaFeatActive(feat) {
       document.querySelectorAll("#qaFeats .qa-feat").forEach(function (btn) {
         btn.classList.toggle("active", btn.getAttribute("data-feat") === feat);
       });
       setHistMainVisible(feat === "history");
+      setCmpVisible(feat === "compare");
+      setRevVisible(feat === "review");
     }
+
+    var cmpFiles = { a: null, b: null };
+    var cmpActiveHist = "";
+    var cmpHistory = [
+      { id: "c1", title: "个人所得税法实施条例", nameA: "中华人民共和国个人所得税法实施条例（2025年版）.docx", nameB: "中华人民共和国个人所得税法实施条例（2026年版）.docx", when: "今天 16:20" },
+      { id: "c2", title: "食品安全法实施条例", nameA: "中华人民共和国食品安全法实施条例（2025年版）.docx", nameB: "中华人民共和国食品安全法实施条例（2026年版）.docx", when: "昨天 09:15" },
+      { id: "c3", title: "优化营商环境条例", nameA: "优化营商环境条例（2025年版）.pdf", nameB: "优化营商环境条例（2026年版）.pdf", when: "10月8日" }
+    ];
+
+    function renderCmpHist() {
+      var host = document.getElementById("cmpHistList");
+      if (!host) return;
+      host.innerHTML = cmpHistory.map(function (item) {
+        var cls = "cmp-hist-item" + (cmpActiveHist === item.id ? " active" : "");
+        return '<button type="button" class="' + cls + '" data-cmp-hist="' + item.id + '">' +
+          '<span class="cmp-hist-name">' + escapeHtml(item.title) + "</span>" +
+          '<span class="cmp-hist-meta">' + escapeHtml(item.nameA) + "</span>" +
+          '<span class="cmp-hist-meta">' + escapeHtml(item.nameB) + "</span>" +
+          '<span class="cmp-hist-when">' + escapeHtml(item.when) + "</span></button>";
+      }).join("");
+    }
+
+    function showCmpRecord(item) {
+      if (!item) return;
+      cmpActiveHist = item.id;
+      cmpFiles.a = { name: item.nameA, size: 86420, type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
+      cmpFiles.b = { name: item.nameB, size: 90112, type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
+      refreshCmpSlots();
+      renderCmpReport(sampleReport(item.nameA, item.nameB));
+      renderCmpHist();
+      var report = document.getElementById("cmpReport");
+      if (report) report.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function rememberCmp(nameA, nameB) {
+      var found = cmpHistory.filter(function (item) { return item.nameA === nameA && item.nameB === nameB; })[0];
+      if (found) {
+        cmpActiveHist = found.id;
+      } else {
+        var id = "c-" + Date.now();
+        var title = nameA.replace(/\.[^.]+$/, "");
+        cmpHistory.unshift({ id: id, title: title, nameA: nameA, nameB: nameB, when: "刚刚" });
+        cmpActiveHist = id;
+      }
+      renderCmpHist();
+    }
+
+    function formatFileSize(n) {
+      if (n < 1024) return n + " B";
+      if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+      return (n / 1048576).toFixed(1) + " MB";
+    }
+
+    function looksLikeText(file) {
+      if (!file) return false;
+      if (/^text\//.test(file.type || "")) return true;
+      return /\.(txt|md|markdown|csv|json|log|html|htm|xml|yaml|yml)$/i.test(file.name || "");
+    }
+
+    function readFileText(file) {
+      return new Promise(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function () { resolve(String(reader.result || "")); };
+        reader.onerror = function () { reject(reader.error || new Error("read")); };
+        reader.readAsText(file, "utf-8");
+      });
+    }
+
+    function refreshCmpSlots() {
+      ["a", "b"].forEach(function (side) {
+        var file = cmpFiles[side];
+        var upper = side.toUpperCase();
+        var drop = document.getElementById("cmpDrop" + upper);
+        var nameEl = document.getElementById("cmpName" + upper);
+        var metaEl = document.getElementById("cmpMeta" + upper);
+        var clearBtn = document.getElementById("cmpClear" + upper);
+        if (!drop || !nameEl || !clearBtn) return;
+        if (!file) {
+          drop.classList.remove("ready");
+          nameEl.textContent = side === "a" ? "点击或拖入原版文件" : "点击或拖入修改版文件";
+          if (metaEl) metaEl.textContent = "";
+          clearBtn.hidden = true;
+          return;
+        }
+        drop.classList.add("ready");
+        nameEl.textContent = file.name;
+        if (metaEl) metaEl.textContent = formatFileSize(file.size);
+        clearBtn.hidden = false;
+      });
+      var ready = !!(cmpFiles.a && cmpFiles.b);
+      var run = document.getElementById("cmpRun");
+      if (run) run.hidden = !ready;
+    }
+
+    function setCmpFile(side, file) {
+      cmpFiles[side] = file || null;
+      var report = document.getElementById("cmpReport");
+      if (report) report.innerHTML = "";
+      refreshCmpSlots();
+    }
+
+    function stripMarks(s) {
+      return String(s || "").replace(/[\s，。、；：！？“”‘’（）()【】\[\]《》<>—\-·,.;:!?]/g, "");
+    }
+
+    function lineDiff(aLines, bLines) {
+      var n = aLines.length;
+      var m = bLines.length;
+      var dp = [];
+      var i, j;
+      for (i = 0; i <= n; i++) dp[i] = new Uint16Array(m + 1);
+      for (i = n - 1; i >= 0; i--) {
+        for (j = m - 1; j >= 0; j--) {
+          dp[i][j] = aLines[i] === bLines[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+        }
+      }
+      var ops = [];
+      i = 0;
+      j = 0;
+      while (i < n && j < m) {
+        if (aLines[i] === bLines[j]) { i++; j++; continue; }
+        if (dp[i + 1][j] >= dp[i][j + 1]) {
+          ops.push({ type: "del", from: aLines[i], ai: i });
+          i++;
+        } else {
+          ops.push({ type: "add", to: bLines[j], bi: j });
+          j++;
+        }
+      }
+      while (i < n) { ops.push({ type: "del", from: aLines[i], ai: i }); i++; }
+      while (j < m) { ops.push({ type: "add", to: bLines[j], bi: j }); j++; }
+      var merged = [];
+      i = 0;
+      while (i < ops.length) {
+        if (ops[i].type !== "del" && ops[i].type !== "add") {
+          merged.push(ops[i]);
+          i++;
+          continue;
+        }
+        var dels = [];
+        var adds = [];
+        while (i < ops.length && (ops[i].type === "del" || ops[i].type === "add")) {
+          if (ops[i].type === "del") dels.push(ops[i]);
+          else adds.push(ops[i]);
+          i++;
+        }
+        var pairCount = Math.max(dels.length, adds.length);
+        for (var k = 0; k < pairCount; k++) {
+          if (dels[k] && adds[k]) {
+            merged.push({ type: "change", from: dels[k].from, to: adds[k].to, ai: dels[k].ai, bi: adds[k].bi });
+          } else if (dels[k]) {
+            merged.push(dels[k]);
+          } else {
+            merged.push(adds[k]);
+          }
+        }
+      }
+      return merged.filter(function (op) {
+        return stripMarks(op.from || "") !== "" || stripMarks(op.to || "") !== "";
+      });
+    }
+
+    function changeImpact(from, to) {
+      var src = String(from || "");
+      var dst = String(to || "");
+      if (!stripMarks(src)) return "修改版新增了这段内容";
+      if (!stripMarks(dst)) return "修改版删除了这段内容";
+      var years = dst.match(/(\d+)\s*年/);
+      if (/永久/.test(src) && years) return "保管期限由永久改为 " + years[1] + " 年";
+      var nf = src.match(/\d+(?:\.\d+)?/g) || [];
+      var nt = dst.match(/\d+(?:\.\d+)?/g) || [];
+      if (nf.length && nt.length && nf.join(",") !== nt.join(",")) {
+        return "数值由 " + nf.join("、") + " 变为 " + nt.join("、") + "，请核对是否为有意调整";
+      }
+      return "关键字段发生变化，请核对原文后再办理";
+    }
+
+    function buildTextReport(nameA, nameB, textA, textB) {
+      var note = "";
+      var left = textA;
+      var right = textB;
+      if (left.length > 5000 || right.length > 5000) {
+        left = left.slice(0, 5000);
+        right = right.slice(0, 5000);
+        note = "内容超过 5000 字，本次只比对前 5000 字。超长文档建议分章节对比。";
+      }
+      var aLines = left.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").slice(0, 160);
+      var bLines = right.replace(/\r\n/g, "\n").replace(/\r/g, "\n").split("\n").slice(0, 160);
+      if (left.split("\n").length > 160 || right.split("\n").length > 160) {
+        note = (note ? note + " " : "") + "行数较多，本次只对齐前 160 行。";
+      }
+      var ops = lineDiff(aLines, bLines);
+      var same = aLines.filter(function (line) { return bLines.indexOf(line) >= 0; }).length;
+      var tooDifferent = ops.length > 8 && same / Math.max(aLines.length, bLines.length, 1) < 0.2;
+      var keyRe = /文号|密级|期限|金额|万元|人民币|工作日|责任|保管|开放范围|付款/;
+      var key = [];
+      var general = [];
+      var formats = [];
+      var formatCount = 0;
+      ops.forEach(function (op) {
+        var from = op.from || "";
+        var to = op.to || "";
+        var loc = "第" + ((op.ai != null ? op.ai : op.bi) + 1) + "行";
+        if (op.type === "change" && stripMarks(from) === stripMarks(to)) {
+          formatCount++;
+          if (formats.length < 8) formats.push({ loc: loc, from: from || "（空）", to: to || "（空）" });
+          return;
+        }
+        var blob = from + to;
+        if (keyRe.test(blob) && key.length < 8) {
+          var title = (blob.match(keyRe) || ["关键字段"])[0];
+          key.push({ title: title, loc: loc, from: from || "（无）", to: to || "（无）", impact: changeImpact(from, to) });
+          return;
+        }
+        if (general.length < 12) {
+          var type = !stripMarks(from) ? "新增" : (!stripMarks(to) ? "删除" : "表述调整");
+          general.push({ loc: loc, from: from || "（无）", to: to || "（无）", type: type });
+        }
+      });
+      return {
+        nameA: nameA,
+        nameB: nameB,
+        sample: false,
+        identical: ops.length === 0,
+        tooDifferent: tooDifferent,
+        note: note,
+        key: key,
+        general: general,
+        formatCount: formatCount,
+        formats: formats,
+        hiddenGeneral: Math.max(0, ops.length - formatCount - key.length - general.length)
+      };
+    }
+
+    function sampleReport(nameA, nameB) {
+      var blob = (nameA || "") + (nameB || "");
+      var pack = /食品安全/.test(blob) ? sampleFoodSafety() : (/营商环境/.test(blob) ? sampleBusinessEnv() : sampleTaxRule());
+      return {
+        nameA: nameA,
+        nameB: nameB,
+        sample: true,
+        identical: false,
+        tooDifferent: false,
+        note: "",
+        formatCount: pack.formats.length,
+        hiddenGeneral: 0,
+        summary: pack.summary,
+        key: pack.key,
+        general: pack.general,
+        formats: pack.formats,
+        attention: pack.attention
+      };
+    }
+
+    function sampleTaxRule() {
+      return {
+        summary: "本次比对的是《中华人民共和国个人所得税法实施条例》2025年版和2026年版。两版都是个人所得税法的配套行政法规，差异集中在专项附加扣除标准、年度汇算期限、预扣预缴、处罚金额和国务院税务主管部门职责。下列内容只记录条文差异，供核对，不判断哪一版应当执行。",
+        key: [
+          { title: "专项附加扣除", loc: "第十五条 专项附加扣除", from: "子女教育专项附加扣除标准为每个子女每月1000元", to: "子女教育专项附加扣除标准为每个子女每月2000元", impact: "子女教育扣除标准由每月1000元改为每月2000元。工资预扣和年度汇算的扣除额都要按新标准重算。" },
+          { title: "汇算期限", loc: "第二十二条 年度汇算", from: "居民个人应当在取得所得的次年3月1日至6月30日办理汇算清缴", to: "居民个人应当在取得所得的次年3月1日至5月31日办理汇算清缴", impact: "汇算截止由6月30日改为5月31日，少了1个月。逾期申报和补退税的时间窗口都要前移。" },
+          { title: "预扣预缴", loc: "第十八条 预扣预缴", from: "扣缴义务人按月预扣预缴，年度终了后由纳税人自行汇算", to: "扣缴义务人按月预扣预缴；符合条件的纳税人可以选择由扣缴义务人代为办理年度汇算", impact: "2026年版增加扣缴义务人代办年度汇算。单位财务和办税系统要增加代办确认，不再默认全部由个人自行办理。" },
+          { title: "处罚金额", loc: "第三十六条 法律责任", from: "扣缴义务人未按规定预扣的，处二千元以下罚款；情节严重的，处二千元以上一万元以下罚款", to: "扣缴义务人未按规定预扣的，处二千元以下罚款；情节严重的，处一万元以上五万元以下罚款", impact: "情节严重的罚款下限由二千元改为一万元，上限由一万元改为五万元。执法裁量基准要按新幅度核对。" },
+          { title: "主管部门", loc: "第四条 主管部门", from: "国务院税务主管部门负责全国个人所得税征收管理工作", to: "国务院税务主管部门负责全国个人所得税征收管理，并制定专项附加扣除的信息系统标准", impact: "2026年版把专项附加扣除的信息系统标准明确交给国务院税务主管部门。地方税务机关的系统改造要按这个职责核对。" }
+        ],
+        general: [
+          { loc: "第二条", from: "本条例所称纳税年度", to: "本条例所称个人所得税纳税年度", type: "称谓补充", explain: "2026年版在纳税年度前写明个人所得税，避免和增值税等其他税种的所属期混称。" },
+          { loc: "第十一条", from: "（无）", to: "新增：赡养老人专项附加扣除可以由赡养人约定分摊，也可以由被赡养人指定分摊", type: "新增条款", explain: "2026年版新增赡养老人扣除的分摊方式。2025年版没有这一段，属于增补。" },
+          { loc: "第十九条", from: "先预扣后汇算", to: "先确认扣除信息、再预扣、后汇算", type: "顺序调整", explain: "预扣前增加扣除信息确认。扣缴流程和员工填报入口的先后要按新顺序改。" },
+          { loc: "第二十五条", from: "纳税人应当留存相关凭证", to: "纳税人应当留存相关凭证，并在汇算时按要求上传证明材料", type: "材料补充", explain: "原句保留，后面补上汇算时上传证明材料。只留存、不上传，可能不再满足2026年版。" },
+          { loc: "附件", from: "扣除信息表含姓名、身份证件号码、扣除项目", to: "扣除信息表增加扣除金额、分摊比例和确认日期", type: "字段增加", explain: "扣除信息表字段变多。旧表不能直接继续使用。" },
+          { loc: "附则", from: "本条例自公布之日起施行", to: "本条例自2026年1月1日起施行，2025年版同时废止", type: "施行日期", explain: "施行日期改为2026年1月1日，并废止2025年版。2025年所得的汇算要单独核对适用哪一版扣除标准。" }
+        ],
+        formats: [
+          { loc: "标题", from: "中华人民共和国个人所得税法实施条例（2025年版）", to: "中华人民共和国个人所得税法实施条例（2026年版）", explain: "标题只改年版。扣除标准和汇算期限是否变化，要看对应条文。" },
+          { loc: "项号", from: "第十五条第一款第（二）项", to: "第十五条第一款第2项", explain: "项号由中文括号改为阿拉伯数字。内部操作手册里的引用要一起改。" },
+          { loc: "列举", from: "工资薪金、劳务报酬、稿酬", to: "工资薪金、劳务报酬、稿酬", explain: "顿号和逗号的使用不一致，所得项目名称没有增删。" },
+          { loc: "章节空行", from: "章与章之间无空行", to: "章与章之间增加一个空行", explain: "只增加排版空行，不改变纳税义务。" },
+          { loc: "落款", from: "国务院", to: "国务院 ", explain: "落款后多一个空格。制定机关没有改。" }
+        ],
+        attention: [
+          "子女教育扣除由每月1000元改为每月2000元。建议核对预扣系统和年度汇算规则，确认从哪个所得年度开始按2000元执行。",
+          "汇算截止由6月30日改为5月31日。建议调整办税提醒和代办确认时间，避免仍按2025年版排到6月底。",
+          "符合条件的纳税人可以由扣缴义务人代办年度汇算。建议核对单位是否增加代办确认，以及个人是否仍可选择自行办理。",
+          "情节严重的罚款上限提高到五万元，条例自2026年1月1日起施行并废止2025年版。建议与个人所得税法和税务裁量基准一起核对后再引用。"
+        ]
+      };
+    }
+
+    function sampleFoodSafety() {
+      return {
+        summary: "本次比对的是《中华人民共和国食品安全法实施条例》2025年版和2026年版。两版都是食品安全法的配套行政法规，差异集中在进货查验、标签标注、网络食品交易、处罚金额和市场监管部门职责。下列内容只记录条文差异，供核对，不判断哪一版应当执行。",
+        key: [
+          { title: "进货查验", loc: "第十二条 进货查验", from: "食品经营者应当查验供货者的许可证和食品合格证明文件", to: "食品经营者应当查验供货者的许可证、食品合格证明文件，并保存查验记录不少于2年", impact: "2026年版把查验记录的保存期限写成不少于2年。只查验、不留存记录，不再符合新条文。" },
+          { title: "标签标注", loc: "第十八条 标签", from: "预包装食品标签应当标注生产日期和保质期", to: "预包装食品标签应当标注生产日期、保质期，以及致敏物质提示", impact: "标签增加致敏物质提示。已印制的旧标签能不能继续销售，要按施行日期单独核对。" },
+          { title: "网络交易", loc: "第二十四条 网络食品交易", from: "网络食品交易第三方平台应当对入网食品经营者实名登记", to: "网络食品交易第三方平台应当对入网食品经营者实名登记，并每半年核验一次许可证有效期", impact: "在实名登记之外，增加每半年核验许可证。平台的核验频率和停业下架规则要改。" },
+          { title: "处罚金额", loc: "第三十九条 法律责任", from: "货值金额不足一万元的，处五万元以上十万元以下罚款", to: "货值金额不足一万元的，处十万元以上十五万元以下罚款", impact: "货值不足一万元时，罚款下限由五万元改为十万元，上限由十万元改为十五万元。处罚裁量要按新幅度核对。" },
+          { title: "主管部门", loc: "第五条 职责分工", from: "国务院食品安全监督管理部门负责食品安全监督管理综合协调", to: "国务院食品安全监督管理部门负责食品安全监督管理综合协调，并组织网络食品交易的监测", impact: "2026年版把网络食品交易监测写进国务院食品安全监督管理部门的职责。地方市场监管部门的配套职责也要核对。" }
+        ],
+        general: [
+          { loc: "第三条", from: "本条例所称食品生产经营者", to: "本条例所称食品生产者和食品经营者", type: "称谓拆分", explain: "2026年版把生产经营者拆成生产者和经营者。后文如果仍混称，需要按主体分别核对义务。" },
+          { loc: "第十六条", from: "（无）", to: "新增：进口食品应当随附符合规定的中文标签，并在入境前完成核对", type: "新增条款", explain: "2026年版新增进口食品中文标签的入境前核对。2025年版没有这一段。" },
+          { loc: "第二十条", from: "先召回后报告", to: "先停止经营、再召回、后报告", type: "顺序调整", explain: "报告不再是第一步，停止经营提前。应急预案和内部流程图要按新顺序改。" },
+          { loc: "第二十八条", from: "食品贮存应当符合保证食品安全所需的温度、湿度", to: "食品贮存应当符合保证食品安全所需的温度、湿度，并记录每日监测数据", type: "要求补充", explain: "原句保留，后面补上每日监测记录。只控制温湿度、不记数据，可能不再满足2026年版。" },
+          { loc: "附件", from: "进货查验记录含名称、规格、数量、供货者", to: "进货查验记录增加生产日期、保质期和查验人", type: "字段增加", explain: "查验记录字段变多。旧台账不能直接继续用。" },
+          { loc: "附则", from: "本条例自公布之日起施行", to: "本条例自2026年6月1日起施行，2025年版同时废止", type: "施行日期", explain: "施行日期改为2026年6月1日，并废止2025年版。6月1日前已生产的预包装食品，标签是否必须改版要单独核对。" }
+        ],
+        formats: [
+          { loc: "标题", from: "中华人民共和国食品安全法实施条例（2025年版）", to: "中华人民共和国食品安全法实施条例（2026年版）", explain: "标题只改年版。查验、标签和处罚是否变化，要看对应条文。" },
+          { loc: "项号", from: "第十二条第二款第（一）项", to: "第十二条第二款第1项", explain: "项号由中文括号改为阿拉伯数字。企业制度里的条款引用要一起改。" },
+          { loc: "列举", from: "许可、备案、抽检", to: "许可、备案、抽检", explain: "顿号和逗号不一致，列举项目没有增删。" },
+          { loc: "章节空行", from: "章与章之间无空行", to: "章与章之间增加一个空行", explain: "只调整排版，不改变食品安全义务。" },
+          { loc: "落款", from: "国务院", to: "国务院 ", explain: "落款后多一个空格。制定机关没有改。" }
+        ],
+        attention: [
+          "进货查验记录改为保存不少于2年，标签增加致敏物质提示。建议核对台账保存期限和已印标签，确认哪一批产品必须按2026年版改标。",
+          "网络食品交易平台由只做实名登记，改为每半年核验一次许可证。建议核对平台规则和下架条件是否已经写上半年核验。",
+          "货值不足一万元的罚款下限提高到十万元。建议与食品安全法和市场监管裁量基准一起核对后再引用到处罚文书。",
+          "条例自2026年6月1日起施行，并废止2025年版。建议在进货、贮存、召回和网络交易制度里统一改到2026年版后再执行。"
+        ]
+      };
+    }
+
+    function sampleBusinessEnv() {
+      return {
+        summary: "本次比对的是《优化营商环境条例》2025年版和2026年版。两版都是规范政务服务和市场监管环境的行政法规，差异集中在开办企业时限、证明事项、收费、监管方式和国务院办公厅的统筹职责。下列内容只记录条文差异，供核对，不判断哪一版应当执行。",
+        key: [
+          { title: "开办时限", loc: "第十四条 企业开办", from: "开办企业的时间不超过5个工作日", to: "开办企业的时间不超过3个工作日", impact: "开办时限由5个工作日改为3个工作日。市场监管、税务和印章环节的并联办理要再压缩。" },
+          { title: "证明事项", loc: "第二十条 证明事项", from: "行政机关能够通过政务信息共享获取的证明，不得要求申请人另行提供", to: "行政机关能够通过政务信息共享获取的证明，不得要求申请人另行提供；未接入共享的，应当在10个工作日内完成核验", impact: "2026年版给未接入共享的证明增加了10个工作日核验期限。不能再只写「不得要求另行提供」而不规定核验时限。" },
+          { title: "收费目录", loc: "第二十七条 收费", from: "政府性基金、涉企行政事业性收费实行目录清单管理", to: "政府性基金、涉企行政事业性收费实行目录清单管理，并每半年向社会公布一次执行情况", impact: "在目录清单之外，增加每半年公布执行情况。财政和政务公开栏目要补这个节点。" },
+          { title: "监管方式", loc: "第三十二条 监管执法", from: "对新技术、新产业、新业态、新模式实行包容审慎监管", to: "对新技术、新产业、新业态、新模式实行包容审慎监管，并事先公布不予处罚、从轻处罚的具体情形", impact: "2026年版要求事先公布不予处罚和从轻处罚的具体情形。只有原则表述、没有情形清单，不再完整对应新条文。" },
+          { title: "统筹部门", loc: "第六条 组织领导", from: "国务院推进政府职能转变和「放管服」改革协调小组负责统筹协调", to: "国务院办公厅负责优化营商环境工作的统筹协调，并每年公布评估结果", impact: "统筹主体改为国务院办公厅，并增加每年公布评估结果。地方的牵头部门和年度评估安排要按新条文核对。" }
+        ],
+        general: [
+          { loc: "第三条", from: "本条例所称营商环境", to: "本条例所称市场化、法治化、国际化营商环境", type: "定义补充", explain: "2026年版在定义里写上市场化、法治化、国际化。后文评价指标如果仍只用「便利」概括，需要核对是否覆盖这三项。" },
+          { loc: "第十八条", from: "（无）", to: "新增：政务服务事项应当提供网上办理，并与线下窗口同标准办理", type: "新增条款", explain: "2026年版新增网上办理与线下同标准。2025年版没有这一段。" },
+          { loc: "第二十三条", from: "先审批后公示", to: "先受理、再审批、后公示", type: "顺序调整", explain: "公示前增加受理环节。办事指南里的步骤顺序要改。" },
+          { loc: "第二十九条", from: "招标投标应当公开透明", to: "招标投标应当公开透明，并公布中标候选人的评分情况", type: "公开补充", explain: "原句保留，后面补上公布评分情况。只公布中标结果、不公布评分，可能不再满足2026年版。" },
+          { loc: "附件", from: "开办企业联办清单含名称、设立登记、刻章", to: "开办企业联办清单增加发票申领、社保登记和银行开户预约", type: "事项增加", explain: "联办事项变多。旧的三步清单不能直接继续用。" },
+          { loc: "附则", from: "本条例自公布之日起施行", to: "本条例自2026年4月1日起施行，2025年版同时废止", type: "施行日期", explain: "施行日期改为2026年4月1日，并废止2025年版。4月1日前已受理未办结的开办申请，要核对适用哪一版时限。" }
+        ],
+        formats: [
+          { loc: "标题", from: "优化营商环境条例（2025年版）", to: "优化营商环境条例（2026年版）", explain: "标题只改年版。开办时限和收费公开是否变化，要看对应条文。" },
+          { loc: "项号", from: "第十四条第一款第（三）项", to: "第十四条第一款第3项", explain: "项号由中文括号改为阿拉伯数字。办事指南里的引用要一起改。" },
+          { loc: "列举", from: "登记、许可、备案", to: "登记、许可、备案", explain: "顿号和逗号不一致，事项名称没有增删。" },
+          { loc: "章节空行", from: "章与章之间无空行", to: "章与章之间增加一个空行", explain: "只调整排版，不改变政务服务义务。" },
+          { loc: "落款", from: "国务院", to: "国务院 ", explain: "落款后多一个空格。制定机关没有改。" }
+        ],
+        attention: [
+          "开办企业时限由5个工作日改为3个工作日。建议核对市场监管、税务、刻章的并联时限，确认还能不能压到3个工作日以内。",
+          "未接入信息共享的证明，改为10个工作日内完成核验。建议把仍要求申请人重复提交的证明拉出清单，核对核验时限有没有写进办事指南。",
+          "涉企收费改为每半年公布一次执行情况，包容审慎监管要事先公布不予处罚和从轻处罚情形。建议核对公开栏目和处罚清单是否已经按2026年版补齐。",
+          "统筹部门改为国务院办公厅，条例自2026年4月1日起施行并废止2025年版。建议在地方实施办法和年度评估方案里统一改到2026年版后再执行。"
+        ]
+      };
+    }
+
+    function reportBodyText(model) {
+      var total = model.key.length + model.general.length + (model.formatCount || 0);
+      var summary = model.summary || ("本次将「" + model.nameA + "」与「" + model.nameB + "」逐段对齐，共识别 " + total + " 处差异。关键变更 " + model.key.length + " 处，一般变更 " + model.general.length + " 处，格式变更 " + (model.formatCount || 0) + " 处。下面按关键内容、一般内容和格式分开列出原文与修改后，便于逐条核对。本报告不评价修改是否合理，也不宣布以哪一份为准。");
+      var keyHtml = model.key.length ? model.key.map(function (item, idx) {
+        var explain = item.explain || ("该处位于" + (item.loc || "正文") + "，涉及" + item.title + "。原版写的是「" + item.from + "」，修改版写的是「" + item.to + "」。两句对照后，发生变化的是制度执行口径，不是单纯换了一个说法。");
+        return '<article class="cmp-diff"><h5>变更 ' + (idx + 1) + "：" + escapeHtml(item.title) + "</h5>" +
+          "<p>位置：" + escapeHtml(item.loc || "正文") + "</p>" +
+          "<p>原文：「" + escapeHtml(item.from) + "」</p>" +
+          "<p>修改后：「" + escapeHtml(item.to) + "」</p>" +
+          "<p>差异说明：" + escapeHtml(explain) + "</p>" +
+          "<p>影响：" + escapeHtml(item.impact) + "</p></article>";
+      }).join("") : '<p class="cmp-prose">未发现期限、金额、适用范围或责任主体方面的变更。若业务上仍觉得口径有变，请按章节再拆开比对。</p>';
+      var rows = (model.general || []).map(function (item, idx) {
+        return "<tr><td>" + (idx + 1) + "</td><td>" + escapeHtml(item.loc) + "</td><td>" + escapeHtml(item.from) + "</td><td>" + escapeHtml(item.to) + "</td><td>" + escapeHtml(item.type) + "</td></tr>";
+      }).join("");
+      var generalNotes = (model.general || []).map(function (item, idx) {
+        var explain = item.explain || (item.loc + "由「" + item.from + "」变为「" + item.to + "」，类型记为" + item.type + "。该处不涉及文号、密级、期限、金额或责任主体，但仍应在核对稿中保留，避免漏改前后称呼或收件材料。");
+        return '<p class="cmp-prose">' + (idx + 1) + ". " + escapeHtml(explain) + "</p>";
+      }).join("");
+      var formats = model.formats || [];
+      var formatHtml = formats.length ? formats.map(function (item) {
+        var explain = item.explain || (item.loc + "的写法由「" + item.from + "」调整为「" + item.to + "」。去掉标点、编号和空格后，实质用词一致，不改变条款含义。");
+        return '<p class="cmp-prose">' + escapeHtml(item.loc) + "：原文「" + escapeHtml(item.from) + "」，修改后「" + escapeHtml(item.to) + "」。" + escapeHtml(explain) + "</p>";
+      }).join("") : '<p class="cmp-prose">未单独列出格式调整。</p>';
+      var attention = model.attention || (model.key || []).slice(0, 4).map(function (item) {
+        return item.title + "：" + item.impact + "建议把原文和修改后并排留给经办人核对，确认是笔误还是有意修改后，再进入审核、发文或归档。";
+      });
+      if (!attention.length) attention = ["两份文本中未发现需要优先核对的关键变更。一般内容和格式仍建议通读一遍，确认没有漏掉称谓、编号或收件材料。"];
+      var notes = attention.map(function (text) { return "<li>" + escapeHtml(text) + "</li>"; }).join("");
+      var more = model.hiddenGeneral ? '<p class="cmp-prose">其余 ' + model.hiddenGeneral + " 处一般变更未逐条展开，完整差异以两份原文为准。</p>" : "";
+      return '<section class="cmp-sec" id="cmpSecHead"><h4>一、报告头</h4><dl class="cmp-meta"><dt>原版</dt><dd>' + escapeHtml(model.nameA) + "</dd><dt>修改版</dt><dd>" + escapeHtml(model.nameB) + "</dd><dt>差异数量</dt><dd>" +
+        total + " 处（关键 " + model.key.length + " 处 | 一般 " + model.general.length + " 处 | 格式 " + (model.formatCount || 0) + " 处）</dd></dl>" +
+        '<p class="cmp-prose">' + escapeHtml(summary) + "</p></section>" +
+        '<section class="cmp-sec" id="cmpSecKey"><h4>二、关键内容变更</h4>' + keyHtml + "</section>" +
+        '<section class="cmp-sec" id="cmpSecMid"><h4>三、一般内容变更</h4><p class="cmp-prose">下表列出位置、原文、修改后和类型。表后按条写明改动落在称谓、增补、顺序还是收件材料，避免只看表格时漏掉上下文。</p><div class="cmp-table-wrap"><table class="cmp-table"><thead><tr><th>#</th><th>位置</th><th>原文</th><th>修改后</th><th>类型</th></tr></thead><tbody>' +
+          (rows || '<tr><td colspan="5">未发现一般内容变更。</td></tr>') + "</tbody></table></div>" + generalNotes + more + "</section>" +
+        '<section class="cmp-sec" id="cmpSecFmt"><h4>四、格式变更</h4><p class="cmp-prose">格式变更单独列出，不与期限、金额、责任主体放在一起。共 ' + (model.formatCount || 0) + " 处格式调整（标点、编号、排版），不影响实质内容。</p>" + formatHtml + "</section>" +
+        '<section class="cmp-sec" id="cmpSecNote"><h4>五、建议关注</h4><ol class="cmp-notes">' + notes + "</ol></section>";
+    }
+
+    function renderCmpReport(model) {
+      var host = document.getElementById("cmpReport");
+      if (!host) return;
+      if (model.identical) {
+        model.summary = "两份文本逐段对齐后，未发现增删改。关键内容、一般内容和格式均一致，无需按差异条目办理。";
+        model.attention = ["两份文本内容完全一致，未发现需要另行核对的差异。"];
+      }
+      var banners = "";
+      if (model.note) banners += '<div class="cmp-banner">' + escapeHtml(model.note) + "</div>";
+      if (model.tooDifferent) banners += '<div class="cmp-banner">这两份文档差异过大，可能不是同一份文档的不同版本。请确认是否上传正确。下面仍按章节列出已识别的差异。</div>';
+      host.innerHTML = banners +
+        '<article class="cmp-card" id="cmpReportCard">' +
+          '<header class="cmp-head"><h3>文档差异比对报告</h3><div class="cmp-save-wrap"><button type="button" class="cmp-save" id="cmpSaveBtn" aria-label="保存" title="保存" aria-expanded="false" aria-haspopup="true"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4z" fill="none" stroke="#000" stroke-width="1.8"/><path d="M7 3v6h8" fill="none" stroke="#000" stroke-width="1.8"/><path d="M7 21v-7h10v7" fill="none" stroke="#000" stroke-width="1.8"/></svg></button><div class="cmp-save-menu" id="cmpSaveMenu" hidden><button type="button" data-save="word">保存为 Word</button><button type="button" data-save="pdf">保存为 PDF</button></div></div></header>' +
+          '<div class="cmp-doc"><nav class="cmp-toc" aria-label="报告目录"><div class="cmp-toc-title">目录</div><button type="button" class="on" data-toc="cmpSecHead">一、报告头</button><button type="button" data-toc="cmpSecKey">二、关键内容变更</button><button type="button" data-toc="cmpSecMid">三、一般内容变更</button><button type="button" data-toc="cmpSecFmt">四、格式变更</button><button type="button" data-toc="cmpSecNote">五、建议关注</button></nav>' +
+          '<div class="cmp-editor-col"><div class="cmp-toolbar" aria-label="正文格式"><button type="button" data-cmd="bold" title="加粗"><b>B</b></button><button type="button" data-cmd="italic" title="斜体"><i>I</i></button><button type="button" data-cmd="underline" title="下划线"><u>U</u></button><button type="button" data-cmd="insertUnorderedList" title="列表">列表</button></div>' +
+          '<div class="cmp-editor" id="cmpEditor" contenteditable="true" spellcheck="false">' + reportBodyText(model) + "</div></div></div></article>";
+    }
+
+    function downloadBlob(blob, filename) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    }
+
+    function reportExportNode(editorId, titleText) {
+      var editor = document.getElementById(editorId || "cmpEditor");
+      if (!editor) return null;
+      var wrap = document.createElement("div");
+      var title = document.createElement("h1");
+      title.textContent = titleText || "文档差异比对报告";
+      wrap.appendChild(title);
+      wrap.appendChild(editor.cloneNode(true));
+      return wrap;
+    }
+
+    function saveReportWord(editorId, titleText, filename) {
+      var name = titleText || "文档差异比对报告";
+      var node = reportExportNode(editorId, name);
+      if (!node) return;
+      var html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'><head><meta charset='utf-8'><title>" + name + "</title><style>body,p,li,h1,h2,h3,td,th{color:#000;font-family:宋体,SimSun,sans-serif;} table{border-collapse:collapse;width:100%;} td,th{border:1px solid #000;padding:6px;vertical-align:top;}</style></head><body>" + node.innerHTML + "</body></html>";
+      downloadBlob(new Blob(["\ufeff", html], { type: "application/msword" }), filename || (name + ".doc"));
+    }
+
+    function pdfBytesFromJpegs(jpegs, imgW, imgH) {
+      var enc = new TextEncoder();
+      var chunks = [];
+      function pushStr(s) { chunks.push(enc.encode(s)); }
+      function pushBytes(b) { chunks.push(b); }
+      function sizeNow() { return chunks.reduce(function (n, c) { return n + c.length; }, 0); }
+      pushStr("%PDF-1.4\n");
+      var offsets = [];
+      var pageW = 595.28;
+      var pageH = 841.89;
+      var n = jpegs.length;
+      var objCount = 2 + n * 3;
+      function startObj(id) { offsets[id] = sizeNow(); pushStr(id + " 0 obj\n"); }
+      startObj(1);
+      pushStr("<< /Type /Catalog /Pages 2 0 R >>\nendobj\n");
+      var kids = [];
+      for (var i = 0; i < n; i++) kids.push((3 + i * 3) + " 0 R");
+      startObj(2);
+      pushStr("<< /Type /Pages /Count " + n + " /Kids [" + kids.join(" ") + "] >>\nendobj\n");
+      for (var p = 0; p < n; p++) {
+        var pageId = 3 + p * 3;
+        var contentId = pageId + 1;
+        var imageId = pageId + 2;
+        startObj(pageId);
+        pushStr("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + pageW + " " + pageH + "] /Contents " + contentId + " 0 R /Resources << /XObject << /Im" + p + " " + imageId + " 0 R >> >> >>\nendobj\n");
+        var content = "q " + pageW + " 0 0 " + pageH + " 0 0 cm /Im" + p + " Do Q";
+        startObj(contentId);
+        pushStr("<< /Length " + content.length + " >>\nstream\n" + content + "\nendstream\nendobj\n");
+        startObj(imageId);
+        pushStr("<< /Type /XObject /Subtype /Image /Width " + imgW + " /Height " + imgH + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + jpegs[p].length + " >>\nstream\n");
+        pushBytes(jpegs[p]);
+        pushStr("\nendstream\nendobj\n");
+      }
+      var xref = sizeNow();
+      pushStr("xref\n0 " + (objCount + 1) + "\n0000000000 65535 f \n");
+      for (var id = 1; id <= objCount; id++) pushStr(String(offsets[id]).padStart(10, "0") + " 00000 n \n");
+      pushStr("trailer\n<< /Size " + (objCount + 1) + " /Root 1 0 R >>\nstartxref\n" + xref + "\n%%EOF");
+      var total = sizeNow();
+      var out = new Uint8Array(total);
+      var cursor = 0;
+      chunks.forEach(function (c) { out.set(c, cursor); cursor += c.length; });
+      return out;
+    }
+
+    function saveReportPdf(editorId, titleText, filename) {
+      var name = titleText || "文档差异比对报告";
+      var node = reportExportNode(editorId, name);
+      if (!node) return;
+      var text = node.innerText.replace(/\n{3,}/g, "\n\n");
+      var width = 794;
+      var height = 1123;
+      var margin = 56;
+      var lineHeight = 26;
+      var font = "16px 'Microsoft YaHei', SimSun, sans-serif";
+      var measure = document.createElement("canvas").getContext("2d");
+      measure.font = font;
+      var maxW = width - margin * 2;
+      var lines = [];
+      text.split("\n").forEach(function (para) {
+        if (!para) { lines.push(""); return; }
+        var buf = "";
+        for (var i = 0; i < para.length; i++) {
+          var next = buf + para[i];
+          if (measure.measureText(next).width > maxW && buf) {
+            lines.push(buf);
+            buf = para[i];
+          } else buf = next;
+        }
+        if (buf) lines.push(buf);
+      });
+      var perPage = Math.floor((height - margin * 2) / lineHeight);
+      var canvases = [];
+      for (var start = 0; start < lines.length; start += perPage) {
+        var canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = "#000";
+        ctx.font = font;
+        lines.slice(start, start + perPage).forEach(function (line, idx) {
+          ctx.fillText(line, margin, margin + (idx + 1) * lineHeight);
+        });
+        canvases.push(canvas);
+      }
+      Promise.all(canvases.map(function (canvas) {
+        return new Promise(function (resolve) {
+          canvas.toBlob(function (blob) {
+            blob.arrayBuffer().then(function (buf) { resolve(new Uint8Array(buf)); });
+          }, "image/jpeg", 0.92);
+        });
+      })).then(function (jpegs) {
+        downloadBlob(new Blob([pdfBytesFromJpegs(jpegs, width, height)], { type: "application/pdf" }), filename || (name + ".pdf"));
+      });
+    }
+
+    function initComparePanel() {
+      function bindSide(side) {
+        var upper = side.toUpperCase();
+        var input = document.getElementById("cmpFile" + upper);
+        var drop = document.getElementById("cmpDrop" + upper);
+        var pick = document.getElementById("cmpPick" + upper);
+        var clearBtn = document.getElementById("cmpClear" + upper);
+        if (!input || !drop) return;
+        function openPicker() { input.click(); }
+        if (pick) pick.addEventListener("click", openPicker);
+        clearBtn.addEventListener("click", function () {
+          input.value = "";
+          setCmpFile(side, null);
+        });
+        drop.addEventListener("click", openPicker);
+        drop.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPicker(); }
+        });
+        ["dragenter", "dragover"].forEach(function (name) {
+          drop.addEventListener(name, function (e) {
+            e.preventDefault();
+            drop.classList.add("drag");
+          });
+        });
+        ["dragleave", "drop"].forEach(function (name) {
+          drop.addEventListener(name, function (e) {
+            e.preventDefault();
+            drop.classList.remove("drag");
+          });
+        });
+        drop.addEventListener("drop", function (e) {
+          var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+          if (file) setCmpFile(side, file);
+        });
+        input.addEventListener("change", function () {
+          var file = input.files && input.files[0];
+          if (file) setCmpFile(side, file);
+        });
+      }
+      bindSide("a");
+      bindSide("b");
+      var run = document.getElementById("cmpRun");
+      var report = document.getElementById("cmpReport");
+      if (run) {
+        run.addEventListener("click", function () {
+          if (!cmpFiles.a || !cmpFiles.b) return;
+          run.disabled = true;
+          run.textContent = "正在比对…";
+          var fileA = cmpFiles.a;
+          var fileB = cmpFiles.b;
+          var canRead = (typeof File !== "undefined") && (fileA instanceof File) && (fileB instanceof File) && looksLikeText(fileA) && looksLikeText(fileB);
+          var task = canRead
+            ? Promise.all([readFileText(fileA), readFileText(fileB)]).then(function (pair) {
+                return buildTextReport(fileA.name, fileB.name, pair[0], pair[1]);
+              })
+            : Promise.resolve(sampleReport(fileA.name, fileB.name));
+          task.then(function (model) {
+            renderCmpReport(model);
+            rememberCmp(fileA.name, fileB.name);
+            if (report) report.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }).catch(function () {
+            toast("文件读取失败，请换一份文本后再比对");
+          }).then(function () {
+            run.disabled = false;
+            run.textContent = "开始比对";
+          });
+        });
+      }
+      if (report) {
+        report.addEventListener("mousedown", function (e) {
+          if (e.target.closest("[data-cmd]")) e.preventDefault();
+        });
+        report.addEventListener("click", function (e) {
+          var tocBtn = e.target.closest("[data-toc]");
+          if (tocBtn) {
+            var target = document.getElementById(tocBtn.getAttribute("data-toc"));
+            report.querySelectorAll("[data-toc]").forEach(function (el) { el.classList.toggle("on", el === tocBtn); });
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
+          var cmdBtn = e.target.closest("[data-cmd]");
+          if (cmdBtn) {
+            document.execCommand(cmdBtn.getAttribute("data-cmd"), false, null);
+            var editor = document.getElementById("cmpEditor");
+            if (editor) editor.focus();
+            return;
+          }
+          var menu = document.getElementById("cmpSaveMenu");
+          var saveBtn = e.target.closest("#cmpSaveBtn");
+          if (saveBtn && menu) {
+            var open = menu.hidden;
+            menu.hidden = !open;
+            saveBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            return;
+          }
+          var item = e.target.closest("[data-save]");
+          if (!item) return;
+          if (menu) menu.hidden = true;
+          var btn = document.getElementById("cmpSaveBtn");
+          if (btn) btn.setAttribute("aria-expanded", "false");
+          if (item.getAttribute("data-save") === "word") saveReportWord();
+          else saveReportPdf();
+        });
+      }
+      var demoBtn = document.getElementById("cmpLoadDemo");
+      if (demoBtn) {
+        demoBtn.addEventListener("click", function () {
+          showCmpRecord(cmpHistory[0]);
+        });
+      }
+      var histList = document.getElementById("cmpHistList");
+      if (histList) {
+        histList.addEventListener("click", function (e) {
+          var btn = e.target.closest("[data-cmp-hist]");
+          if (!btn) return;
+          var id = btn.getAttribute("data-cmp-hist");
+          var item = cmpHistory.filter(function (row) { return row.id === id; })[0];
+          showCmpRecord(item);
+        });
+      }
+      renderCmpHist();
+    }
+
+    var revFile = null;
+    var revActiveHist = "";
+    var revHistory = [
+      { id: "r1", title: "软件技术开发合同", file: "软件技术开发合同.docx", type: "技术开发合同", role: "甲方", when: "今天 15:10" },
+      { id: "r2", title: "房屋租赁合同", file: "城南置业房屋租赁合同.pdf", type: "租赁合同", role: "承租方", when: "昨天 11:40" },
+      { id: "r3", title: "采购框架协议", file: "设备采购框架协议.docx", type: "买卖合同", role: "采购方", when: "10月9日" }
+    ];
+
+    function renderRevHist() {
+      var host = document.getElementById("revHistList");
+      if (!host) return;
+      host.innerHTML = revHistory.map(function (item) {
+        var cls = "cmp-hist-item" + (revActiveHist === item.id ? " active" : "");
+        return '<button type="button" class="' + cls + '" data-rev-hist="' + item.id + '">' +
+          '<span class="cmp-hist-name">' + escapeHtml(item.title) + "</span>" +
+          '<span class="cmp-hist-meta">' + escapeHtml(item.file) + "</span>" +
+          '<span class="cmp-hist-when">' + escapeHtml(item.type) + " · " + escapeHtml(item.when) + "</span></button>";
+      }).join("");
+    }
+
+    function refreshRevSlot() {
+      var drop = document.getElementById("revDrop");
+      var nameEl = document.getElementById("revName");
+      var clearBtn = document.getElementById("revClear");
+      var run = document.getElementById("revRun");
+      if (!drop || !nameEl || !clearBtn) return;
+      if (!revFile) {
+        drop.classList.remove("ready");
+        nameEl.textContent = "点击或拖入合同文件";
+        clearBtn.hidden = true;
+      } else {
+        drop.classList.add("ready");
+        nameEl.textContent = revFile.name;
+        clearBtn.hidden = false;
+      }
+      if (run) run.hidden = !revFile;
+    }
+
+    function sampleTechContract(name, role) {
+      return {
+        name: name,
+        type: "技术开发合同",
+        role: role,
+        parties: "甲方：华北云启科技有限公司；乙方：临港数联软件有限公司",
+        amount: "人民币 1,280,000 元（大写写成壹佰贰拾万元整，大小写不一致）",
+        summary: "本报告按" + role + "视角审查《软件技术开发合同》。合同约定乙方为甲方开发业务中台，开发周期 6 个月，验收后支付尾款。审查发现知识产权归属、争议解决方式和源代码交付存在可能影响合同效力或后续使用的问题；金额大小写、验收标准和违约金幅度也需要改。下列内容供业务和法务逐条改稿，不代替律师出具的法律意见。",
+        key: [
+          { title: "知识产权全部归乙方", loc: "第十二条 知识产权", quote: "本合同项下形成的软件、文档、界面和技术方案，知识产权均归乙方所有，甲方仅取得使用权", problem: "甲方支付全部开发费用，却不能取得成果的知识产权。后续自用、改造、交给关联公司使用，都可能被乙方主张侵权。", law: "《民法典》第八百六十条：委托开发完成的发明创造，当事人可以约定归属；没有约定的，申请专利的权利属于研究开发人。软件著作权可以约定由委托方享有。", suggestion: "改为甲方支付全部合同款后，成果的著作权、专利申请权归甲方。乙方保留其开发前已有的工具和通用组件。", template: "本合同项下新形成的软件、文档和界面，著作权归甲方所有。乙方在本合同之前已有的通用组件，仍归乙方，甲方取得为使用本成果所必需的普通使用许可。" },
+          { title: "仲裁和诉讼同时约定", loc: "第十八条 争议解决", quote: "发生争议，提交上海仲裁委员会仲裁，也可以向甲方所在地人民法院起诉", problem: "同一争议既约定仲裁又约定诉讼，仲裁条款可能被认定无效，争议发生后双方会先争管辖，不能直接进入实体审理。", law: "《仲裁法》规定仲裁协议应当有请求仲裁的意思表示、仲裁事项和选定的仲裁委员会。既选择仲裁又选择法院的，通常不能同时成立。", suggestion: "只保留一种方式。若选仲裁，写明仲裁机构全称，并删除向法院起诉的句子。", template: "因本合同引起的争议，协商不成的，提交上海仲裁委员会按照其仲裁规则仲裁。仲裁裁决是终局的，对双方均有约束力。" },
+          { title: "源代码交付没有硬性义务", loc: "第八条 交付", quote: "乙方视项目情况向甲方提供源代码，是否交付由乙方决定", problem: "验收通过后甲方可能只有安装包，没有源代码。系统无法自行维护、审计和二次开发，乙方停止服务后业务会中断。", law: "技术开发合同应当明确开发成果的交付内容和验收标准。交付范围约定由一方单方决定的，履行标准不明确。", suggestion: "把源代码、构建脚本、接口文档和部署说明列为必须交付物，并约定在验收通过时一次性移交。", template: "验收通过之日起 5 个工作日内，乙方应交付可编译的源代码、构建脚本、接口说明和部署手册。未交付的，甲方有权拒付尾款。" }
+        ],
+        general: [
+          { loc: "第三条 合同金额", quote: "合同总价人民币 1,280,000 元（大写：壹佰贰拾万元整）", problem: "小写比大写多 8 万元", type: "金额不一致", explain: "小写 128 万元，大写 120 万元。付款、发票和违约金基数会各执一词。应统一为同一金额，并写明是否含税。" },
+          { loc: "第九条 验收", quote: "系统符合要求即视为验收合格", problem: "没有功能清单、性能指标和验收期限", type: "标准含糊", explain: "“符合要求”没有对照物。建议附功能清单，约定试运行天数、缺陷分级，以及甲方在收到验收申请后 10 个工作日内书面确认。" },
+          { loc: "第十四条 违约金", quote: "乙方逾期交付的，每日按合同总额的万分之八支付违约金", problem: "年化约 29.2%，明显高于一年期贷款市场报价利率的四倍", type: "违约金过高", explain: "按日万分之八计算，一年约 29%。现行一年期 LPR 四倍大约在 14% 上下，超出部分在争议中可能被调低。建议改为日万分之三，并设累计上限。" },
+          { loc: "第十五条 保密", quote: "双方应对本合同内容保密", problem: "没有保密期限、保密范围和例外", type: "条款过简", explain: "未写清保密信息范围、期限和可以披露的情形。建议约定合同终止后继续保密 3 年，法律法规要求披露的除外。" },
+          { loc: "第十六条 质保", quote: "质保期由双方另行协商", problem: "签署时没有确定质保期", type: "条款未闭合", explain: "免费维护从哪一天开始、持续几个月都没有写。建议写明验收通过之日起 12 个月，重大缺陷 48 小时内响应。" }
+        ],
+        formats: [
+          { loc: "条款编号", from: "第8条、第八条混用", to: "统一为“第八条”", explain: "同一合同里阿拉伯数字和中文条号混用，引用时会对错条款。" },
+          { loc: "主体称谓", from: "委托方、甲方交替出现", to: "正文统一称甲方", explain: "首部已经定义甲方，后文再写委托方，容易和附件里的委托方不是同一主体。" },
+          { loc: "标点", from: "争议解决条以逗号结束", to: "该条以句号结束", explain: "条末标点不统一，不影响权利义务，但整理签署版时应改齐。" }
+        ],
+        missing: ["成果验收的缺陷分级", "个人信息处理的委托条款", "合同变更须书面确认"],
+        attention: [
+          "先改第十二条和第十八条。知识产权不归甲方、争议解决方式互相矛盾时，不建议进入用印。",
+          "金额大小写相差 8 万元。改稿时以双方确认的含税价为准，发票税率和付款节点一起改。",
+          "验收标准、违约金上限和质保期应在签署前写进正文，不要留到“另行协商”。",
+          "本报告按合同文本作风险提示，供修改条款使用，不构成法律意见。标的较大或涉及核心系统时，建议由执业律师复核后再签署。"
+        ]
+      };
+    }
+
+    function sampleLeaseContract(name, role) {
+      return {
+        name: name,
+        type: "房屋租赁合同",
+        role: role,
+        parties: "出租方：城南置业有限公司；承租方：青禾餐饮管理有限公司",
+        amount: "年租金人民币 860,000 元，押金人民币 143,000 元（相当于两个月租金）",
+        summary: "本报告按" + role + "视角审查房屋租赁合同。房屋用于餐饮经营，租期写成 22 年，维修、转租和提前解约都明显偏向出租方。租期超过法定上限的部分不能简单视为有效，押金退还和装修补偿也没有写清。下列内容供签约前改条款。",
+        key: [
+          { title: "租期超过二十年", loc: "第五条 租赁期限", quote: "租赁期限自 2026 年 1 月 1 日起至 2047 年 12 月 31 日止，共 22 年", problem: "租赁期限超过 20 年。超过部分无效，承租方按 22 年做装修和投资，后两年可能没有合同保障。", law: "《民法典》第七百零五条：租赁期限不得超过二十年。超过二十年的，超过部分无效。", suggestion: "租期改为 20 年，到期是否续租另订合同。装修摊销按实际可执行的租期重算。", template: "租赁期限为 20 年，自 2026 年 1 月 1 日起至 2045 年 12 月 31 日止。期限届满后续租的，双方另订书面合同。" },
+          { title: "提前解约只约束承租方", loc: "第十六条 解除", quote: "承租方提前退租的，已付租金和押金不予退还；出租方可以随时收回房屋", problem: "承租方违约要损失全部押金和已付租金，出租方却可以随时收房。权利义务明显不对等，经营中断的损失没有约定由谁承担。", law: "《民法典》合同编要求当事人遵循公平原则确定各方权利义务。解除条件明显只约束一方的，争议中可能被调整。", suggestion: "双方提前解约都要提前 90 日书面通知。因出租方原因解约的，退还押金并补偿剩余租期内未摊销的装修。", template: "任何一方提前解除，应提前 90 日书面通知。因出租方原因解除的，出租方退还押金，并按剩余租期补偿已审批装修的未摊销费用。" }
+        ],
+        general: [
+          { loc: "第九条 维修", quote: "房屋及附属设施的全部维修由承租方负责", problem: "主体结构、屋顶防水也交给承租方", type: "责任过重", explain: "自然损耗和主体结构维修通常由出租方承担。全部推给承租方，会把房屋本身的缺陷转成经营成本。" },
+          { loc: "第十一条 转租", quote: "未经出租方书面同意，承租方不得转租，否则出租方有权立即收回", problem: "没有约定同意的期限，也没有区分整体转租和联营", type: "权利受限", explain: "餐饮门店常见品牌联营。建议约定出租方在收到书面申请后 15 日不答复的视为同意，并允许在不改变用途时设立联营。" },
+          { loc: "第十三条 押金", quote: "合同终止后，出租方有权决定是否退还押金", problem: "退还条件和期限都没有写", type: "条款含糊", explain: "应约定交房并结清费用后 15 日内无息退还。可以扣除的只限欠付租金、经确认的维修费和水电费。" },
+          { loc: "第七条 用途", quote: "房屋用于商业使用", problem: "没有写明餐饮，也没有消防和排污条件", type: "用途过宽", explain: "应写明用于餐饮经营，出租方保证房屋可以办理相应证照。不能办证时，承租方有权解除并要求退还押金。" }
+        ],
+        formats: [
+          { loc: "面积", from: "建筑面积约 320 平方米", to: "建筑面积 320.00 平方米，以不动产权证记载为准", explain: "“约”字会使租金单价和免租计算没有基数。" },
+          { loc: "日期", from: "2026.1.1", to: "2026年1月1日", explain: "起租日写法不统一，和付款日的“每月5日”放在一起时容易算错账期。" }
+        ],
+        missing: ["房屋权属和抵押情况", "优先承租权", "装修报批和恢复原状的范围"],
+        attention: [
+          "租期 22 年超过法定上限。签署前应改到 20 年以内，并按可执行租期重算装修摊销。",
+          "维修、转租、押金和单方收房四条都偏向出租方。承租方至少要补上主体维修、押金退还期限和出租方违约解约的补偿。",
+          "用途应明确为餐饮，并写清办不成证照时的解除和退款。",
+          "本报告供承租方改合同使用，不构成法律意见。涉及消防、食品经营许可的，建议同时核对主管部门的办理条件。"
+        ]
+      };
+    }
+
+    function samplePurchaseContract(name, role) {
+      return {
+        name: name,
+        type: "买卖合同",
+        role: role,
+        parties: "采购方：东海装备股份有限公司；供应商：甬江精密制造有限公司",
+        amount: "框架协议，单批订单以订单确认书为准，年度预估采购额人民币 6,000,000 元",
+        summary: "本报告按" + role + "视角审查设备采购框架协议。协议本身没有写死每一批的数量，真正约束履约的是质量标准、付款节点、所有权转移和违约责任。现有文本把质量写成“合格”，付款在“货到”和“验收后 180 天”之间互相冲突，所有权何时转移也不清楚。下列内容供下单前改框架协议。",
+        key: [
+          { title: "质量标准不能执行", loc: "第六条 质量", quote: "货物质量以合格为准，具体标准由供应商掌握", problem: "没有国家标准、图纸或样品。到货后是否合格由供应商自己判断，采购方很难拒收。", law: "《民法典》第五百一十一条：质量要求不明确的，按照强制性国家标准履行；没有强制性国家标准的，按照推荐性国家标准履行。合同仍应尽量写明适用标准。", suggestion: "写明适用的国家标准和双方确认的图纸、技术协议。不符合的，采购方可以拒收，修理或更换的费用和工期由供应商承担。", template: "货物应符合双方确认的技术协议、图纸及现行国家标准。不符合的，采购方有权拒收，供应商应在 10 日内免费更换。" },
+          { title: "争议机构名称不存在", loc: "第二十条 争议解决", quote: "提交中国国际商会海事仲裁院宁波分院仲裁", problem: "该名称不是可以核验的仲裁机构。机构不存在时，仲裁约定无法履行，争议仍要重新确定管辖。", law: "仲裁协议应当选定明确的仲裁委员会。选定的仲裁机构不存在，又达不成补充协议的，仲裁协议无效。", suggestion: "改成真实机构的全称，例如宁波仲裁委员会，或约定由采购方所在地法院管辖。不要自拟机构名称。", template: "因本协议引起的争议，协商不成的，提交宁波仲裁委员会仲裁。" }
+        ],
+        general: [
+          { loc: "第八条 付款", quote: "货到付款；全部货款在验收合格后 180 日内支付", problem: "货到付款和验收后 180 日不能同时成立", type: "前后矛盾", explain: "供应商会按货到主张付款，采购方会按验收后 180 日主张。应改成：验收合格后 30 日内支付 95%，质保金 5% 在质保期满后支付。" },
+          { loc: "第十条 风险和所有权", quote: "货物交付后风险转移，所有权在付款后转移", problem: "未付清款时货物已在采购方车间，所有权仍写供应商", type: "履行困难", explain: "安装、投保和被第三方主张权利时，权属和风险对不上。若需要保留所有权，应写明未付款前不得转让，并约定风险自签收时转移。" },
+          { loc: "第十二条 违约", quote: "供应商迟延交货无需承担责任；采购方逾期付款按日万分之五计息", problem: "违约责任只约束采购方", type: "责任不对等", explain: "迟延交货影响产线时没有违约金。建议双方迟延都按日万分之三计算，累计不超过该批货款的 10%。" },
+          { loc: "第十四条 验收", quote: "到货即视为验收合格", problem: "没有开箱检验和隐蔽缺陷期限", type: "验收缺失", explain: "设备安装后才能发现的缺陷会被“到货合格”挡住。建议到货检验外观，安装调试后 15 日内完成性能验收，隐蔽缺陷在质保期内仍可主张。" }
+        ],
+        formats: [
+          { loc: "订单号", from: "订单编号：PO-2026—001", to: "订单编号：PO-2026-001", explain: "破折号和连字符混用，对单时会当成两个编号。" },
+          { loc: "币种", from: "金额 600 万", to: "人民币 6,000,000 元", explain: "预估金额没有币种和分位，和订单确认书里的含税价不好核对。" },
+          { loc: "附件引用", from: "见附件", to: "见附件一《技术协议》", explain: "只写“见附件”时，技术协议是否已签署不清楚。" }
+        ],
+        missing: ["质保期和质保金比例", "备品备件和培训", "不可抗力后的工期顺延"],
+        attention: [
+          "质量标准和仲裁机构应在框架协议里写实。标准由供应商自定、仲裁机构无法核验的，不建议先下订单。",
+          "付款节点只保留一套：验收合格后分期支付，并单列不超过结算额 3% 至 5% 的质保金。",
+          "迟延交货和逾期付款的违约金写成同一口径，避免只约束采购方。",
+          "本报告供采购改稿和内部会签，不构成法律意见。单批金额较高或涉及进口部件时，建议法务按订单再看一次技术协议。"
+        ]
+      };
+    }
+
+    function sampleReview(name, role) {
+      if (/租赁|房屋/.test(name)) return sampleLeaseContract(name, role);
+      if (/采购|框架|设备/.test(name)) return samplePurchaseContract(name, role);
+      return sampleTechContract(name, role);
+    }
+
+    function reviewBodyText(model) {
+      var severe = model.key || [];
+      var medium = model.general || [];
+      var light = model.formats || [];
+      var tips = model.attention || [];
+      var severeHtml = severe.map(function (item, idx) {
+        return '<article class="cmp-diff"><h5>' + (idx + 1) + ". " + escapeHtml(item.title) + "</h5>" +
+          "<p>位置：" + escapeHtml(item.loc) + "</p>" +
+          "<p>原文：「" + escapeHtml(item.quote) + "」</p>" +
+          "<p>问题：" + escapeHtml(item.problem) + "</p>" +
+          "<p>法律依据：" + escapeHtml(item.law) + "</p>" +
+          "<p>修改建议：" + escapeHtml(item.suggestion) + "</p>" +
+          "<p>推荐范本：" + escapeHtml(item.template) + "</p></article>";
+      }).join("") || '<p class="cmp-prose">未发现可能导致合同无效、成果不能使用或争议无法处理的严重风险。</p>';
+      var mediumHtml = medium.map(function (item, idx) {
+        return '<article class="cmp-diff"><h5>' + (idx + 1) + ". " + escapeHtml(item.type) + "</h5>" +
+          "<p>位置：" + escapeHtml(item.loc) + "</p>" +
+          "<p>原文：「" + escapeHtml(item.quote) + "」</p>" +
+          "<p>问题：" + escapeHtml(item.problem) + "</p>" +
+          "<p>修改建议：" + escapeHtml(item.explain) + "</p></article>";
+      }).join("") || '<p class="cmp-prose">未发现会在付款、验收或违约时产生明显分歧的中等风险。</p>';
+      var lightHtml = light.map(function (item, idx) {
+        return '<article class="cmp-diff"><h5>' + (idx + 1) + ". " + escapeHtml(item.loc) + "</h5>" +
+          "<p>位置：" + escapeHtml(item.loc) + "</p>" +
+          "<p>问题：现为「" + escapeHtml(item.from) + "」。" + escapeHtml(item.explain) + "</p>" +
+          "<p>修改建议：改为「" + escapeHtml(item.to) + "」。</p></article>";
+      }).join("") || '<p class="cmp-prose">未发现需要单独修改的一般风险。</p>';
+      var tipHtml = tips.map(function (text) { return "<li>" + escapeHtml(text) + "</li>"; }).join("");
+      var missing = (model.missing || []).map(function (text) { return "<li>" + escapeHtml(text) + "</li>"; }).join("");
+      var suggestItems = severe.map(function (item) {
+        return { loc: item.loc, title: item.title, text: item.suggestion };
+      }).concat(medium.map(function (item) {
+        return { loc: item.loc, title: item.type, text: item.explain };
+      }));
+      var suggestHtml = suggestItems.map(function (item, idx) {
+        return "<li><strong>" + escapeHtml(item.loc) + " " + escapeHtml(item.title) + "</strong>：" + escapeHtml(item.text) + "</li>";
+      }).join("");
+      var laws = [];
+      severe.forEach(function (item) {
+        if (item.law && laws.indexOf(item.law) < 0) laws.push(item.law);
+      });
+      var lawHtml = laws.map(function (text) { return "<li>" + escapeHtml(text) + "</li>"; }).join("");
+      return '<section class="cmp-sec" id="revSecInfo"><h4>一、基本信息</h4><dl class="cmp-meta">' +
+        "<dt>合同名称</dt><dd>" + escapeHtml(model.name) + "</dd>" +
+        "<dt>合同类型</dt><dd>" + escapeHtml(model.type) + "</dd>" +
+        "<dt>审查视角</dt><dd>" + escapeHtml(model.role) + "</dd>" +
+        "<dt>审查日期</dt><dd>2026年10月12日</dd>" +
+        "<dt>合同主体</dt><dd>" + escapeHtml(model.parties) + "</dd>" +
+        "<dt>合同金额</dt><dd>" + escapeHtml(model.amount) + "</dd></dl>" +
+        '<p class="cmp-prose">' + escapeHtml(model.summary) + "</p></section>" +
+        '<section class="cmp-sec" id="revSecOverview"><h4>二、风险概况</h4><div class="cmp-table-wrap"><table class="cmp-table"><thead><tr><th>等级</th><th>数量</th></tr></thead><tbody>' +
+        "<tr><td>严重</td><td>" + severe.length + " 项</td></tr>" +
+        "<tr><td>中等</td><td>" + medium.length + " 项</td></tr>" +
+        "<tr><td>一般</td><td>" + light.length + " 项</td></tr>" +
+        "<tr><td>提示</td><td>" + tips.length + " 项</td></tr></tbody></table></div>" +
+        '<p class="cmp-prose">严重风险优先改。中等风险影响付款、验收或违约计算。一般风险主要是编号、称谓、标点和引用，不单独决定能不能签，但应在用印稿里改齐。</p></section>' +
+        '<section class="cmp-sec" id="revSecSevere"><h4>三、严重风险</h4><p class="cmp-prose">下列条款可能导致约定无法履行、成果不能使用，或争议发生后不能按合同处理。每条保留原文，并给出法律依据和可直接替换的表述。</p>' + severeHtml + "</section>" +
+        '<section class="cmp-sec" id="revSecMid"><h4>四、中等风险</h4><p class="cmp-prose">下列条款通常不会使整份合同无效，但会在履行中产生金额、期限或责任分歧。建议在签署前写进正文，不要留到另行协商。</p>' + mediumHtml + "</section>" +
+        '<section class="cmp-sec" id="revSecLight"><h4>五、一般风险</h4><p class="cmp-prose">下列问题不改变已经写明的主要权利义务，但会影响条款引用、对账和签署版是否一致。</p>' + lightHtml + "</section>" +
+        '<section class="cmp-sec" id="revSecTip"><h4>六、特别提示</h4><ol class="cmp-notes">' + (tipHtml || "<li>除上述风险外，未发现需要单独提示的事项。</li>") + "</ol></section>" +
+        '<section class="cmp-sec" id="revSecMiss"><h4>七、缺失条款清单</h4><ul class="cmp-notes">' + (missing || "<li>未发现明显缺失的必备条款。</li>") + "</ul>" +
+        '<p class="cmp-prose">缺失条款不是已经写错，而是合同里还没有。补上之后再进入用印，避免履行时没有依据。</p></section>' +
+        '<section class="cmp-sec" id="revSecSuggest"><h4>八、修改建议汇总</h4><p class="cmp-prose">按合同中的条款位置排列，便于对照原文改稿。</p><ol class="cmp-notes">' + (suggestHtml || "<li>暂无需要汇总的修改建议。</li>") + "</ol></section>" +
+        '<section class="cmp-sec" id="revSecLaw"><h4>九、法规依据</h4><p class="cmp-prose">引用法规按 2026 年仍现行有效的文本理解。法律修订后，对应建议需要重新核对。</p><ul class="cmp-notes">' + (lawHtml || "<li>本份合同未单独引用强制性法条。</li>") + "</ul></section>" +
+        '<section class="cmp-sec" id="revSecDisc"><h4>十、免责声明</h4><ul class="cmp-notes">' +
+        "<li>本报告由智能审查生成，仅供修改合同和内部会签参考，不构成法律意见。</li>" +
+        "<li>正式法律意见应由具备相应执业资格的律师出具。</li>" +
+        "<li>标的额超过 100 万元，或涉及核心商业利益、知识产权、股权和用工的合同，建议在用印前由执业律师复核。</li>" +
+        "<li>报告依据审查当日可以核对的法律法规。法律变更后，其中部分建议可能不再适用。</li></ul></section>";
+    }
+
+    function renderRevReport(model) {
+      var host = document.getElementById("revReport");
+      if (!host) return;
+      host.innerHTML = '<article class="cmp-card" id="revReportCard">' +
+        '<header class="cmp-head"><h3>合同审核报告</h3><div class="cmp-save-wrap"><button type="button" class="cmp-save" id="revSaveBtn" aria-label="保存" title="保存" aria-expanded="false" aria-haspopup="true"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4z" fill="none" stroke="#000" stroke-width="1.8"/><path d="M7 3v6h8" fill="none" stroke="#000" stroke-width="1.8"/><path d="M7 21v-7h10v7" fill="none" stroke="#000" stroke-width="1.8"/></svg></button><div class="cmp-save-menu" id="revSaveMenu" hidden><button type="button" data-save="word">保存为 Word</button><button type="button" data-save="pdf">保存为 PDF</button></div></div></header>' +
+        '<div class="cmp-doc"><nav class="cmp-toc" aria-label="报告目录"><div class="cmp-toc-title">目录</div><button type="button" class="on" data-toc="revSecInfo">一、基本信息</button><button type="button" data-toc="revSecOverview">二、风险概况</button><button type="button" data-toc="revSecSevere">三、严重风险</button><button type="button" data-toc="revSecMid">四、中等风险</button><button type="button" data-toc="revSecLight">五、一般风险</button><button type="button" data-toc="revSecTip">六、特别提示</button><button type="button" data-toc="revSecMiss">七、缺失条款清单</button><button type="button" data-toc="revSecSuggest">八、修改建议汇总</button><button type="button" data-toc="revSecLaw">九、法规依据</button><button type="button" data-toc="revSecDisc">十、免责声明</button></nav>' +
+        '<div class="cmp-editor-col"><div class="cmp-toolbar" aria-label="正文格式"><button type="button" data-cmd="bold" title="加粗"><b>B</b></button><button type="button" data-cmd="italic" title="斜体"><i>I</i></button><button type="button" data-cmd="underline" title="下划线"><u>U</u></button><button type="button" data-cmd="insertUnorderedList" title="列表">列表</button></div>' +
+        '<div class="cmp-editor" id="revEditor" contenteditable="true" spellcheck="false">' + reviewBodyText(model) + "</div></div></div></article>";
+    }
+
+    function showRevRecord(item) {
+      if (!item) return;
+      revActiveHist = item.id;
+      revFile = { name: item.file, size: 120400, type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
+      refreshRevSlot();
+      renderRevReport(sampleReview(item.file, item.role));
+      renderRevHist();
+      var report = document.getElementById("revReport");
+      if (report) report.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function rememberRev(name) {
+      var found = revHistory.filter(function (item) { return item.file === name; })[0];
+      if (found) {
+        revActiveHist = found.id;
+      } else {
+        var id = "r-" + Date.now();
+        revHistory.unshift({ id: id, title: name.replace(/\.[^.]+$/, ""), file: name, type: "上传合同", role: "甲方", when: "刚刚" });
+        revActiveHist = id;
+      }
+      renderRevHist();
+    }
+
+    function initReviewPanel() {
+      var input = document.getElementById("revFile");
+      var drop = document.getElementById("revDrop");
+      var pick = document.getElementById("revPick");
+      var clearBtn = document.getElementById("revClear");
+      var run = document.getElementById("revRun");
+      var report = document.getElementById("revReport");
+      function openPicker() { if (input) input.click(); }
+      if (pick) pick.addEventListener("click", openPicker);
+      if (clearBtn) clearBtn.addEventListener("click", function () {
+        if (input) input.value = "";
+        revFile = null;
+        revActiveHist = "";
+        refreshRevSlot();
+        renderRevHist();
+      });
+      if (drop) {
+        drop.addEventListener("click", openPicker);
+        drop.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPicker(); }
+        });
+        ["dragenter", "dragover"].forEach(function (name) {
+          drop.addEventListener(name, function (e) {
+            e.preventDefault();
+            drop.classList.add("drag");
+          });
+        });
+        ["dragleave", "drop"].forEach(function (name) {
+          drop.addEventListener(name, function (e) {
+            e.preventDefault();
+            drop.classList.remove("drag");
+          });
+        });
+        drop.addEventListener("drop", function (e) {
+          var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+          if (file) { revFile = file; refreshRevSlot(); }
+        });
+      }
+      if (input) input.addEventListener("change", function () {
+        var file = input.files && input.files[0];
+        if (file) { revFile = file; refreshRevSlot(); }
+      });
+      if (run) run.addEventListener("click", function () {
+        if (!revFile) return;
+        run.disabled = true;
+        run.textContent = "正在审核…";
+        var file = revFile;
+        window.setTimeout(function () {
+          renderRevReport(sampleReview(file.name, "甲方"));
+          rememberRev(file.name);
+          if (report) report.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          run.disabled = false;
+          run.textContent = "开始审核";
+        }, 280);
+      });
+      if (report) {
+        report.addEventListener("mousedown", function (e) {
+          if (e.target.closest("[data-cmd]")) e.preventDefault();
+        });
+        report.addEventListener("click", function (e) {
+          var tocBtn = e.target.closest("[data-toc]");
+          if (tocBtn) {
+            var target = document.getElementById(tocBtn.getAttribute("data-toc"));
+            report.querySelectorAll("[data-toc]").forEach(function (el) { el.classList.toggle("on", el === tocBtn); });
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
+          var cmdBtn = e.target.closest("[data-cmd]");
+          if (cmdBtn) {
+            document.execCommand(cmdBtn.getAttribute("data-cmd"), false, null);
+            var editor = document.getElementById("revEditor");
+            if (editor) editor.focus();
+            return;
+          }
+          var menu = document.getElementById("revSaveMenu");
+          var saveBtn = e.target.closest("#revSaveBtn");
+          if (saveBtn && menu) {
+            var open = menu.hidden;
+            menu.hidden = !open;
+            saveBtn.setAttribute("aria-expanded", open ? "true" : "false");
+            return;
+          }
+          var item = e.target.closest("[data-save]");
+          if (!item) return;
+          if (menu) menu.hidden = true;
+          var btn = document.getElementById("revSaveBtn");
+          if (btn) btn.setAttribute("aria-expanded", "false");
+          if (item.getAttribute("data-save") === "word") saveReportWord("revEditor", "合同审核报告", "合同审核报告.doc");
+          else saveReportPdf("revEditor", "合同审核报告", "合同审核报告.pdf");
+        });
+      }
+      var demoBtn = document.getElementById("revLoadDemo");
+      if (demoBtn) demoBtn.addEventListener("click", function () { showRevRecord(revHistory[0]); });
+      var histList = document.getElementById("revHistList");
+      if (histList) histList.addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-rev-hist]");
+        if (!btn) return;
+        var item = revHistory.filter(function (row) { return row.id === btn.getAttribute("data-rev-hist"); })[0];
+        showRevRecord(item);
+      });
+      renderRevHist();
+    }
+
+    document.addEventListener("click", function (e) {
+      if (e.target.closest(".cmp-save-wrap")) return;
+      ["cmpSaveMenu", "revSaveMenu"].forEach(function (id) {
+        var menu = document.getElementById(id);
+        if (menu) menu.hidden = true;
+      });
+      ["cmpSaveBtn", "revSaveBtn"].forEach(function (id) {
+        var btn = document.getElementById(id);
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
+    });
+    initComparePanel();
+    initReviewPanel();
 
     function closeQaWriteEmbed() {
       document.body.classList.remove("qa-write-mode");
@@ -5784,13 +7203,15 @@
       var tagEl = document.getElementById("skillTag");
       var nameEl = document.getElementById("skillTagName");
       var ag = AGENTS[state.agent];
-      if (ag) {
-        agentsEl.classList.add("hidden");
+      var name = state.skillName || (ag && ag.name);
+      if (name) {
+        if (agentsEl) agentsEl.classList.add("hidden");
         tagEl.classList.add("show");
-        nameEl.textContent = ag.name;
-        hintEl.innerHTML = "当前能力：<strong>" + escapeHtml(ag.name) + "</strong>（" + escapeHtml(ag.intent) + "）";
+        nameEl.textContent = name;
+        if (ag && !state.skillName) hintEl.innerHTML = "当前能力：<strong>" + escapeHtml(ag.name) + "</strong>（" + escapeHtml(ag.intent) + "）";
+        else hintEl.textContent = "";
       } else {
-        agentsEl.classList.remove("hidden");
+        if (agentsEl) agentsEl.classList.remove("hidden");
         tagEl.classList.remove("show");
         nameEl.textContent = "";
         hintEl.textContent = "";
@@ -5799,6 +7220,7 @@
 
     function setAgent(key, silent) {
       state.agent = key || null;
+      state.skillName = null;
       syncSkillTag();
       if (!silent && key && AGENTS[key]) toast("已选择「" + AGENTS[key].name + "」");
     }
@@ -5812,9 +7234,11 @@
       state.chatting = false;
       state.activeHist = null;
       state.agent = null;
+      state.skillName = null;
       state.attachments = [];
       app.classList.remove("chatting");
       chatEl.innerHTML = "";
+      stopReportTyper();
       syncSkillTag();
       renderHist();
       renderAttachChips();
@@ -5822,6 +7246,34 @@
       closeArchivePicker();
       inputEl.value = "";
       inputEl.focus();
+    }
+
+    function qaScrollEl() {
+      return document.querySelector("#qaMain .main-scroll");
+    }
+
+    function pinLatestQuestion() {
+      var scroll = qaScrollEl();
+      if (!scroll || !chatEl) return;
+      var rows = chatEl.querySelectorAll(".msg-row.user");
+      var row = rows[rows.length - 1];
+      if (!row) return;
+      chatEl.style.minHeight = "0px";
+      var target = scroll.scrollTop + (row.getBoundingClientRect().top - scroll.getBoundingClientRect().top);
+      var guard = 0;
+      while (guard < 4) {
+        guard += 1;
+        if (target < 0) target = 0;
+        var maxScroll = Math.max(0, scroll.scrollHeight - scroll.clientHeight);
+        if (target > maxScroll + 1) {
+          var extra = Math.ceil(target - maxScroll);
+          chatEl.style.minHeight = Math.ceil(chatEl.getBoundingClientRect().height + extra) + "px";
+        }
+        scroll.scrollTop = target;
+        var gap = row.getBoundingClientRect().top - scroll.getBoundingClientRect().top;
+        if (Math.abs(gap) < 2) break;
+        target = scroll.scrollTop + gap;
+      }
     }
 
     function appendUser(text, attachments) {
@@ -5855,7 +7307,6 @@
       el.innerHTML = '<span class="st"><i class="spin"></i></span><span class="ttl"></span>';
       el.querySelector(".ttl").textContent = title;
       bd.appendChild(el);
-      chatEl.parentElement.scrollTop = chatEl.parentElement.scrollHeight;
       return el;
     }
     function finishThinkRow(el, title, sub) {
@@ -5973,7 +7424,6 @@
         el.textContent = shown;
         if (caret.parentNode) caret.parentNode.removeChild(caret);
         el.appendChild(caret);
-        if (chatEl.parentElement) chatEl.parentElement.scrollTop = chatEl.parentElement.scrollHeight;
       }
       function settle() {
         while (waiters.length) waiters.shift()();
@@ -6101,15 +7551,164 @@
       });
     }
 
+    var reportTypeTimer = null;
+    var reportThinkTimers = [];
+
+    function stopReportTyper() {
+      if (reportTypeTimer) {
+        clearTimeout(reportTypeTimer);
+        reportTypeTimer = null;
+      }
+      reportThinkTimers.forEach(function (id) { clearTimeout(id); });
+      reportThinkTimers = [];
+    }
+
+    function playReportThink(root, kind, done) {
+      var steps = kind === "review"
+        ? ["结构化解析", "风险审查", "交叉验证", "生成审查报告"]
+        : ["执行差异分析", "分级与分类", "输出报告"];
+      var bd = root.querySelector("[data-think-bd]");
+      var hd = root.querySelector(".think-hd");
+      var label = root.querySelector(".think-label");
+      var index = 0;
+      var gap = Math.floor(720 / steps.length);
+      function next() {
+        if (!root.isConnected) return;
+        if (index >= steps.length) {
+          hd.classList.add("done");
+          label.textContent = steps[steps.length - 1];
+          done();
+          return;
+        }
+        var title = steps[index];
+        index += 1;
+        label.textContent = title;
+        var row = addThinkRow(bd, title);
+        reportThinkTimers.push(setTimeout(function () {
+          finishThinkRow(row, title);
+          next();
+        }, gap));
+      }
+      next();
+    }
+
+    function compareDemoHtml() {
+      var editor = document.getElementById("cmpEditor");
+      if (editor && editor.innerHTML.replace(/\s/g, "")) return editor.innerHTML;
+      var item = cmpHistory[0];
+      return reportBodyText(sampleReport(item.nameA, item.nameB));
+    }
+
+    function reviewDemoHtml() {
+      var editor = document.getElementById("revEditor");
+      if (editor && editor.innerHTML.replace(/\s/g, "")) return editor.innerHTML;
+      var item = revHistory[0];
+      return reviewBodyText(sampleReview(item.file, item.role));
+    }
+
+    function followReportCaret(caret) {
+      var scroll = qaScrollEl();
+      if (!scroll || !caret) return;
+      var c = caret.getBoundingClientRect();
+      var s = scroll.getBoundingClientRect();
+      if (c.bottom > s.bottom - 28) scroll.scrollTop += c.bottom - (s.bottom - 28);
+    }
+
+    function typeReportHtml(host, html) {
+      stopReportTyper();
+      var src = document.createElement("div");
+      src.innerHTML = html || "";
+      host.innerHTML = "";
+      var caret = document.createElement("span");
+      caret.className = "answer-caret";
+      var nodes = [];
+      function collect(node) {
+        Array.prototype.forEach.call(node.childNodes, function (child) {
+          if (child.nodeType === 3) {
+            var text = child.nodeValue || "";
+            for (var i = 0; i < text.length; i++) nodes.push({ kind: "ch", ch: text.charAt(i) });
+          } else if (child.nodeType === 1) {
+            nodes.push({ kind: "open", el: child });
+            collect(child);
+            nodes.push({ kind: "close" });
+          }
+        });
+      }
+      collect(src);
+      var stack = [host];
+      var index = 0;
+      function placeCaret() {
+        stack[stack.length - 1].appendChild(caret);
+      }
+      function step() {
+        if (!host.isConnected) {
+          reportTypeTimer = null;
+          return;
+        }
+        var budget = 10;
+        while (budget && index < nodes.length) {
+          var node = nodes[index];
+          index += 1;
+          if (node.kind === "open") {
+            var clone = node.el.cloneNode(false);
+            clone.removeAttribute("id");
+            stack[stack.length - 1].appendChild(clone);
+            stack.push(clone);
+          } else if (node.kind === "close") {
+            if (stack.length > 1) stack.pop();
+          } else {
+            stack[stack.length - 1].appendChild(document.createTextNode(node.ch));
+            budget -= 1;
+          }
+        }
+        placeCaret();
+        followReportCaret(caret);
+        if (index < nodes.length) reportTypeTimer = setTimeout(step, 12);
+        else {
+          if (caret.parentNode) caret.remove();
+          reportTypeTimer = null;
+        }
+      }
+      step();
+    }
+
     function appendThinkingReply(question, agentKey, qid, attachments) {
       var ag = AGENTS[agentKey] || null;
       var pack = resolvePack(qid, agentKey, question);
+      var bid = "bot-" + Date.now();
+      if (pack.typeReport) {
+        stopReportTyper();
+        chatEl.insertAdjacentHTML("beforeend",
+          '<div class="msg-row bot" id="' + bid + '"><div class="msg-ava">助</div><div class="bubble report-bubble">' +
+          '<div class="think-box" data-think="1">' +
+            '<button type="button" class="think-hd" data-think-toggle="1"><i class="dot"></i><span class="think-label">正在处理</span><span class="chev">▾</span></button>' +
+            '<div class="think-bd" data-think-bd="1"></div>' +
+          '</div>' +
+          '<div class="answer-body" data-answer="1" style="display:none"></div></div></div>');
+        var reportRoot = document.getElementById(bid);
+        var reportHost = reportRoot.querySelector("[data-answer]");
+        var reportHtml = pack.typeReport === "review" ? reviewDemoHtml() : compareDemoHtml();
+        requestAnimationFrame(function () {
+          pinLatestQuestion();
+          playReportThink(reportRoot, pack.typeReport, function () {
+            reportHost.style.display = "block";
+            typeReportHtml(reportHost, reportHtml);
+          });
+        });
+        return;
+      }
+      if (pack.plainAnswer) {
+        chatEl.insertAdjacentHTML("beforeend",
+          '<div class="msg-row bot" id="' + bid + '"><div class="msg-ava">助</div><div class="bubble">' +
+          '<div class="answer-body" data-answer="1">' + (pack.html || "") + "</div></div></div>");
+        requestAnimationFrame(pinLatestQuestion);
+        return;
+      }
       var tag = pack.mode === "skill"
         ? '<div class="agent-tag">办公助手 · 政策解读 Skill · policy-interpret</div>'
         : (ag
           ? '<div class="agent-tag">办公助手 · ' + escapeHtml(ag.name) + " · " + escapeHtml(ag.intent) + "</div>"
           : '<div class="agent-tag">办公助手 · 自动理解意图</div>');
-      var bid = "bot-" + Date.now();
       chatEl.insertAdjacentHTML("beforeend",
         '<div class="msg-row bot" id="' + bid + '"><div class="msg-ava">助</div><div class="bubble">' + tag +
         '<div class="think-box" data-think="1">' +
@@ -6140,32 +7739,43 @@
         var doneLabel = pack.mode === "agent"
           ? "任务已执行完成"
           : (pack.mode === "skill" ? "政策解读已完成" : "查询与作答已完成");
+        if (pack.inlineDemo) {
+          label.textContent = pack.found || "已完成";
+          ans.style.display = "block";
+          ans.innerHTML = pack.html || "";
+          pinLatestQuestion();
+          return;
+        }
         if (pack.useFixedAnswer) {
           label.textContent = "正在生成结构化政策解读";
           playFixedAnswer(ans, pack).then(function () {
             label.textContent = doneLabel;
+            pinLatestQuestion();
           }).catch(function (err) {
             label.textContent = "解读文稿加载失败";
             toast(String(err.message || err));
             ans.style.display = "block";
             ans.innerHTML = pack.html || ("<p>" + escapeHtml(String(err.message || err)) + "</p>");
+            pinLatestQuestion();
           });
         } else {
           label.textContent = "正在连接 DeepSeek 生成回答";
           streamLlmAnswer(ans, question, agentKey, attachments || [], pack).then(function () {
             label.textContent = doneLabel;
+            pinLatestQuestion();
           }).catch(function (err) {
             label.textContent = "已回退到示意答案";
             toast(String(err.message || err));
             ans.style.display = "block";
             ans.innerHTML = pack.html || ("<p>" + escapeHtml(String(err.message || err)) + "</p>");
+            pinLatestQuestion();
           });
         }
-        chatEl.parentElement.scrollTop = chatEl.parentElement.scrollHeight;
       }
       if (pack.mode === "agent") playAgentTrace(bd, hd, label, ans, pack, finish);
       else if (pack.mode === "skill") playSkillTrace(bd, hd, label, ans, pack, finish);
       else playQaTrace(bd, hd, label, ans, pack, finish);
+      requestAnimationFrame(pinLatestQuestion);
     }
 
     function ask(q, agentKey, qid) {
@@ -6199,7 +7809,8 @@
       inputEl.focus();
     }
 
-    document.getElementById("agents").addEventListener("click", function (e) {
+    var agentsBox = document.getElementById("agents");
+    if (agentsBox) agentsBox.addEventListener("click", function (e) {
       var chip = e.target.closest(".agent-chip");
       if (!chip) return;
       e.preventDefault();
@@ -6212,27 +7823,71 @@
       inputEl.focus();
     });
 
+    var CAP_TAGS = {
+      archive: "馆藏知识问答",
+      policy: "制度政策查询",
+      process: "办事流程指引",
+      help: "系统使用说明",
+      research: "深度调研报告"
+    };
+    var CAP_AGENTS = { archive: "archive", policy: "policy", process: "process" };
+
+    function selectCapModule(id) {
+      state.skillName = CAP_TAGS[id] || "";
+      state.agent = CAP_AGENTS[id] || null;
+      syncSkillTag();
+      if (inputEl) inputEl.focus();
+    }
+
+    function openFeature(id) {
+      if (id === "write") openQaWriteEmbed();
+      else if (id === "compare") {
+        closeQaWriteEmbed();
+        setQaFeatActive("compare");
+      } else if (id === "review") {
+        closeQaWriteEmbed();
+        setQaFeatActive("review");
+      }
+    }
+
+    var HOME_DEMOS = {
+      archive: { q: "馆藏知识问答交互示例", agent: "archive", qid: "demoArchive" },
+      policy: { q: "制度政策查询交互示例", agent: "policy", qid: "demoPolicy" },
+      process: { q: "办事流程指引交互示例", agent: "process", qid: "demoProcess" },
+      help: { q: "系统使用说明交互示例", agent: "", qid: "demoHelp" },
+      write: { q: "智能撰写交互示例", agent: "writing", qid: "demoWrite" },
+      compare: { q: "文档比对交互示例", agent: "", qid: "demoCompare" },
+      review: { q: "合同审核交互示例", agent: "", qid: "demoReview" },
+      research: { q: "深度调研报告交互示例", agent: "", qid: "demoResearch" }
+    };
+
+    function runHomeDemo(id) {
+      var demo = HOME_DEMOS[id];
+      if (!demo) return;
+      setAgent(demo.agent || null, true);
+      ask(demo.q, demo.agent || null, demo.qid);
+    }
+
     document.getElementById("capGrid").addEventListener("click", function (e) {
-      var card = e.target.closest(".cap-card");
+      var card = e.target.closest("[data-demo]");
       if (!card) return;
-      if (card.id === "capGoWriting") { e.preventDefault(); if (window.App) App.setView("scene"); return; }
-      var key = card.getAttribute("data-agent");
-      var prompt = card.getAttribute("data-prompt");
-      var qid = card.getAttribute("data-qid") || "";
-      if (!key || !prompt) return;
       e.preventDefault();
-      setAgent(key, true);
-      ask(prompt, key, qid);
+      var id = card.getAttribute("data-demo");
+      if (id === "write" || id === "compare" || id === "review") {
+        openFeature(id);
+        return;
+      }
+      if (CAP_TAGS[id]) {
+        selectCapModule(id);
+        return;
+      }
+      runHomeDemo(id);
     });
 
     document.getElementById("guessList").addEventListener("click", function (e) {
-      var item = e.target.closest(".guess-q");
+      var item = e.target.closest("[data-demo]");
       if (!item) return;
-      var key = item.getAttribute("data-agent");
-      var qid = item.getAttribute("data-qid");
-      var text = (item.querySelector(".gq-txt") || item).textContent.trim();
-      setAgent(key, true);
-      ask(text, key, qid);
+      runHomeDemo(item.getAttribute("data-demo"));
     });
 
     document.getElementById("btnSend").onclick = function () { ask(inputEl.value); };
@@ -6266,12 +7921,11 @@
         }
         if (feat === "compare") {
           setQaFeatActive("compare");
-          toast("文档比对：原型示意，后续接入比对 Skill");
           return;
         }
         if (feat === "review") {
           setQaFeatActive("review");
-          toast("文档审核：原型示意，后续接入审核流程");
+          return;
         }
       });
     }
@@ -6353,6 +8007,19 @@
       }
       if (e.target.closest("[data-go-write]")) {
         if (window.App) App.setView("scene");
+        return;
+      }
+      var jump = e.target.closest("[data-jump]");
+      if (jump) {
+        var to = jump.getAttribute("data-jump");
+        if (to === "write") openQaWriteEmbed();
+        else if (to === "compare") {
+          closeQaWriteEmbed();
+          setQaFeatActive("compare");
+        } else if (to === "review") {
+          closeQaWriteEmbed();
+          setQaFeatActive("review");
+        }
         return;
       }
       var actBtn = e.target.closest("[data-act]");
