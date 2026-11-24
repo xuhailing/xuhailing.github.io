@@ -932,6 +932,7 @@
     .field-input { height: 40px; }
     .field-input:focus, .field-area:focus { border-color: #91caff; }
     .field-area { min-height: 72px; resize: vertical; }
+    #outlineAdjust { min-height: 180px; }
     .keyword-wrap {
       position: relative;
       display: flex;
@@ -1229,8 +1230,6 @@
     .outline-doc .lv2 { margin: 8px 0 6px; }
     .outline-doc .lv3 { margin: 4px 0 4px 28px; }
     .outline-doc .lv4 { margin: 2px 0 2px 56px; }
-    .outline-doc.collapsed .lv3,
-    .outline-doc.collapsed .lv4 { display: none; }
     .outline-side {
       background: #fff;
       border: 1px solid #eef1f6;
@@ -1239,18 +1238,6 @@
       display: flex;
       flex-direction: column;
       min-height: 560px;
-    }
-    .side-mark {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      border: 1px solid #e6eaf0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #1677ff;
-      margin-bottom: 8px;
     }
     .side-tabs { display: flex; gap: 18px; border-bottom: 1px solid #f0f0f0; margin-bottom: 14px; }
     .side-tabs button {
@@ -1269,16 +1256,6 @@
     .side-actions { display: flex; gap: 8px; margin-top: 8px; }
     .side-actions .btn { flex: 1; height: 36px; }
     .side-actions .btn-primary { background: #1677ff; }
-    .preview-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-top: 16px;
-      font-size: 12px;
-      color: rgba(0, 0, 0, .65);
-    }
-    .preview-row label { display: inline-flex; align-items: center; gap: 6px; }
     .scene-write {
       display: none;
       grid-template-columns: minmax(180px, 18%) minmax(0, 1fr) minmax(280px, 30%);
@@ -1609,6 +1586,8 @@
       gap: 4px;
       font-size: 13px;
     }
+    /* 智能办公全屏态不再提供「返回工作台」，永久隐藏 */
+    #btnQaBack, .btn-back[hidden] { display: none !important; }
     .btn-back:hover { border-color: var(--blue-300); color: var(--blue-500); background: var(--blue-50); }
 
     /* 智能办公功能入口 */
@@ -1618,6 +1597,7 @@
       gap: 6px;
       margin-top: 2px;
     }
+    .qa-feat[hidden] { display: none !important; }
     .qa-feat {
       width: 100%;
       display: flex;
@@ -2575,6 +2555,166 @@
       max-width: 880px;
       margin: 0 auto;
     }
+    .qa-stage {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+    }
+    .qa-stage-chat {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+    }
+    .qa-stage.doc-open .main-inner,
+    .qa-stage.doc-open .composer-inner { max-width: none; }
+    #viewQa .main.hist-mode .qa-stage,
+    #viewQa .main.cmp-mode .qa-stage,
+    #viewQa .main.rev-mode .qa-stage { display: none; }
+    .doc-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 240px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border: 1px solid #e6e8ee;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, .04);
+      text-align: left;
+      cursor: pointer;
+    }
+    .doc-card:hover { border-color: #b9d4ff; background: #f7faff; }
+    .doc-card-ico {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #2f6bff;
+      color: #fff;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .doc-card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.4;
+      word-break: break-all;
+    }
+    .research-doc {
+      display: none;
+      width: 48%;
+      min-width: 520px;
+      max-width: 820px;
+      flex-direction: column;
+      background: #f3f5f8;
+      border-left: 1px solid var(--line);
+      min-height: 0;
+    }
+    .research-doc.show { display: flex; }
+    .research-doc-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 48px;
+      padding: 0 12px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .research-doc-title {
+      flex: 1;
+      min-width: 0;
+      font-size: 14px;
+      font-weight: 650;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .research-doc-tabs { display: flex; gap: 4px; }
+    .research-doc-tabs button,
+    .research-doc-tool {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--ink-2);
+      font-size: 13px;
+    }
+    .research-doc-tabs button.on {
+      background: #eef4ff;
+      color: var(--blue-600);
+      font-weight: 650;
+    }
+    .research-doc-zoom { font-size: 12px; color: var(--ink-3); min-width: 40px; text-align: center; }
+    .research-doc-body {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: stretch;
+    }
+    .research-doc-toc {
+      width: 148px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--line);
+      background: #fff;
+      padding: 12px 8px 16px;
+      overflow: auto;
+    }
+    .research-doc-toc-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      padding: 0 8px;
+    }
+    .research-doc-toc button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.4;
+      background: none;
+      color: var(--ink-2);
+    }
+    .research-doc-toc button.on {
+      background: #f5f5f5;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .research-doc-scroll {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      overflow: auto;
+      padding: 20px 24px 40px;
+    }
+    .research-doc-paper {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #fff;
+      min-height: 100%;
+      padding: 36px 40px 64px;
+      box-shadow: 0 1px 4px rgba(15, 23, 42, .06);
+      outline: none;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--ink);
+    }
+    .research-doc-paper.typeset { font-family: "Songti SC", "SimSun", serif; }
+    .research-doc-paper h1 { font-size: 22px; text-align: center; margin: 0 0 18px; }
+    .research-doc-paper h2 { font-size: 16px; margin: 18px 0 8px; }
+    .research-doc-paper h4 { font-size: 15px; margin: 16px 0 8px; font-weight: 700; }
+    .research-doc-paper p { margin: 0 0 10px; }
+    .research-doc-paper table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 13px; }
+    .research-doc-paper th, .research-doc-paper td { border: 1px solid #d9d9d9; padding: 6px 8px; text-align: left; vertical-align: top; }
     .agents {
       display: flex;
       flex-wrap: wrap;
@@ -3263,7 +3403,7 @@
             <div class="sub">机关企事业 · 办公助手</div>
           </div>
         </div>
-        <button type="button" class="btn-back" id="btnQaBack">‹ 返回工作台</button>
+        <button type="button" class="btn-back" id="btnQaBack" hidden>‹ 返回工作台</button>
         <button type="button" class="btn-new" id="btnNewChat">＋ 新建对话</button>
         <nav class="qa-feats" id="qaFeats" aria-label="功能入口">
           <button type="button" class="qa-feat" data-feat="write">
@@ -3272,13 +3412,13 @@
               <span class="feat-name">智能撰写</span>
             </span>
           </button>
-          <button type="button" class="qa-feat" data-feat="compare">
+          <button type="button" class="qa-feat" data-feat="compare" hidden>
             <span class="feat-ico" aria-hidden="true">⧉</span>
             <span class="feat-txt">
               <span class="feat-name">文档比对</span>
             </span>
           </button>
-          <button type="button" class="qa-feat" data-feat="review">
+          <button type="button" class="qa-feat" data-feat="review" hidden>
             <span class="feat-ico" aria-hidden="true">✓</span>
             <span class="feat-txt">
               <span class="feat-name">合同审核</span>
@@ -3379,6 +3519,8 @@
           <div id="revHistList"></div>
         </aside>
       </div>
+      <div class="qa-stage" id="qaStage">
+      <div class="qa-stage-chat">
       <div class="main-scroll">
         <div class="main-inner">
           <div class="home-block" id="homeBlock">
@@ -3403,27 +3545,27 @@
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="process">
                 <div class="cap-title">办事流程指引</div>
-                <div class="cap-desc">在当前问答里按步骤说明材料、发起人和审批节点。</div>
+                <div class="cap-desc">材料清单、办理时限、审批环节、请假/用印/用车等高频办事问答</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="help">
-                <div class="cap-title">系统使用说明</div>
-                <div class="cap-desc">在当前问答里说明各功能入口和怎么开始一次办理。</div>
+                <div class="cap-title">智能办事</div>
+                <div class="cap-desc">打通OA、会议、差旅、财务报销系统，用户通过自然语言即可触发会议预定、报销申请等跨系统操作，实现「对话即办事」，减少多平台切换成本。</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="write">
                 <div class="cap-title">智能撰写</div>
-                <div class="cap-desc">识别写作意图后，进入智能撰写页面继续成稿。</div>
+                <div class="cap-desc">在当前问答里起草通知、请示、报告等文稿，按提示补全文种和要点。</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="compare">
                 <div class="cap-title">文档比对</div>
-                <div class="cap-desc">识别比对意图后，进入文档比对页面查看差异。</div>
+                <div class="cap-desc">在当前问答里对照两版材料，按提示补全原版、修改版和比对重点。</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="review">
                 <div class="cap-title">合同审核</div>
-                <div class="cap-desc">识别审核意图后，进入合同审核页面查看风险。</div>
+                <div class="cap-desc">在当前问答里做合同风险初审，按提示补全合同类型和关注点。</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="research">
                 <div class="cap-title">深度调研报告</div>
-                <div class="cap-desc">在当前问答里按主题整理发现、依据和建议。</div>
+                <div class="cap-desc">针对某一主题深度解析，并总结生成报告。</div>
               </button>
             </div>
 
@@ -3446,7 +3588,7 @@
                 </button>
                 <button type="button" class="guess-q" data-demo="help">
                   <span class="gq-mark">4</span>
-                  <span class="gq-txt">系统使用说明交互示例</span>
+                  <span class="gq-txt">智能办事交互示例</span>
                 </button>
                 <button type="button" class="guess-q" data-demo="write">
                   <span class="gq-mark">5</span>
@@ -3514,6 +3656,30 @@
           </div>
           <div class="agent-hint" id="agentHint"></div>
         </div>
+      </div>
+      </div>
+      <aside class="research-doc" id="researchDoc" aria-label="调研报告">
+        <div class="research-doc-bar">
+          <div class="research-doc-title" id="researchDocTitle">深度调研报告</div>
+          <div class="research-doc-tabs">
+            <button type="button" class="on" data-doc-tab="body">正文</button>
+            <button type="button" data-doc-tab="typeset">排版</button>
+          </div>
+          <button type="button" class="research-doc-tool" id="researchDocZoomOut" aria-label="缩小">−</button>
+          <span class="research-doc-zoom" id="researchDocZoom">100%</span>
+          <button type="button" class="research-doc-tool" id="researchDocZoomIn" aria-label="放大">+</button>
+          <button type="button" class="research-doc-tool" id="researchDocDownload">下载</button>
+          <button type="button" class="research-doc-tool" id="researchDocClose" aria-label="关闭">×</button>
+        </div>
+        <div class="research-doc-body">
+          <nav class="research-doc-toc" id="researchDocToc" aria-label="报告目录">
+            <div class="research-doc-toc-title">目录</div>
+          </nav>
+          <div class="research-doc-scroll" id="researchDocScroll">
+            <div class="research-doc-paper" id="researchDocPaper" contenteditable="true" spellcheck="false"></div>
+          </div>
+        </div>
+      </aside>
       </div>
     </section>
   </div>
@@ -3642,34 +3808,14 @@
                 <article class="outline-doc" id="outlineDoc" aria-label="大纲文档"></article>
               </div>
               <aside class="outline-side" aria-label="大纲调整">
-                <div class="side-mark" title="对话">话</div>
-                <div class="side-tabs">
-                  <button type="button" class="on" data-tab="global">全局设置</button>
-                  <button type="button" data-tab="para">段落设置</button>
-                </div>
                 <div class="side-pane" id="outlineTabGlobal">
                   <h4>快速修改大纲</h4>
-                  <p class="side-tip">选择参考文档调整大纲结果，或者直接输入调整需求 <button type="button" class="linkish" id="btnAddDoc">添加文稿</button></p>
                   <div class="field-label">调整要求</div>
                   <textarea class="field-area" id="outlineAdjust" placeholder="如：综合分析所有文稿的整体结构，识别并合并具有相同主题或内容的段落，去除重复信息，最终生成一份逻辑清晰、层级分明的新大纲。新大纲需反映整合后的核心内容主题及其层级关系。"></textarea>
                   <div class="outline-chat" id="outlineChat"></div>
                   <div class="side-actions">
-                    <button type="button" class="btn btn-default" id="btnQuickFill">快速录入</button>
-                    <button type="button" class="btn btn-primary" id="btnGenOutlineDoc">生成大纲</button>
+                    <button type="button" class="btn btn-primary" id="btnGenOutlineDoc">重新生成大纲</button>
                   </div>
-                  <div class="preview-row">
-                    <label><input type="radio" name="outlinePreview" checked /> 段落设置预览模式</label>
-                    <div class="seg">
-                      <button type="button" id="btnExpandDoc" class="on">默认展开</button>
-                      <button type="button" id="btnCollapseDoc">默认收起</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="side-pane hidden" id="outlineTabPara">
-                  <h4>段落设置</h4>
-                  <p class="side-tip">点选中间文档中的某一条，可在此说明该段怎么改。</p>
-                  <textarea class="field-area" id="paraAdjust" placeholder="例如：把这一条写得更具体，补充责任单位和完成时限。"></textarea>
-                  <button type="button" class="btn btn-primary" id="btnApplyPara">调整所选段落</button>
                 </div>
               </aside>
             </div>
@@ -4544,7 +4690,6 @@
         var writeSections = [];
         var pickedWrite = 0;
         var pickedPath = '';
-        var docExpanded = true;
 
         function nodeByPath(path) {
           var parts = String(path).split('.').map(Number);
@@ -4642,7 +4787,6 @@
           var useOutline = document.querySelector('#segOutline button.on').dataset.val === 'yes';
           if (!outlineTree.length) outlineTree = useOutline ? ((sceneName || '').indexOf('政府工作报告') >= 0 ? govTree() : genericTree()) : [];
           var doc = document.getElementById('outlineDoc');
-          doc.classList.toggle('collapsed', !docExpanded);
           if (!outlineTree.length) {
             doc.innerHTML = '<div class="od-line lv1" data-path="" contenteditable="true">未指定大纲。可在右侧输入调整要求后生成。</div>';
             outlineItems = [];
@@ -5209,16 +5353,6 @@
             el.classList.toggle('picked', el === line);
           });
         });
-        document.querySelectorAll('.side-tabs button').forEach(function (tab) {
-          tab.onclick = function () {
-            document.querySelectorAll('.side-tabs button').forEach(function (b) { b.classList.toggle('on', b === tab); });
-            document.getElementById('outlineTabGlobal').classList.toggle('hidden', tab.dataset.tab !== 'global');
-            document.getElementById('outlineTabPara').classList.toggle('hidden', tab.dataset.tab !== 'para');
-          };
-        });
-        document.getElementById('btnQuickFill').onclick = function () {
-          document.getElementById('outlineAdjust').value = '综合分析所有文稿的整体结构，识别并合并具有相同主题或内容的段落，去除重复信息，最终生成一份逻辑清晰、层级分明的新大纲。新大纲需反映整合后的核心内容主题及其层级关系。';
-        };
         document.getElementById('btnGenOutlineDoc').onclick = function () {
           var req = document.getElementById('outlineAdjust').value.trim();
           if (!req) {
@@ -5229,39 +5363,6 @@
           applyAdjust(req);
           pushChat('agent', '已按调整要求更新中间大纲，可继续修改表述，或再提一条要求。');
           document.getElementById('outlineAdjust').value = '';
-        };
-        document.getElementById('btnAddDoc').onclick = function () {
-          App.toast('添加文稿为示意入口，可直接在调整要求中说明');
-        };
-        document.getElementById('btnExpandDoc').onclick = function () {
-          docExpanded = true;
-          document.getElementById('btnExpandDoc').classList.add('on');
-          document.getElementById('btnCollapseDoc').classList.remove('on');
-          renderOutline();
-        };
-        document.getElementById('btnCollapseDoc').onclick = function () {
-          docExpanded = false;
-          document.getElementById('btnCollapseDoc').classList.add('on');
-          document.getElementById('btnExpandDoc').classList.remove('on');
-          renderOutline();
-        };
-        document.getElementById('btnApplyPara').onclick = function () {
-          var req = document.getElementById('paraAdjust').value.trim();
-          if (!pickedPath) {
-            App.toast('请先点选中间文档中的一条', 'warn');
-            return;
-          }
-          if (!req) {
-            App.toast('请输入该段的调整要求', 'warn');
-            return;
-          }
-          readOutlineInputs();
-          var node = nodeByPath(pickedPath);
-          if (node) node.text = node.text.replace(/（已调整）$/, '') + '（已调整）';
-          pushChat('user', '段落调整：' + req);
-          renderOutline();
-          pushChat('agent', '已调整所选段落。');
-          document.getElementById('paraAdjust').value = '';
         };
         render();
       },
@@ -5929,9 +6030,9 @@
       demoHelp: {
         inlineDemo: true,
         mode: "qa",
-        query: "正在识别意图：系统使用说明",
+        query: "正在识别意图：智能办事",
         found: "已在当前问答页完成",
-        html: "<p>识别到您的意图是系统使用说明。本次在当前问答页完成，不跳转其他功能。</p><ol><li>馆藏知识问答、制度政策查询、办事流程指引、系统使用说明、深度调研报告，点上方入口后在输入框标出模块，再在本页提问。</li><li>智能撰写、文档比对、合同审核可从上方入口直接进入；在猜你想问里点对应示例，回答里会给出跳转按钮。</li><li>需要带材料时，用输入框旁的加号从本地上传，或从档案库选择。</li></ol>"
+        html: "<p>识别到您的意图是智能办事。本次在当前问答页发起跨系统操作示意，不跳转其他页面。</p><p><strong>示例指令：</strong>帮我预约明天下午 2 点的会议室，并同步发起差旅报销草稿。</p><ol><li>会议系统：已匹配空闲会议室「三楼会议室 A」，时段 14:00–16:00，待你确认后写入日程。</li><li>OA：已预填会议通知草稿（主题、时间、地点），可一键提交审批。</li><li>财务报销：已按差旅规则生成报销申请草稿，发票与行程待补传。</li></ol><p>确认后即可在对话里继续改时间、加人、或直接提交，减少在 OA / 会议 / 报销多端来回切换。</p>"
       },
       demoWrite: {
         inlineDemo: true,
@@ -5960,9 +6061,9 @@
       demoResearch: {
         inlineDemo: true,
         mode: "qa",
-        query: "正在识别意图：深度调研报告",
-        found: "已在当前问答页完成",
-        html: "<p>识别到您的意图是深度调研报告。本次在当前问答页完成，不跳转其他功能。</p><p><strong>一、调研目的</strong></p><p>围绕给定主题，说明要回答的问题和材料范围。</p><p><strong>二、主要发现</strong></p><p>先写能够从材料中直接核对的事实，再写还缺哪类材料。</p><p><strong>三、建议</strong></p><p>按“先补材料、再下结论”排列。把调研主题和已有材料发过来，可以继续在本页把报告写完整。</p>"
+        query: "正在生成深度调研报告",
+        found: "合成",
+        html: ""
       }
     };
 
@@ -6072,6 +6173,7 @@
       setHistMainVisible(feat === "history");
       setCmpVisible(feat === "compare");
       setRevVisible(feat === "review");
+      if (feat) closeResearchDoc();
     }
 
     var cmpFiles = { a: null, b: null };
@@ -7198,6 +7300,23 @@
       archiveMaskEl.setAttribute("aria-hidden", "true");
     }
 
+    var DEFAULT_QA_PLACEHOLDER = "例如：帮我解读《山东省推进机关数字档案室建设实施方案》；也可先上传制度文件再提问";
+    var CAP_PLACEHOLDERS = {
+      "馆藏知识问答": "例如：帮我找【年度】关于【主题】的【文种，如会议纪要】；有档号可直接写【档号】",
+      "制度政策查询": "例如：【制度名称】里【事项】怎么规定？适用范围是什么？也可先上传制度文件再提问",
+      "办事流程指引": "例如：【请假/用印/用车】要准备哪些材料？审批环节怎么走？时限是多久？",
+      "智能办事": "例如：帮我预约【时间】的会议室，并同步发起【差旅/报销】申请；也可说「提交用印申请」",
+      "智能撰写": "请写一份【文种：通知/请示/报告】，标题是【 】，主送【 】，重点写【 】；有依据材料可先上传",
+      "文档比对": "请比对【原版：文件名或说明】和【修改版：文件名或说明】，重点看【条款/章节： 】；也可先上传两份文件",
+      "合同审核": "请审核这份【合同类型： 】，重点关注【付款/违约/知识产权等： 】；可先上传合同文件",
+      "深度调研报告": "例如：围绕【调研主题】写一份调研报告，范围是【时间/对象】，已有材料【】；可先上传材料"
+    };
+
+    function syncQaPlaceholder() {
+      if (!inputEl) return;
+      inputEl.placeholder = (state.skillName && CAP_PLACEHOLDERS[state.skillName]) || DEFAULT_QA_PLACEHOLDER;
+    }
+
     function syncSkillTag() {
       var agentsEl = document.getElementById("agents");
       var tagEl = document.getElementById("skillTag");
@@ -7216,6 +7335,7 @@
         nameEl.textContent = "";
         hintEl.textContent = "";
       }
+      syncQaPlaceholder();
     }
 
     function setAgent(key, silent) {
@@ -7239,6 +7359,7 @@
       app.classList.remove("chatting");
       chatEl.innerHTML = "";
       stopReportTyper();
+      closeResearchDoc();
       syncSkillTag();
       renderHist();
       renderAttachChips();
@@ -7592,6 +7713,33 @@
       next();
     }
 
+    function playResearchThink(root, done) {
+      var steps = ["解析", "档案检索", "事实消化", "提纲并等待确认", "分章撰写", "依据核对", "合成"];
+      var bd = root.querySelector("[data-think-bd]");
+      var hd = root.querySelector(".think-hd");
+      var label = root.querySelector(".think-label");
+      var index = 0;
+      var gap = Math.floor(980 / steps.length);
+      function next() {
+        if (!root.isConnected) return;
+        if (index >= steps.length) {
+          hd.classList.add("done");
+          label.textContent = "合成";
+          done();
+          return;
+        }
+        var title = steps[index];
+        index += 1;
+        label.textContent = title;
+        var row = addThinkRow(bd, title);
+        reportThinkTimers.push(setTimeout(function () {
+          finishThinkRow(row, title);
+          next();
+        }, gap));
+      }
+      next();
+    }
+
     function compareDemoHtml() {
       var editor = document.getElementById("cmpEditor");
       if (editor && editor.innerHTML.replace(/\s/g, "")) return editor.innerHTML;
@@ -7672,27 +7820,191 @@
       step();
     }
 
+    var researchDocs = {};
+    var researchDocZoom = 100;
+
+    function researchDocTitle(question) {
+      var title = String(question || "").replace(/交互示例/g, "").trim();
+      if (!title) title = "深度调研报告";
+      return title.length > 18 ? title.slice(0, 18) : title;
+    }
+
+    function researchNoteParas(topic) {
+      return "<p>主题：「" + escapeHtml(topic) + "」。</p>" +
+        "<p>范围：按本次提问先圈定。材料里没写明的时间、对象和边界，不自行补全。</p>" +
+        "<p>材料来源：只列本次已经提供、且能核对到原文的材料。</p>" +
+        "<p>方法或样本：只写材料里已经有的。材料没写的，不补调查方法和样本。</p>";
+    }
+
+    function researchBriefHtml(question) {
+      var topic = researchDocTitle(question);
+      return "<p><strong>调研说明</strong></p>" +
+        researchNoteParas(topic) +
+        "<p>详情请点击下方文档查看。</p>";
+    }
+
+    function researchDocHtml(question) {
+      var topic = researchDocTitle(question);
+      var heading = /调研/.test(topic) ? topic : topic + "调研报告";
+      return "<h1>" + escapeHtml(heading) + "</h1>" +
+        "<h2>一、调研说明</h2>" +
+        researchNoteParas(topic) +
+        "<h2>二、现状与事实</h2>" +
+        "<p>每条关键事实单独成段，并写上出处。核对不到出处的，不放在本节，改记入待补充清单。</p>" +
+        "<p>目前没有可核对的事实条目。</p>" +
+        "<h2>三、主要发现与问题</h2>" +
+        "<p>发现和问题只从上一节已经写出的事实里归纳。事实不够时，不另作判断。</p>" +
+        "<h2>四、原因分析</h2>" +
+        "<p>每条原因对应第三节里的一个问题。对不上问题的原因不写。</p>" +
+        "<h2>五、对策建议</h2>" +
+        "<p>每条建议对应前面已经写出的事实或问题。对不上的建议不写。</p>" +
+        "<h2>六、待补充清单</h2>" +
+        "<p>材料未写明的范围、缺少出处的事实，以及还不能下判断的问题、原因和建议，集中列在这里。</p>";
+    }
+
+    function compareBriefHtml() {
+      return "<p><strong>比对说明</strong></p>" +
+        "<p>已完成两版材料的差异分析，并按关键变更、一般变更、格式调整分级。</p>" +
+        "<p>本报告只描述差异，不判断哪一版有效。</p>" +
+        "<p>详情请点击下方文档查看。</p>";
+    }
+
+    function reviewBriefHtml() {
+      return "<p><strong>审核说明</strong></p>" +
+        "<p>已完成合同结构化解析、风险审查与交叉验证。</p>" +
+        "<p>高风险项需人工复核，AI 审查不能替代法务结论。</p>" +
+        "<p>详情请点击下方文档查看。</p>";
+    }
+
+    function mountDocCard(ans, title, html) {
+      if (!ans || ans.querySelector(".doc-card")) return;
+      var id = "rd-" + Date.now();
+      researchDocs[id] = { title: title, html: html };
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "doc-card";
+      btn.setAttribute("data-open-doc", id);
+      btn.innerHTML = '<span class="doc-card-ico" aria-hidden="true">W</span><span class="doc-card-name"></span>';
+      btn.querySelector(".doc-card-name").textContent = title + ".docx";
+      ans.appendChild(btn);
+    }
+
+    function mountResearchCard(ans, question) {
+      var title = researchDocTitle(question);
+      mountDocCard(ans, title, researchDocHtml(question));
+    }
+
+    function buildResearchDocToc() {
+      var toc = document.getElementById("researchDocToc");
+      var paper = document.getElementById("researchDocPaper");
+      var scroll = document.getElementById("researchDocScroll");
+      if (!toc || !paper) return;
+      var heads = paper.querySelectorAll("h2, .cmp-sec > h4, section > h4");
+      if (!heads.length) heads = paper.querySelectorAll("h2, h4");
+      toc.innerHTML = '<div class="research-doc-toc-title">目录</div>';
+      Array.prototype.forEach.call(heads, function (h, i) {
+        var text = (h.textContent || "").trim();
+        if (!text) return;
+        if (!h.id) h.id = "rdSec-" + i;
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = text;
+        if (!toc.querySelector("button")) btn.classList.add("on");
+        btn.setAttribute("data-rd-toc", h.id);
+        btn.addEventListener("click", function () {
+          toc.querySelectorAll("button").forEach(function (b) { b.classList.remove("on"); });
+          btn.classList.add("on");
+          var target = document.getElementById(h.id);
+          if (!target || !scroll) return;
+          scroll.scrollTop = target.getBoundingClientRect().top - scroll.getBoundingClientRect().top + scroll.scrollTop - 12;
+        });
+        toc.appendChild(btn);
+      });
+      if (!toc.querySelector("button")) {
+        var empty = document.createElement("div");
+        empty.style.cssText = "padding:8px;font-size:12px;color:var(--ink-3)";
+        empty.textContent = "暂无章节";
+        toc.appendChild(empty);
+      }
+    }
+
+    function openResearchDoc(id) {
+      var doc = researchDocs[id];
+      var panel = document.getElementById("researchDoc");
+      var stage = document.getElementById("qaStage");
+      var paper = document.getElementById("researchDocPaper");
+      if (!doc || !panel || !paper) return;
+      panel.classList.add("show");
+      if (stage) stage.classList.add("doc-open");
+      document.getElementById("researchDocTitle").textContent = doc.title;
+      if (paper.getAttribute("data-doc") !== id) {
+        paper.innerHTML = doc.html;
+        paper.setAttribute("data-doc", id);
+      }
+      buildResearchDocToc();
+      var scroll = document.getElementById("researchDocScroll");
+      if (scroll) scroll.scrollTop = 0;
+    }
+
+    function closeResearchDoc() {
+      var panel = document.getElementById("researchDoc");
+      var stage = document.getElementById("qaStage");
+      if (panel) panel.classList.remove("show");
+      if (stage) stage.classList.remove("doc-open");
+    }
+
+    function setResearchDocZoom(next) {
+      researchDocZoom = Math.max(80, Math.min(140, next));
+      var paper = document.getElementById("researchDocPaper");
+      var label = document.getElementById("researchDocZoom");
+      if (paper) paper.style.fontSize = (15 * researchDocZoom / 100) + "px";
+      if (label) label.textContent = researchDocZoom + "%";
+    }
+
     function appendThinkingReply(question, agentKey, qid, attachments) {
       var ag = AGENTS[agentKey] || null;
       var pack = resolvePack(qid, agentKey, question);
       var bid = "bot-" + Date.now();
+      var researchTurn = state.skillName === "深度调研报告" || qid === "demoResearch";
+      function finishResearch(ans) {
+        if (researchTurn) mountResearchCard(ans, question);
+        pinLatestQuestion();
+      }
       if (pack.typeReport) {
         stopReportTyper();
         chatEl.insertAdjacentHTML("beforeend",
-          '<div class="msg-row bot" id="' + bid + '"><div class="msg-ava">助</div><div class="bubble report-bubble">' +
+          '<div class="msg-row bot" id="' + bid + '"><div class="msg-ava">助</div><div class="bubble">' +
           '<div class="think-box" data-think="1">' +
             '<button type="button" class="think-hd" data-think-toggle="1"><i class="dot"></i><span class="think-label">正在处理</span><span class="chev">▾</span></button>' +
             '<div class="think-bd" data-think-bd="1"></div>' +
           '</div>' +
-          '<div class="answer-body" data-answer="1" style="display:none"></div></div></div>');
+          '<div class="answer-body" data-answer="1" style="display:none"></div>' +
+          '<div class="msg-actions">' +
+            '<button type="button" data-act="copy" title="复制">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>' +
+            '<button type="button" data-act="up" title="有帮助">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h10.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>' +
+            '<button type="button" data-act="down" title="需改进">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H6.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/><path d="M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/></svg></button>' +
+            '<button type="button" data-act="download" title="下载">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg></button>' +
+            '<button type="button" data-act="more" title="更多">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg></button>' +
+          '</div></div></div>');
         var reportRoot = document.getElementById(bid);
         var reportHost = reportRoot.querySelector("[data-answer]");
-        var reportHtml = pack.typeReport === "review" ? reviewDemoHtml() : compareDemoHtml();
+        var isReview = pack.typeReport === "review";
         requestAnimationFrame(function () {
           pinLatestQuestion();
           playReportThink(reportRoot, pack.typeReport, function () {
             reportHost.style.display = "block";
-            typeReportHtml(reportHost, reportHtml);
+            reportHost.innerHTML = isReview ? reviewBriefHtml() : compareBriefHtml();
+            mountDocCard(
+              reportHost,
+              isReview ? "合同审核报告" : "文档比对报告",
+              isReview ? reviewDemoHtml() : compareDemoHtml()
+            );
+            pinLatestQuestion();
           });
         });
         return;
@@ -7702,6 +8014,39 @@
           '<div class="msg-row bot" id="' + bid + '"><div class="msg-ava">助</div><div class="bubble">' +
           '<div class="answer-body" data-answer="1">' + (pack.html || "") + "</div></div></div>");
         requestAnimationFrame(pinLatestQuestion);
+        return;
+      }
+      if (researchTurn) {
+        stopReportTyper();
+        chatEl.insertAdjacentHTML("beforeend",
+          '<div class="msg-row bot" id="' + bid + '"><div class="msg-ava">助</div><div class="bubble">' +
+          '<div class="think-box" data-think="1">' +
+            '<button type="button" class="think-hd" data-think-toggle="1"><i class="dot"></i><span class="think-label">正在处理</span><span class="chev">▾</span></button>' +
+            '<div class="think-bd" data-think-bd="1"></div>' +
+          '</div>' +
+          '<div class="answer-body" data-answer="1" style="display:none"></div>' +
+          '<div class="msg-actions">' +
+            '<button type="button" data-act="copy" title="复制">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>' +
+            '<button type="button" data-act="up" title="有帮助">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h10.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></button>' +
+            '<button type="button" data-act="down" title="需改进">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H6.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/><path d="M17 2h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"/></svg></button>' +
+            '<button type="button" data-act="download" title="下载">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg></button>' +
+            '<button type="button" data-act="more" title="更多">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg></button>' +
+          '</div></div></div>');
+        var researchRoot = document.getElementById(bid);
+        requestAnimationFrame(function () {
+          pinLatestQuestion();
+          playResearchThink(researchRoot, function () {
+            var researchAns = researchRoot.querySelector("[data-answer]");
+            researchAns.style.display = "block";
+            researchAns.innerHTML = researchBriefHtml(question);
+            finishResearch(researchAns);
+          });
+        });
         return;
       }
       var tag = pack.mode === "skill"
@@ -7743,32 +8088,32 @@
           label.textContent = pack.found || "已完成";
           ans.style.display = "block";
           ans.innerHTML = pack.html || "";
-          pinLatestQuestion();
+          finishResearch(ans);
           return;
         }
         if (pack.useFixedAnswer) {
           label.textContent = "正在生成结构化政策解读";
           playFixedAnswer(ans, pack).then(function () {
             label.textContent = doneLabel;
-            pinLatestQuestion();
+            finishResearch(ans);
           }).catch(function (err) {
             label.textContent = "解读文稿加载失败";
             toast(String(err.message || err));
             ans.style.display = "block";
             ans.innerHTML = pack.html || ("<p>" + escapeHtml(String(err.message || err)) + "</p>");
-            pinLatestQuestion();
+            finishResearch(ans);
           });
         } else {
           label.textContent = "正在连接 DeepSeek 生成回答";
           streamLlmAnswer(ans, question, agentKey, attachments || [], pack).then(function () {
             label.textContent = doneLabel;
-            pinLatestQuestion();
+            finishResearch(ans);
           }).catch(function (err) {
             label.textContent = "已回退到示意答案";
             toast(String(err.message || err));
             ans.style.display = "block";
             ans.innerHTML = pack.html || ("<p>" + escapeHtml(String(err.message || err)) + "</p>");
-            pinLatestQuestion();
+            finishResearch(ans);
           });
         }
       }
@@ -7827,7 +8172,10 @@
       archive: "馆藏知识问答",
       policy: "制度政策查询",
       process: "办事流程指引",
-      help: "系统使用说明",
+      help: "智能办事",
+      write: "智能撰写",
+      compare: "文档比对",
+      review: "合同审核",
       research: "深度调研报告"
     };
     var CAP_AGENTS = { archive: "archive", policy: "policy", process: "process" };
@@ -7854,7 +8202,7 @@
       archive: { q: "馆藏知识问答交互示例", agent: "archive", qid: "demoArchive" },
       policy: { q: "制度政策查询交互示例", agent: "policy", qid: "demoPolicy" },
       process: { q: "办事流程指引交互示例", agent: "process", qid: "demoProcess" },
-      help: { q: "系统使用说明交互示例", agent: "", qid: "demoHelp" },
+      help: { q: "智能办事交互示例", agent: "", qid: "demoHelp" },
       write: { q: "智能撰写交互示例", agent: "writing", qid: "demoWrite" },
       compare: { q: "文档比对交互示例", agent: "", qid: "demoCompare" },
       review: { q: "合同审核交互示例", agent: "", qid: "demoReview" },
@@ -7873,10 +8221,6 @@
       if (!card) return;
       e.preventDefault();
       var id = card.getAttribute("data-demo");
-      if (id === "write" || id === "compare" || id === "review") {
-        openFeature(id);
-        return;
-      }
       if (CAP_TAGS[id]) {
         selectCapModule(id);
         return;
@@ -7999,6 +8343,11 @@
     });
 
     chatEl.addEventListener("click", function (e) {
+      var docBtn = e.target.closest("[data-open-doc]");
+      if (docBtn) {
+        openResearchDoc(docBtn.getAttribute("data-open-doc"));
+        return;
+      }
       var tog = e.target.closest("[data-think-toggle]");
       if (tog) {
         var box = tog.closest(".think-box");
@@ -8053,6 +8402,29 @@
       if (!btn) return;
       var fb = btn.getAttribute("data-fb");
       toast(fb === "up" ? "感谢反馈" : fb === "down" ? "已记录，将用于改进" : "已上报 Bad Case（含 trace_id 占位）");
+    });
+
+    document.getElementById("researchDocClose").onclick = closeResearchDoc;
+    document.getElementById("researchDocZoomIn").onclick = function () { setResearchDocZoom(researchDocZoom + 10); };
+    document.getElementById("researchDocZoomOut").onclick = function () { setResearchDocZoom(researchDocZoom - 10); };
+    document.getElementById("researchDocDownload").onclick = function () {
+      var paper = document.getElementById("researchDocPaper");
+      var title = document.getElementById("researchDocTitle").textContent || "深度调研报告";
+      var html = "<html><head><meta charset=\"utf-8\"></head><body>" + paper.innerHTML + "</body></html>";
+      downloadBlob(new Blob(["\ufeff" + html], { type: "application/msword" }), title + ".doc");
+    };
+    document.querySelectorAll("[data-doc-tab]").forEach(function (btn) {
+      btn.onclick = function () {
+        document.querySelectorAll("[data-doc-tab]").forEach(function (el) { el.classList.remove("on"); });
+        btn.classList.add("on");
+        document.getElementById("researchDocPaper").classList.toggle("typeset", btn.getAttribute("data-doc-tab") === "typeset");
+      };
+    });
+    document.getElementById("researchDocPaper").addEventListener("input", function () {
+      var paper = document.getElementById("researchDocPaper");
+      var id = paper.getAttribute("data-doc");
+      if (id && researchDocs[id]) researchDocs[id].html = paper.innerHTML;
+      buildResearchDocToc();
     });
 
     renderHist();
