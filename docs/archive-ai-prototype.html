@@ -2483,6 +2483,40 @@
     .answer-body p:last-child { margin-bottom: 0; }
     .answer-body ol, .answer-body ul { margin: 0 0 8px 18px; padding: 0; }
     .answer-body li { margin: 4px 0; }
+    .fill-form-demo { margin-top: 10px; }
+    .fill-form-tips { font-size: 13px; color: var(--ink-2); margin-bottom: 8px; }
+    .fill-form-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .fill-form-tabs button {
+      height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line);
+      background: #fff; color: var(--ink-2); font-size: 12px;
+    }
+    .fill-form-tabs button.on {
+      border-color: var(--blue-300); background: var(--blue-50); color: var(--blue-600); font-weight: 650;
+    }
+    .fill-form-card {
+      border: 1px solid #e6e8ee; border-radius: 12px; background: #fafbfd; padding: 14px 14px 12px;
+    }
+    .fill-form-title { font-size: 14px; font-weight: 700; margin: 0 0 4px; color: var(--ink); }
+    .fill-form-sub { font-size: 12px; color: var(--ink-3); margin: 0 0 12px; line-height: 1.5; }
+    .fill-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .fill-form-grid .full { grid-column: 1 / -1; }
+    .fill-field { display: flex; flex-direction: column; gap: 4px; text-align: left; }
+    .fill-field span { font-size: 12px; color: var(--ink-3); }
+    .fill-field input, .fill-field select, .fill-field textarea {
+      width: 100%; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff;
+      padding: 8px 10px; font-size: 13px; color: var(--ink); font-family: inherit;
+    }
+    .fill-field textarea { min-height: 64px; resize: vertical; }
+    .fill-form-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .fill-form-actions button {
+      height: 32px; padding: 0 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    }
+    .fill-btn-primary { border: none; background: var(--blue-500); color: #fff; }
+    .fill-btn-primary:hover { background: var(--blue-600); }
+    .fill-btn-ghost { border: 1px solid #e5e7eb; background: #fff; color: var(--ink-2); }
+    @media (max-width: 640px) {
+      .fill-form-grid { grid-template-columns: 1fr; }
+    }
     .answer-stream {
       white-space: pre-wrap;
       word-break: break-word;
@@ -2573,6 +2607,345 @@
     #viewQa .main.hist-mode .qa-stage,
     #viewQa .main.cmp-mode .qa-stage,
     #viewQa .main.rev-mode .qa-stage { display: none; }
+
+    /* 文件审核原型 */
+    #revPanel { flex-direction: column; background: #f5f6f8; }
+    #revPanel .fr-root { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .fr-landing {
+      flex: 1; min-height: 0; overflow: auto;
+      position: relative; padding: 28px 40px 40px;
+    }
+    .fr-hist-btn {
+      position: absolute; top: 20px; left: 24px;
+      height: 34px; padding: 0 12px; border-radius: 8px;
+      border: 1px solid #e5e7eb; background: #fff; color: #374151;
+      font-size: 13px; box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .fr-hist-btn:hover { border-color: var(--blue-300); color: var(--blue-600); }
+    .fr-landing-inner {
+      max-width: 720px; margin: 48px auto 0; text-align: center;
+    }
+    .fr-hero-title {
+      margin: 0 0 12px; font-size: 28px; font-weight: 700; color: #111827; letter-spacing: .02em;
+    }
+    .fr-hero-sub {
+      margin: 0 auto 22px; max-width: 560px; font-size: 13px; line-height: 1.7; color: #6b7280;
+    }
+    .fr-tabs {
+      display: inline-flex; padding: 4px; border-radius: 999px; background: #eef0f4; margin-bottom: 22px;
+    }
+    .fr-tab {
+      height: 34px; padding: 0 18px; border: none; border-radius: 999px;
+      background: transparent; color: #6b7280; font-size: 13px; font-weight: 600;
+    }
+    .fr-tab.active { background: #fff; color: var(--blue-600); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    .fr-upload-card {
+      background: #fff; border-radius: 14px; padding: 18px;
+      box-shadow: 0 8px 24px rgba(15,23,42,.06); border: 1px solid #eef0f3;
+    }
+    .fr-drop {
+      min-height: 220px; border: 1.5px dashed #d1d5db; border-radius: 12px;
+      background: #fafbfc; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 10px; cursor: pointer; transition: border-color .15s, background .15s;
+    }
+    .fr-drop:hover, .fr-drop.drag { border-color: var(--blue-400); background: #f5f9ff; }
+    .fr-drop-ico {
+      width: 48px; height: 48px; border-radius: 50%; background: #eef2ff; color: var(--blue-500);
+      display: inline-flex; align-items: center; justify-content: center; font-size: 20px;
+    }
+    .fr-drop-title { font-size: 15px; font-weight: 650; color: #111827; }
+    .fr-drop-hint { font-size: 12px; color: #9ca3af; }
+    .fr-kb-bar {
+      margin-top: 14px; height: 44px; padding: 0 16px; border-radius: 10px; background: #eef0f4;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .fr-kb-left { font-size: 13px; color: #4b5563; font-weight: 500; }
+    .fr-kb-link { border: none; background: none; color: var(--blue-600); font-size: 13px; padding: 0; }
+    .fr-kb-link:hover { text-decoration: underline; }
+
+    .fr-landing[hidden], .fr-work[hidden], .fr-rules[hidden] { display: none !important; }
+    .fr-work { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; background: #f3f4f6; }
+    .fr-rules {
+      flex: 1; min-height: 0; display: flex; flex-direction: column; background: #f5f6f8;
+    }
+    .fr-rules-top {
+      flex-shrink: 0; height: 44px; padding: 0 14px; background: #fff; border-bottom: 1px solid #e5e7eb;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .fr-rules-back {
+      height: 28px; padding: 0 10px; border: 1px solid #e5e7eb; border-radius: 6px;
+      background: #fff; color: #4b5563; font-size: 13px;
+    }
+    .fr-rules-back:hover { border-color: var(--blue-300); color: var(--blue-600); }
+    .fr-rules-top-title { font-size: 14px; font-weight: 650; color: #111827; }
+    .fr-rules-cols { flex: 1; min-height: 0; display: flex; }
+    .fr-rules-groups {
+      width: 220px; flex-shrink: 0; background: #fff; border-right: 1px solid #e5e7eb;
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    .fr-rules-main {
+      flex: 1; min-width: 0; background: #fff; border-right: 1px solid #e5e7eb;
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    .fr-rules-detail {
+      width: 320px; flex-shrink: 0; background: #fff;
+      display: flex; flex-direction: column; min-height: 0;
+    }
+    .fr-rules-col-hd {
+      flex-shrink: 0; height: 48px; padding: 0 14px; border-bottom: 1px solid #f0f1f3;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      font-size: 14px; font-weight: 700; color: #111827;
+    }
+    .fr-rules-actions { display: flex; align-items: center; gap: 8px; }
+    .fr-rules-link {
+      border: none; background: none; color: var(--blue-600); font-size: 13px; padding: 0; font-weight: 600;
+    }
+    .fr-rules-ghost {
+      height: 30px; padding: 0 12px; border-radius: 6px; border: 1px solid #e5e7eb;
+      background: #fff; color: #4b5563; font-size: 12px;
+    }
+    .fr-rules-ghost.sm { height: 28px; padding: 0 10px; }
+    .fr-rules-primary {
+      height: 30px; padding: 0 12px; border: none; border-radius: 6px;
+      background: var(--blue-500); color: #fff; font-size: 12px; font-weight: 600;
+    }
+    .fr-rules-primary:hover { background: var(--blue-600); }
+    .fr-group-list { flex: 1; overflow: auto; padding: 8px; }
+    .fr-group-item {
+      width: 100%; text-align: left; border: none; background: transparent;
+      padding: 10px 12px; border-radius: 8px; font-size: 13px; color: #374151; margin-bottom: 2px;
+    }
+    .fr-group-item:hover { background: #f5f7fa; }
+    .fr-group-item.active { background: #eef4ff; color: var(--blue-600); font-weight: 650; }
+    .fr-rules-search { padding: 10px 14px; flex-shrink: 0; }
+    .fr-rules-search input {
+      width: 100%; height: 36px; border: 1px solid #e5e7eb; border-radius: 8px;
+      padding: 0 12px; font-size: 13px; background: #fafbfc;
+    }
+    .fr-rule-list { flex: 1; overflow: auto; padding: 0 8px 12px; }
+    .fr-rule-item {
+      width: 100%; display: flex; align-items: flex-start; gap: 10px; text-align: left;
+      border: 1px solid transparent; background: #fff; border-radius: 8px;
+      padding: 12px 10px; margin-bottom: 4px; cursor: pointer;
+    }
+    .fr-rule-item:hover { background: #f8fafc; }
+    .fr-rule-item.active { background: #eef4ff; border-color: #d6e4ff; }
+    .fr-rule-item input { margin-top: 3px; flex-shrink: 0; }
+    .fr-rule-body { flex: 1; min-width: 0; display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+    .fr-rule-tag {
+      flex-shrink: 0; height: 22px; padding: 0 8px; border-radius: 4px;
+      font-size: 12px; font-weight: 650; line-height: 22px;
+    }
+    .fr-rule-tag.high { background: #fff1f0; color: #cf1322; }
+    .fr-rule-tag.mid { background: #fff7e6; color: #d48806; }
+    .fr-rule-tag.smart {
+      margin-left: auto; background: #e6f4ff; color: var(--blue-600); font-weight: 600;
+    }
+    .fr-rule-name { flex: 1; min-width: 140px; font-size: 13px; line-height: 1.55; color: #1f2937; }
+    .fr-rule-detail { flex: 1; overflow: auto; padding: 14px 16px 20px; }
+    .fr-detail-label { font-size: 12px; color: #9ca3af; margin: 0 0 6px; }
+    .fr-detail-name { font-size: 14px; font-weight: 650; color: #111827; line-height: 1.55; margin: 0 0 16px; }
+    .fr-detail-block { margin-bottom: 16px; }
+    .fr-detail-desc {
+      margin: 0; padding: 12px; border: 1px solid #eef0f3; border-radius: 8px;
+      background: #fafbfc; font-size: 13px; line-height: 1.7; color: #374151; white-space: pre-wrap;
+    }
+    .fr-work-hd {
+      flex-shrink: 0; height: 52px; padding: 0 16px; background: #fff; border-bottom: 1px solid #e5e7eb;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .fr-work-title { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 650; color: #111827; }
+    .fr-clock { font-size: 14px; opacity: .7; }
+    .fr-new-btn {
+      height: 32px; padding: 0 14px; border: none; border-radius: 6px;
+      background: var(--blue-500); color: #fff; font-size: 13px; font-weight: 600;
+    }
+    .fr-new-btn:hover { background: var(--blue-600); }
+    .fr-split { flex: 1; min-height: 0; display: flex; }
+    .fr-doc-pane {
+      flex: 1; min-width: 0; display: flex; flex-direction: column; background: #e8eaed;
+      border-right: 1px solid #e5e7eb;
+    }
+    .fr-toolbar {
+      flex-shrink: 0; height: 40px; background: #fff; border-bottom: 1px solid #e5e7eb;
+      display: flex; align-items: center; gap: 12px; padding: 0 14px; color: #6b7280; font-size: 12px;
+    }
+    .fr-tb-sep { width: 1px; height: 16px; background: #e5e7eb; }
+    .fr-doc-scroll { flex: 1; min-height: 0; overflow: auto; padding: 16px 0 28px; }
+    .fr-doc-page {
+      position: relative; margin: 0 auto 18px; width: min(720px, calc(100% - 32px));
+      background: #fff; min-height: 900px; padding: 36px 44px 48px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+    .fr-page-tag {
+      position: absolute; top: 12px; right: -2px; background: #111827; color: #fff;
+      font-size: 11px; padding: 3px 8px; border-radius: 4px 0 0 4px;
+    }
+    .fr-doc-page h2 { margin: 0 0 14px; text-align: center; font-size: 20px; }
+    .fr-doc-page h3 { margin: 18px 0 8px; font-size: 15px; }
+    .fr-doc-page p { margin: 0 0 10px; font-size: 13px; line-height: 1.8; color: #1f2937; }
+    .fr-doc-meta { text-align: center; color: #6b7280 !important; font-size: 12px !important; margin-bottom: 16px !important; }
+    .fr-sign { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+    .fr-split-solo { justify-content: center; padding: 20px 24px 28px; }
+    .fr-split-solo .fr-side-pane {
+      width: min(720px, 100%); max-width: 720px; border-radius: 12px;
+      border: 1px solid #e5e7eb; box-shadow: 0 4px 16px rgba(15,23,42,.05);
+    }
+    .fr-side-pane {
+      width: 420px; flex-shrink: 0; background: #fff; display: flex; flex-direction: column;
+      min-height: 0; overflow: auto; padding: 14px 16px 20px;
+    }
+    .fr-stepper {
+      display: flex; align-items: center; justify-content: space-between; gap: 4px;
+      margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #f0f1f3;
+    }
+    .fr-step {
+      flex: 1; border: none; background: none; display: flex; flex-direction: column; align-items: center;
+      gap: 6px; font-size: 12px; color: #9ca3af; padding: 0;
+    }
+    .fr-step-num {
+      width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #d1d5db;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+      background: #fff; color: #9ca3af;
+    }
+    .fr-step.active { color: var(--blue-600); font-weight: 650; }
+    .fr-step.active .fr-step-num {
+      border-color: var(--blue-500); background: var(--blue-500); color: #fff;
+    }
+    .fr-step.done .fr-step-num { border-color: var(--blue-400); color: var(--blue-500); }
+    .fr-pane { display: none; }
+    .fr-pane.show { display: block; }
+    .fr-block {
+      border: 1px solid #eef0f3; border-radius: 10px; padding: 14px; margin-bottom: 12px; background: #fff;
+    }
+    .fr-block-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #111827; }
+    .fr-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; text-align: left; }
+    .fr-field > span { font-size: 12px; color: #6b7280; }
+    .fr-field select {
+      height: 36px; border: 1px solid #e5e7eb; border-radius: 8px; padding: 0 10px; background: #fff; font-size: 13px;
+    }
+    .fr-radios { display: flex; flex-wrap: wrap; gap: 10px 14px; }
+    .fr-radio { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #374151; }
+    .fr-list-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .fr-btn-outline {
+      height: 40px; border-radius: 8px; border: 1px solid #e5e7eb; background: #fff;
+      color: #374151; font-size: 13px; font-weight: 600;
+    }
+    .fr-btn-outline.primary { border-color: var(--blue-300); color: var(--blue-600); background: #f5f9ff; }
+    .fr-btn-outline:hover { border-color: var(--blue-400); color: var(--blue-600); }
+    .fr-btn-primary {
+      height: 36px; padding: 0 16px; border: none; border-radius: 8px;
+      background: var(--blue-500); color: #fff; font-size: 13px; font-weight: 600;
+    }
+    .fr-btn-primary:hover { background: var(--blue-600); }
+    .fr-btn-block { width: 100%; margin-top: 12px; }
+    .fr-overview-loading { text-align: left; }
+    .fr-ov-status { font-size: 13px; color: #4b5563; margin-bottom: 10px; }
+    .fr-ov-track { height: 6px; border-radius: 999px; background: #eef0f4; overflow: hidden; }
+    .fr-ov-bar { height: 100%; width: 18%; border-radius: 999px; background: var(--blue-500); transition: width .35s ease; }
+    .fr-ov-stages {
+      display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: #9ca3af;
+    }
+    .fr-ov-meta { margin: 0 0 14px; display: grid; grid-template-columns: 72px 1fr; gap: 8px 10px; font-size: 13px; }
+    .fr-ov-meta dt { color: #9ca3af; }
+    .fr-ov-meta dd { margin: 0; color: #1f2937; }
+    .fr-list-hd { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+    .fr-list-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 36px; padding: 0 12px; border-radius: 8px; background: #eef5ff; color: var(--blue-600);
+      font-size: 12px; font-weight: 600; margin-bottom: 10px;
+    }
+    .fr-link { border: none; background: none; color: var(--blue-600); font-size: 12px; padding: 0; }
+    .fr-check-list { display: flex; flex-direction: column; gap: 6px; max-height: 420px; overflow: auto; }
+    .fr-check {
+      display: flex; align-items: flex-start; gap: 10px; width: 100%; text-align: left;
+      padding: 10px 10px; border: 1px solid #eef0f3; border-radius: 8px; background: #fff; font-size: 12px; line-height: 1.55; color: #374151;
+    }
+    .fr-check input { margin-top: 2px; }
+    .fr-check.on { border-color: #bfdbfe; background: #f8fbff; }
+    .fr-check .n { color: #9ca3af; min-width: 18px; }
+    .fr-result-tabs {
+      display: flex; align-items: center; gap: 4px; margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .fr-rtab {
+      height: 32px; padding: 0 10px; border: none; background: none; color: #6b7280; font-size: 13px;
+      border-bottom: 2px solid transparent; border-radius: 0;
+    }
+    .fr-rtab.active { color: var(--blue-600); font-weight: 650; border-bottom-color: var(--blue-500); }
+    .fr-revise {
+      margin-left: auto; height: 30px; padding: 0 10px; border-radius: 999px;
+      border: 1px solid #e5e7eb; background: #f9fafb; font-size: 12px; color: #4b5563;
+    }
+    .fr-risk-bar { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .fr-risk {
+      height: 30px; padding: 0 10px; border-radius: 6px; border: 1px solid #e5e7eb;
+      background: #fff; font-size: 12px; color: #6b7280;
+    }
+    .fr-risk b { margin-left: 4px; }
+    .fr-risk.on.mid { background: #fff7e6; border-color: #ffd591; color: #d48806; }
+    .fr-risk.on.high { background: #fff1f0; border-color: #ffa39e; color: #cf1322; }
+    .fr-risk.on.low { background: #f6ffed; border-color: #b7eb8f; color: #389e0d; }
+    .fr-risk.on.pass { background: #f5f5f5; border-color: #d9d9d9; color: #595959; }
+    .fr-risk-item {
+      display: flex; align-items: flex-start; gap: 10px; padding: 12px 10px;
+      border-bottom: 1px solid #f0f1f3; font-size: 13px; line-height: 1.55; color: #1f2937; text-align: left; width: 100%;
+      border-left: none; border-right: none; border-top: none; background: #fff; cursor: pointer;
+    }
+    .fr-risk-item:hover { background: #fffaf0; }
+    .fr-risk-item.active { background: #fff7e6; }
+    .fr-risk-item .dot { width: 8px; height: 8px; border-radius: 50%; background: #fa8c16; margin-top: 6px; flex-shrink: 0; }
+    .fr-risk-item .cnt { margin-left: auto; color: #9ca3af; font-size: 12px; }
+    .fr-empty { padding: 24px 8px; text-align: center; color: #9ca3af; font-size: 13px; }
+    .fr-anchor.fr-hl {
+      background: #fff3bf; box-shadow: 0 0 0 3px #fff3bf; border-radius: 4px;
+      transition: background .2s, box-shadow .2s;
+    }
+    .fr-report[hidden] { display: none !important; }
+    .fr-report {
+      position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column;
+      background: #f3f5f8; border-top: 1px solid #e5e7eb;
+    }
+    .fr-report-bar {
+      flex-shrink: 0; height: 48px; padding: 0 12px; background: #fff; border-bottom: 1px solid #e5e7eb;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .fr-report-title { flex: 1; font-size: 14px; font-weight: 650; color: #111827; }
+    .fr-report-tool {
+      height: 28px; padding: 0 12px; border-radius: 6px; border: 1px solid #e5e7eb;
+      background: #fff; color: #4b5563; font-size: 13px;
+    }
+    .fr-report-body { flex: 1; min-height: 0; display: flex; }
+    .fr-report-toc {
+      width: 180px; flex-shrink: 0; overflow: auto; background: #fff; border-right: 1px solid #e5e7eb; padding: 12px 8px;
+    }
+    .fr-report-toc-title { font-size: 12px; font-weight: 700; color: #6b7280; margin: 0 8px 8px; }
+    .fr-report-toc button {
+      display: block; width: 100%; text-align: left; border: none; background: transparent;
+      padding: 7px 8px; border-radius: 6px; font-size: 12px; color: #4b5563; line-height: 1.4;
+    }
+    .fr-report-toc button.on, .fr-report-toc button:hover { background: #eef4ff; color: var(--blue-600); }
+    .fr-report-scroll { flex: 1; min-width: 0; overflow: auto; padding: 16px; }
+    .fr-report-paper {
+      max-width: 780px; margin: 0 auto; background: #fff; padding: 28px 36px 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.06); border-radius: 8px; font-size: 14px; line-height: 1.7; color: #1f2937;
+    }
+    .fr-report-paper h1 { font-size: 22px; text-align: center; margin: 0 0 18px; }
+    .fr-report-paper h4 { font-size: 15px; margin: 16px 0 8px; }
+    .fr-report-paper .cmp-meta { display: grid; grid-template-columns: 88px 1fr; gap: 6px 10px; margin: 0 0 12px; }
+    .fr-report-paper .cmp-meta dt { color: #9ca3af; }
+    .fr-report-paper .cmp-meta dd { margin: 0; }
+    .fr-report-paper .cmp-table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 13px; }
+    .fr-report-paper .cmp-table th, .fr-report-paper .cmp-table td { border: 1px solid #d9d9d9; padding: 6px 8px; text-align: left; }
+    .fr-report-paper .cmp-diff { border: 1px solid #eef0f3; border-radius: 8px; padding: 10px 12px; margin: 0 0 10px; background: #fafafa; }
+    .fr-report-paper .cmp-diff h5 { margin: 0 0 6px; font-size: 13px; }
+    .fr-report-paper .cmp-diff p, .fr-report-paper .cmp-prose { margin: 0 0 6px; font-size: 13px; }
+    .fr-report-paper .cmp-notes { margin: 0 0 8px 18px; padding: 0; }
+    .fr-report-paper .cmp-notes li { margin: 4px 0; font-size: 13px; }
+    @media (max-width: 1100px) {
+      .fr-side-pane { width: 360px; }
+      .fr-split { flex-direction: column; }
+      .fr-side-pane { width: 100%; max-height: 48vh; }
+    }
     .doc-card {
       display: flex;
       align-items: center;
@@ -3412,16 +3785,16 @@
               <span class="feat-name">智能撰写</span>
             </span>
           </button>
+          <button type="button" class="qa-feat" data-feat="review">
+            <span class="feat-ico" aria-hidden="true">📋</span>
+            <span class="feat-txt">
+              <span class="feat-name">文件审核</span>
+            </span>
+          </button>
           <button type="button" class="qa-feat" data-feat="compare" hidden>
             <span class="feat-ico" aria-hidden="true">⧉</span>
             <span class="feat-txt">
               <span class="feat-name">文档比对</span>
-            </span>
-          </button>
-          <button type="button" class="qa-feat" data-feat="review" hidden>
-            <span class="feat-ico" aria-hidden="true">✓</span>
-            <span class="feat-txt">
-              <span class="feat-name">合同审核</span>
             </span>
           </button>
           <button type="button" class="qa-feat" data-feat="history">
@@ -3487,37 +3860,254 @@
           <div id="cmpHistList"></div>
         </aside>
       </div>
-      <div class="cmp-main" id="revPanel" aria-label="合同审核">
-        <div class="cmp-work">
-        <div class="cmp-inner">
-          <div class="cmp-title-row">
-            <div class="cmp-title">合同审核</div>
-            <button type="button" class="cmp-demo" id="revLoadDemo">加载示例</button>
+      <div class="cmp-main" id="revPanel" aria-label="文件审核">
+        <div class="fr-root" id="frRoot">
+          <div class="fr-landing" id="frLanding">
+            <button type="button" class="fr-hist-btn" id="frRulesBtn">☰ 审核规则</button>
+            <div class="fr-landing-inner">
+              <h1 class="fr-hero-title">文件审核，智能识别风险</h1>
+              <p class="fr-hero-sub">支持对合同、财务票据、公文等类型文件的风险审查，提供专业的风险评估和修改建议</p>
+              <div class="fr-tabs" role="tablist">
+                <button type="button" class="fr-tab active" data-fr-tab="legal">文件审核</button>
+              </div>
+              <div class="fr-upload-card">
+                <div class="fr-drop" id="frDrop" tabindex="0" role="button" aria-label="上传待审文件">
+                  <div class="fr-drop-ico" aria-hidden="true">⬆</div>
+                  <div class="fr-drop-title">点击或将文档拖拽到这里上传</div>
+                  <div class="fr-drop-hint">单个合同文件的字数不超过20万字，格式支持：pdf/doc/docx</div>
+                </div>
+              </div>
+            </div>
+            <input type="file" id="revFile" hidden accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
           </div>
-          <div class="cmp-grid single">
-            <div class="cmp-slot">
-              <div class="cmp-slot-hd">待审合同</div>
-              <div class="cmp-drop" id="revDrop" tabindex="0" role="button" aria-label="上传待审合同">
-                <span class="cmp-drop-ico">合</span>
-                <div class="cmp-drop-name" id="revName">点击或拖入合同文件</div>
+
+          <div class="fr-work" id="frWork" hidden>
+            <header class="fr-work-hd">
+              <div class="fr-work-title">
+                <span class="fr-clock" aria-hidden="true">🕘</span>
+                <span id="frDocTitle">《设备采购合同》</span>
               </div>
-              <div class="cmp-slot-ops">
-                <button type="button" class="cmp-link" id="revPick">选择文件</button>
-                <button type="button" class="cmp-link" id="revClear" hidden>移除</button>
+              <button type="button" class="fr-new-btn" id="frNewBtn">+ 新审查</button>
+            </header>
+            <div class="fr-split">
+              <div class="fr-doc-pane">
+                <div class="fr-toolbar" aria-hidden="true">
+                  <span>开始</span><span>插入</span><span>页面</span><span>审阅</span><span>视图</span>
+                  <span class="fr-tb-sep"></span>
+                  <span>B</span><span>I</span><span>U</span><span>≡</span>
+                </div>
+                <div class="fr-doc-scroll">
+                <div class="fr-doc-page">
+                  <div class="fr-page-tag">1/3</div>
+                  <h2>设备采购合同</h2>
+                  <p class="fr-doc-meta">合同编号：CG-2026-0318　　签订地点：上海市浦东新区　　签订日期：2026年3月18日</p>
+                  <p><strong>买方（甲方）：</strong>东海装备股份有限公司</p>
+                  <p>住所地：上海市浦东新区张江路1288号　　统一社会信用代码：91310000MA1KXXXX1X</p>
+                  <p>法定代表人：陈卫东　　联系人：李明　　电话：021-5888XXXX</p>
+                  <p><strong>卖方（乙方）：</strong>甬江精密制造有限公司</p>
+                  <p>住所地：浙江省宁波市鄞州区聚贤路66号　　统一社会信用代码：91330200MA2HXXXX2Y</p>
+                  <p>法定代表人：王海涛　　联系人：赵丽　　电话：0574-8788XXXX</p>
+                  <p>根据《中华人民共和国民法典》及相关法律法规，甲乙双方在平等、自愿、公平和诚实信用原则基础上，就甲方向乙方采购设备事宜，经协商一致，订立本合同。</p>
+                  <h3>第一条 采购标的</h3>
+                  <p>1.1 乙方向甲方供应下列设备及配套附件（以下简称“货物”），具体技术参数、数量、单价以附件一《货物清单及技术规格书》为准：</p>
+                  <p>（1）数控立式加工中心 VMC-850，数量 2 台；</p>
+                  <p>（2）配套刀库、数控系统及随机工具包；</p>
+                  <p>（3）随机技术资料、操作手册、合格证及装箱单。</p>
+                  <p>1.2 货物应符合国家强制性标准、行业推荐标准及双方确认的技术协议。未明确标准的，按国家标准或通常标准履行。</p>
+                  <h3>第二条 合同价款</h3>
+                  <p>2.1 合同总价为人民币 <strong>贰佰捌拾陆万元整（¥2,860,000.00）</strong>，含13%增值税、包装费、运输至甲方指定地点运费及首次安装调试费用。</p>
+                  <p>2.2 单价及分项金额以附件一为准。除双方书面约定外，合同总价为固定包干价，不因市场价格波动调整。</p>
+                  <h3>第三条 交货与验收</h3>
+                  <p>3.1 交货时间：本合同生效后 <strong>60 个日历日</strong>内，乙方将货物运至甲方指定地点：上海市浦东新区临港产业园B区12号库。</p>
+                  <p id="frAnchorRisk" class="fr-anchor">3.2 交货方式：乙方负责运输并承担货交甲方签收前的毁损、灭失风险；所有权自甲方付清全部货款后转移，甲方签收后风险转移。</p>
+                  <p>3.3 到货后甲方应在 5 个工作日内完成开箱清点；安装调试完成后 15 个工作日内完成性能验收。隐蔽缺陷在质保期内甲方仍可主张权利。</p>
+                </div>
+                <div class="fr-doc-page">
+                  <div class="fr-page-tag">2/3</div>
+                  <h3 id="frAnchorPay" class="fr-anchor">第四条 付款方式</h3>
+                  <p>4.1 合同签订后 7 个工作日内，甲方支付合同总价的 <strong>30%</strong> 作为预付款；</p>
+                  <p>4.2 货物到货并经开箱验收合格后 10 个工作日内，甲方支付合同总价的 <strong>50%</strong>；同时约定“货到付款”，全部货款在验收合格后 180 日内结清。</p>
+                  <p>4.3 安装调试及性能验收合格后 15 个工作日内，甲方支付合同总价的 <strong>15%</strong>；</p>
+                  <p>4.4 余款 <strong>5%</strong> 作为质保金，质保期满且无未结清质量问题后 15 个工作日内无息支付。</p>
+                  <p>4.5 乙方应在各付款节点前提前开具合法有效增值税专用发票，否则甲方有权顺延付款且不承担逾期责任。</p>
+                  <h3>第五条 质量保证与售后</h3>
+                  <p>5.1 质保期自性能验收合格之日起 <strong>24 个月</strong>，或自交货之日起 30 个月，以先到者为准。</p>
+                  <p>5.2 质保期内非因甲方原因出现的质量问题，乙方应在接到通知后 48 小时内响应，7 日内完成修理或更换，费用由乙方承担。</p>
+                  <p>5.3 乙方应提供不少于 3 个工作日的现场操作培训，并保证甲方指定人员能独立操作与日常维护。</p>
+                  <h3>第六条 包装、运输与保险</h3>
+                  <p>6.1 货物包装应适合长途运输及多次装卸，符合防潮、防震、防锈要求，费用已含在合同总价中。</p>
+                  <p>6.2 运输途中保险由乙方办理，保险金额不低于合同总价的 110%，受益人为甲方。</p>
+                  <h3>第七条 知识产权与保密</h3>
+                  <p>7.1 乙方保证所供货物不侵犯任何第三方知识产权；因侵权导致甲方损失的，乙方应赔偿并承担责任。</p>
+                  <p>7.2 双方对因履行本合同知悉的技术资料、报价、客户信息等承担保密义务，保密期限为合同终止后 3 年。</p>
+                  <h3>第八条 违约责任</h3>
+                  <p>8.1 乙方逾期交货的，每逾期一日按合同总价的万分之三支付违约金；累计超过 30 日的，甲方有权解除合同并要求返还已付款项。</p>
+                  <p>8.2 甲方逾期付款的，每逾期一日按应付未付金额的万分之三支付违约金。</p>
+                  <p>8.3 因货物质量不符合约定导致无法实现合同目的的，甲方有权拒收、退货或解除合同，并要求乙方赔偿直接损失。</p>
+                </div>
+                <div class="fr-doc-page">
+                  <div class="fr-page-tag">3/3</div>
+                  <h3>第九条 不可抗力</h3>
+                  <p>9.1 因不可抗力不能履行合同的，根据不可抗力的影响，部分或全部免除责任，但法律另有规定的除外。迟延履行后发生不可抗力的，不免除责任。</p>
+                  <p>9.2 受影响一方应在不可抗力发生后 5 日内书面通知对方，并在合理期限内提供证明。</p>
+                  <h3>第十条 争议解决</h3>
+                  <p>10.1 因本合同引起的或与本合同有关的争议，双方应友好协商；协商不成的，提交 <strong>甲方所在地有管辖权的人民法院</strong> 诉讼解决。</p>
+                  <p>10.2 争议解决期间，除争议事项外，双方应继续履行本合同其余条款。</p>
+                  <h3>第十一条 通知与送达</h3>
+                  <p>11.1 双方确认本合同首页载明的住所地、联系人为有效送达地址和联系人。一方变更的，应提前 5 个工作日书面通知对方；未通知的，原地址送达视为有效。</p>
+                  <h3>第十二条 其他</h3>
+                  <p>12.1 本合同自双方法定代表人或授权代表签字并加盖公章之日起生效。</p>
+                  <p>12.2 附件一《货物清单及技术规格书》、附件二《验收标准》为本合同不可分割组成部分，与正文具有同等效力。</p>
+                  <p>12.3 本合同一式肆份，甲乙双方各执贰份，具有同等法律效力。</p>
+                  <div class="fr-sign">
+                    <div>
+                      <p><strong>甲方（盖章）：</strong>东海装备股份有限公司</p>
+                      <p>授权代表：____________</p>
+                      <p>日期：2026年3月18日</p>
+                    </div>
+                    <div>
+                      <p><strong>乙方（盖章）：</strong>甬江精密制造有限公司</p>
+                      <p>授权代表：____________</p>
+                      <p>日期：2026年3月18日</p>
+                    </div>
+                  </div>
+                </div>
+                </div>
               </div>
-              <input type="file" id="revFile" hidden />
+              <aside class="fr-side-pane">
+                <div class="fr-stepper" id="frStepper" role="tablist" aria-label="审查步骤">
+                  <button type="button" class="fr-step active" data-fr-step="1"><span class="fr-step-num">1</span>合同概览</button>
+                  <button type="button" class="fr-step" data-fr-step="2"><span class="fr-step-num">2</span>审查清单</button>
+                  <button type="button" class="fr-step" data-fr-step="3"><span class="fr-step-num">3</span>审查结果</button>
+                </div>
+
+                <div class="fr-pane show" data-fr-pane="1" id="frPane1">
+                  <div class="fr-block">
+                    <div class="fr-block-title">审查方式</div>
+                    <label class="fr-field">
+                      <span>合同类型</span>
+                      <select id="frContractType">
+                        <option>设备采购合同</option>
+                        <option>采购框架协议</option>
+                        <option>技术开发合同</option>
+                      </select>
+                    </label>
+                    <div class="fr-field">
+                      <span>审查立场</span>
+                      <div class="fr-radios" id="frStance">
+                        <label class="fr-radio"><input type="radio" name="frStance" value="甲" checked /> 甲方立场</label>
+                        <label class="fr-radio"><input type="radio" name="frStance" value="乙" /> 乙方立场</label>
+                        <label class="fr-radio"><input type="radio" name="frStance" value="中" /> 中立立场</label>
+                      </div>
+                    </div>
+                    <div class="fr-field">
+                      <span>选择审查清单</span>
+                      <div class="fr-list-btns">
+                        <button type="button" class="fr-btn-outline primary" id="frAiList">✨ AI 智能生成</button>
+                        <button type="button" class="fr-btn-outline" id="frKbList">▦ 从知识库选择</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="fr-block" id="frOverviewBox">
+                    <div class="fr-block-title">合同概览</div>
+                    <div class="fr-overview-loading" id="frOverviewLoading">
+                      <div class="fr-ov-status">合同概览生成中…</div>
+                      <div class="fr-ov-track"><div class="fr-ov-bar" id="frOvBar"></div></div>
+                      <div class="fr-ov-stages">
+                        <span>理解合同</span><span>提取信息</span><span>总结内容</span><span>完成</span>
+                      </div>
+                    </div>
+                    <div class="fr-overview-done" id="frOverviewDone" hidden>
+                      <dl class="fr-ov-meta">
+                        <dt>合同名称</dt><dd>设备采购合同</dd>
+                        <dt>合同类型</dt><dd id="frOvType">设备采购合同</dd>
+                        <dt>当事人</dt><dd>甲方：东海装备股份有限公司；乙方：甬江精密制造有限公司</dd>
+                        <dt>标的概要</dt><dd>采购数控立式加工中心等设备，合同总价人民币 286 万元，交货期 60 日。</dd>
+                      </dl>
+                      <button type="button" class="fr-btn-primary" id="frToList">进入审查清单</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fr-pane" data-fr-pane="2" id="frPane2" hidden>
+                  <div class="fr-list-hd">审查清单：智能生成</div>
+                  <div class="fr-list-bar">
+                    <span id="frListCount">已选择 2/12 项</span>
+                    <button type="button" class="fr-link" id="frSaveList">保存至新清单</button>
+                  </div>
+                  <div class="fr-check-list" id="frCheckList"></div>
+                  <button type="button" class="fr-btn-primary fr-btn-block" id="frToResult">开始审查</button>
+                </div>
+
+                <div class="fr-pane" data-fr-pane="3" id="frPane3" hidden>
+                  <div class="fr-result-tabs">
+                    <button type="button" class="fr-rtab active" data-fr-rtab="risk">风险审查</button>
+                    <button type="button" class="fr-rtab" id="frOpenReport" data-fr-rtab="report">审核报告</button>
+                  </div>
+                  <div class="fr-risk-bar" id="frRiskBar">
+                    <button type="button" class="fr-risk" data-risk="high">高风险 <b>0</b></button>
+                    <button type="button" class="fr-risk on mid" data-risk="mid">中风险 <b>2</b></button>
+                    <button type="button" class="fr-risk" data-risk="low">低风险 <b>0</b></button>
+                    <button type="button" class="fr-risk" data-risk="pass">通过 <b>0</b></button>
+                  </div>
+                  <div class="fr-risk-list" id="frRiskList"></div>
+                </div>
+              </aside>
+            </div>
+            <div class="fr-report" id="frReport" hidden>
+              <div class="fr-report-bar">
+                <div class="fr-report-title" id="frReportTitle">合同审核报告</div>
+                <button type="button" class="fr-report-tool" id="frReportClose">关闭</button>
+              </div>
+              <div class="fr-report-body">
+                <nav class="fr-report-toc" id="frReportToc" aria-label="报告目录">
+                  <div class="fr-report-toc-title">目录</div>
+                </nav>
+                <div class="fr-report-scroll" id="frReportScroll">
+                  <div class="fr-report-paper" id="frReportPaper" contenteditable="true" spellcheck="false"></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cmp-bar">
-            <button type="button" class="cmp-run" id="revRun" hidden>开始审核</button>
+
+          <div class="fr-rules" id="frRules" hidden>
+            <div class="fr-rules-top">
+              <button type="button" class="fr-rules-back" id="frRulesBack">‹ 返回</button>
+              <span class="fr-rules-top-title">审核规则</span>
+            </div>
+            <div class="fr-rules-cols">
+              <aside class="fr-rules-groups">
+                <div class="fr-rules-col-hd">
+                  <span>规则分组</span>
+                  <button type="button" class="fr-rules-link" id="frGroupNew">+ 新建</button>
+                </div>
+                <div class="fr-group-list" id="frGroupList"></div>
+              </aside>
+              <section class="fr-rules-main">
+                <div class="fr-rules-col-hd">
+                  <span>审查规则</span>
+                  <div class="fr-rules-actions">
+                    <button type="button" class="fr-rules-ghost" id="frParseRules">解析规则文档</button>
+                    <button type="button" class="fr-rules-primary" id="frRuleNew">+ 新建规则</button>
+                  </div>
+                </div>
+                <div class="fr-rules-search">
+                  <input type="search" id="frRuleSearch" placeholder="请输入规则名称或描述关键字以搜索" />
+                </div>
+                <div class="fr-rule-list" id="frRuleList"></div>
+              </section>
+              <aside class="fr-rules-detail">
+                <div class="fr-rules-col-hd">
+                  <span>规则详情</span>
+                  <button type="button" class="fr-rules-ghost sm" id="frRuleEdit">✎ 编辑</button>
+                </div>
+                <div class="fr-rule-detail" id="frRuleDetail">
+                  <div class="fr-empty">请选择一条规则</div>
+                </div>
+              </aside>
+            </div>
           </div>
-          <div id="revReport"></div>
         </div>
-        </div>
-        <aside class="cmp-side" aria-label="审核历史">
-          <div class="cmp-side-title">历史记录</div>
-          <div id="revHistList"></div>
-        </aside>
       </div>
       <div class="qa-stage" id="qaStage">
       <div class="qa-stage-chat">
@@ -3548,8 +4138,8 @@
                 <div class="cap-desc">材料清单、办理时限、审批环节、请假/用印/用车等高频办事问答</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="help">
-                <div class="cap-title">智能办事</div>
-                <div class="cap-desc">打通OA、会议、差旅、财务报销系统，用户通过自然语言即可触发会议预定、报销申请等跨系统操作，实现「对话即办事」，减少多平台切换成本。</div>
+                <div class="cap-title">智能填单</div>
+                <div class="cap-desc">根据用户具体办事诉求，自动生成请假、用印、会议室预约、差旅报销等不同表单，在对话里直接填写并提交。</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="write">
                 <div class="cap-title">智能撰写</div>
@@ -3560,8 +4150,8 @@
                 <div class="cap-desc">在当前问答里对照两版材料，按提示补全原版、修改版和比对重点。</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="review">
-                <div class="cap-title">合同审核</div>
-                <div class="cap-desc">在当前问答里做合同风险初审，按提示补全合同类型和关注点。</div>
+                <div class="cap-title">文件审核</div>
+                <div class="cap-desc">法律文件风险审查：上传合同后完成概览、清单与结果三步审查。</div>
               </button>
               <button type="button" class="cap-card cap-guide" data-demo="research">
                 <div class="cap-title">深度调研报告</div>
@@ -3588,7 +4178,7 @@
                 </button>
                 <button type="button" class="guess-q" data-demo="help">
                   <span class="gq-mark">4</span>
-                  <span class="gq-txt">智能办事交互示例</span>
+                  <span class="gq-txt">智能填单交互示例</span>
                 </button>
                 <button type="button" class="guess-q" data-demo="write">
                   <span class="gq-mark">5</span>
@@ -3600,7 +4190,7 @@
                 </button>
                 <button type="button" class="guess-q" data-demo="review">
                   <span class="gq-mark">7</span>
-                  <span class="gq-txt">合同审核交互示例</span>
+                  <span class="gq-txt">文件审核交互示例</span>
                 </button>
                 <button type="button" class="guess-q" data-demo="research">
                   <span class="gq-mark">8</span>
@@ -6030,9 +6620,9 @@
       demoHelp: {
         inlineDemo: true,
         mode: "qa",
-        query: "正在识别意图：智能办事",
+        query: "正在识别意图：智能填单",
         found: "已在当前问答页完成",
-        html: "<p>识别到您的意图是智能办事。本次在当前问答页发起跨系统操作示意，不跳转其他页面。</p><p><strong>示例指令：</strong>帮我预约明天下午 2 点的会议室，并同步发起差旅报销草稿。</p><ol><li>会议系统：已匹配空闲会议室「三楼会议室 A」，时段 14:00–16:00，待你确认后写入日程。</li><li>OA：已预填会议通知草稿（主题、时间、地点），可一键提交审批。</li><li>财务报销：已按差旅规则生成报销申请草稿，发票与行程待补传。</li></ol><p>确认后即可在对话里继续改时间、加人、或直接提交，减少在 OA / 会议 / 报销多端来回切换。</p>"
+        html: ""
       },
       demoWrite: {
         inlineDemo: true,
@@ -6052,11 +6642,11 @@
       },
       demoReview: {
         inlineDemo: true,
-        typeReport: "review",
+        plainAnswer: true,
         mode: "qa",
-        query: "正在识别意图：合同审核",
+        query: "正在识别意图：文件审核",
         found: "等待进入审核页面",
-        html: ""
+        html: "<p>识别到您的意图是文件审核，<button type=\"button\" class=\"jump-link\" data-jump=\"review\">点击此处</button>跳转到文件审核页面</p>"
       },
       demoResearch: {
         inlineDemo: true,
@@ -6173,6 +6763,7 @@
       setHistMainVisible(feat === "history");
       setCmpVisible(feat === "compare");
       setRevVisible(feat === "review");
+      if (feat === "review" && typeof frShowLanding === "function") frShowLanding();
       if (feat) closeResearchDoc();
     }
 
@@ -6842,39 +7433,389 @@
     var revFile = null;
     var revActiveHist = "";
     var revHistory = [
-      { id: "r1", title: "软件技术开发合同", file: "软件技术开发合同.docx", type: "技术开发合同", role: "甲方", when: "今天 15:10" },
-      { id: "r2", title: "房屋租赁合同", file: "城南置业房屋租赁合同.pdf", type: "租赁合同", role: "承租方", when: "昨天 11:40" },
-      { id: "r3", title: "采购框架协议", file: "设备采购框架协议.docx", type: "买卖合同", role: "采购方", when: "10月9日" }
+      { id: "r1", title: "设备采购合同", file: "设备采购合同.docx", type: "买卖合同", role: "甲方", when: "今天 15:10" },
+      { id: "r2", title: "采购框架协议", file: "设备采购框架协议.docx", type: "买卖合同", role: "采购方", when: "昨天 11:40" },
+      { id: "r3", title: "软件技术开发合同", file: "软件技术开发合同.docx", type: "技术开发合同", role: "甲方", when: "10月9日" }
     ];
+    var frStep = 1;
+    var frOvTimer = null;
+    var FR_CHECKS = [
+      "货物名称、规格、数量与技术标准是否约定明确",
+      "合同价款是否含税、运费及安装调试费用是否写清",
+      "交货时间、地点与风险/所有权转移节点是否完备、合理",
+      "付款节点与发票开具义务是否匹配",
+      "验收标准、期限与不合格处理是否可执行",
+      "质保期限、响应时效与质保金退还是否明确",
+      "逾期交货与逾期付款违约金是否对等",
+      "知识产权不侵权保证是否完整",
+      "争议解决方式是否唯一且可执行",
+      "是否有送达与通知条款",
+      "不可抗力通知与证明义务是否约定",
+      "附件清单是否与正文效力衔接"
+    ];
+    var FR_RISKS = {
+      high: [],
+      mid: [
+        { text: "交货风险与所有权转移节点是否前后一致、可执行", anchor: "frAnchorRisk" },
+        { text: "付款节点与“货到付款/验收后付款”表述是否存在冲突风险", anchor: "frAnchorPay" }
+      ],
+      low: [],
+      pass: []
+    };
 
-    function renderRevHist() {
-      var host = document.getElementById("revHistList");
+    var FR_RULE_GROUPS = [
+      "承揽合同", "建设工程合同", "运输合同", "技术合同", "保管合同",
+      "仓储合同", "委托合同", "行纪合同", "中介合同", "物业服务合同",
+      "租赁合同", "买卖合同", "融资租赁合同"
+    ];
+    var FR_RULE_BANK = {
+      "承揽合同": [
+        {
+          id: "r-c-1", level: "high", smart: true,
+          name: "在合同担保条款中，即关于承揽人支付价款有关担保的约定",
+          desc: "明确担保方式及要点：保证金交付、管理；保证人资格与方式；抵押权登记。融资租赁类担保可参考人民银行征信中心登记实践，确保担保效力，对抗第三人。"
+        },
+        {
+          id: "r-c-2", level: "high", smart: true,
+          name: "承揽工作成果交付时间、地点与验收标准是否约定明确",
+          desc: "检查是否写明交付节点、验收标准、不合格返工责任及逾期交付违约金，避免“合格即视为验收”等不可执行表述。"
+        },
+        {
+          id: "r-c-3", level: "mid", smart: true,
+          name: "材料提供与风险负担条款是否完备",
+          desc: "区分定作人供材与承揽人供材，写清检验、保管、损耗及毁损灭失风险转移时点。"
+        },
+        {
+          id: "r-c-4", level: "mid", smart: true,
+          name: "保密与知识产权归属是否清晰",
+          desc: "约定图纸、技术资料保密期限，以及工作成果知识产权归属、许可使用范围。"
+        }
+      ],
+      "买卖合同": [
+        {
+          id: "r-b-1", level: "high", smart: true,
+          name: "交货风险与所有权转移节点是否前后一致、可执行",
+          desc: "核对风险转移、所有权保留与签收时点是否冲突，避免“签收后风险转移、付清后所有权转移”导致权责不清。"
+        },
+        {
+          id: "r-b-2", level: "mid", smart: true,
+          name: "付款节点与发票开具义务是否匹配",
+          desc: "预付款、到货款、验收款、质保金比例合计应为100%，并约定未开发票可顺延付款。"
+        },
+        {
+          id: "r-b-3", level: "mid", smart: true,
+          name: "质量保证期限与售后响应是否明确",
+          desc: "写明质保起算点、响应时限、修理更换费用承担及质保金退还条件。"
+        }
+      ],
+      "租赁合同": [
+        {
+          id: "r-l-1", level: "high", smart: true,
+          name: "在合同担保条款中，即关于承租人支付租金有关担保的约定",
+          desc: "明确担保方式及要点：保证金交付、管理；保证人资格与方式；抵押权登记。融资租赁合同可通过人民银行征信中心登记抵押、质押，确保担保效力，对抗第三人。"
+        },
+        {
+          id: "r-l-2", level: "mid", smart: true,
+          name: "租赁期限是否超过二十年法定上限",
+          desc: "租赁期限不得超过二十年，超过部分无效；续租应另订书面合同。"
+        },
+        {
+          id: "r-l-3", level: "mid", smart: true,
+          name: "押金退还条件与期限是否合理",
+          desc: "约定交房并结清费用后的退还期限及可扣除范围，避免“由出租方决定是否退还”。"
+        }
+      ]
+    };
+    var frRuleState = { group: "承揽合同", ruleId: "", q: "" };
+
+    function frShowLanding() {
+      var landing = document.getElementById("frLanding");
+      var work = document.getElementById("frWork");
+      var rules = document.getElementById("frRules");
+      if (landing) landing.hidden = false;
+      if (work) work.hidden = true;
+      if (rules) rules.hidden = true;
+      frStep = 1;
+      if (frOvTimer) { window.clearInterval(frOvTimer); frOvTimer = null; }
+      closeFrReport();
+    }
+
+    function frShowRules() {
+      var landing = document.getElementById("frLanding");
+      var work = document.getElementById("frWork");
+      var rules = document.getElementById("frRules");
+      if (landing) landing.hidden = true;
+      if (work) work.hidden = true;
+      if (rules) rules.hidden = false;
+      closeFrReport();
+      frRenderRuleGroups();
+      frRenderRuleList();
+    }
+
+    function frShowWork(title) {
+      var landing = document.getElementById("frLanding");
+      var work = document.getElementById("frWork");
+      var rules = document.getElementById("frRules");
+      var titleEl = document.getElementById("frDocTitle");
+      if (landing) landing.hidden = true;
+      if (work) work.hidden = false;
+      if (rules) rules.hidden = true;
+      if (titleEl) titleEl.textContent = title || "《设备采购合同》";
+      frSetStep(1);
+      frStartOverview();
+    }
+
+    function frRulesOfGroup(group) {
+      return FR_RULE_BANK[group] || [
+        {
+          id: "r-g-1", level: "mid", smart: true,
+          name: group + "关键条款完整性审查",
+          desc: "对照该类合同常见必备条款，检查主体、标的、价款、履行期限、违约责任与争议解决是否齐全。"
+        },
+        {
+          id: "r-g-2", level: "high", smart: true,
+          name: group + "争议解决与送达条款是否完备",
+          desc: "争议解决方式应唯一可执行；送达地址、联系人变更通知义务应写明。"
+        },
+        {
+          id: "r-g-3", level: "mid", smart: true,
+          name: group + "违约责任是否对等可执行",
+          desc: "检查逾期、解除、赔偿计算口径是否对等，避免单方过重或无法履行。"
+        }
+      ];
+    }
+
+    function frRenderRuleGroups() {
+      var host = document.getElementById("frGroupList");
       if (!host) return;
-      host.innerHTML = revHistory.map(function (item) {
-        var cls = "cmp-hist-item" + (revActiveHist === item.id ? " active" : "");
-        return '<button type="button" class="' + cls + '" data-rev-hist="' + item.id + '">' +
-          '<span class="cmp-hist-name">' + escapeHtml(item.title) + "</span>" +
-          '<span class="cmp-hist-meta">' + escapeHtml(item.file) + "</span>" +
-          '<span class="cmp-hist-when">' + escapeHtml(item.type) + " · " + escapeHtml(item.when) + "</span></button>";
+      host.innerHTML = FR_RULE_GROUPS.map(function (name) {
+        var cls = "fr-group-item" + (frRuleState.group === name ? " active" : "");
+        return '<button type="button" class="' + cls + '" data-fr-group="' + escapeHtml(name) + '">' +
+          escapeHtml(name) + "</button>";
       }).join("");
     }
 
-    function refreshRevSlot() {
-      var drop = document.getElementById("revDrop");
-      var nameEl = document.getElementById("revName");
-      var clearBtn = document.getElementById("revClear");
-      var run = document.getElementById("revRun");
-      if (!drop || !nameEl || !clearBtn) return;
-      if (!revFile) {
-        drop.classList.remove("ready");
-        nameEl.textContent = "点击或拖入合同文件";
-        clearBtn.hidden = true;
-      } else {
-        drop.classList.add("ready");
-        nameEl.textContent = revFile.name;
-        clearBtn.hidden = false;
+    function frRenderRuleList() {
+      var host = document.getElementById("frRuleList");
+      if (!host) return;
+      var q = (frRuleState.q || "").trim().toLowerCase();
+      var list = frRulesOfGroup(frRuleState.group).filter(function (rule) {
+        if (!q) return true;
+        return (rule.name + " " + rule.desc).toLowerCase().indexOf(q) >= 0;
+      });
+      if (!list.length) {
+        host.innerHTML = '<div class="fr-empty">未找到匹配规则</div>';
+        frRenderRuleDetail(null);
+        return;
       }
-      if (run) run.hidden = !revFile;
+      if (!list.some(function (r) { return r.id === frRuleState.ruleId; })) {
+        frRuleState.ruleId = list[0].id;
+      }
+      host.innerHTML = list.map(function (rule) {
+        var active = rule.id === frRuleState.ruleId ? " active" : "";
+        var levelCls = rule.level === "high" ? "high" : "mid";
+        var levelTxt = rule.level === "high" ? "高风险" : "中风险";
+        return '<label class="fr-rule-item' + active + '" data-fr-rule="' + rule.id + '">' +
+          '<input type="checkbox" checked />' +
+          '<span class="fr-rule-body">' +
+          '<span class="fr-rule-tag ' + levelCls + '">' + levelTxt + "</span>" +
+          '<span class="fr-rule-name">' + escapeHtml(rule.name) + "</span>" +
+          (rule.smart ? '<span class="fr-rule-tag smart">智能</span>' : "") +
+          "</span></label>";
+      }).join("");
+      var cur = list.filter(function (r) { return r.id === frRuleState.ruleId; })[0];
+      frRenderRuleDetail(cur || null);
+    }
+
+    function frRenderRuleDetail(rule) {
+      var host = document.getElementById("frRuleDetail");
+      if (!host) return;
+      if (!rule) {
+        host.innerHTML = '<div class="fr-empty">请选择一条规则</div>';
+        return;
+      }
+      var levelCls = rule.level === "high" ? "high" : "mid";
+      var levelTxt = rule.level === "high" ? "高风险" : "中风险";
+      host.innerHTML =
+        '<div class="fr-detail-block"><div class="fr-detail-label">规则名称</div>' +
+        '<div class="fr-detail-name">' + escapeHtml(rule.name) + "</div></div>" +
+        '<div class="fr-detail-block"><div class="fr-detail-label">风险等级</div>' +
+        '<span class="fr-rule-tag ' + levelCls + '">' + levelTxt + "</span></div>" +
+        '<div class="fr-detail-block"><div class="fr-detail-label">规则描述</div>' +
+        '<p class="fr-detail-desc">' + escapeHtml(rule.desc) + "</p></div>";
+    }
+
+    function frSetStep(step) {
+      frStep = step;
+      document.querySelectorAll("#frStepper .fr-step").forEach(function (btn) {
+        var n = Number(btn.getAttribute("data-fr-step"));
+        btn.classList.toggle("active", n === step);
+        btn.classList.toggle("done", n < step);
+      });
+      document.querySelectorAll("#revPanel [data-fr-pane]").forEach(function (pane) {
+        var n = Number(pane.getAttribute("data-fr-pane"));
+        var on = n === step;
+        pane.hidden = !on;
+        pane.classList.toggle("show", on);
+      });
+    }
+
+    function frStartOverview() {
+      var loading = document.getElementById("frOverviewLoading");
+      var done = document.getElementById("frOverviewDone");
+      var bar = document.getElementById("frOvBar");
+      var typeEl = document.getElementById("frOvType");
+      var typeSel = document.getElementById("frContractType");
+      if (typeEl && typeSel) typeEl.textContent = typeSel.value;
+      if (loading) loading.hidden = false;
+      if (done) done.hidden = true;
+      if (bar) bar.style.width = "12%";
+      if (frOvTimer) window.clearInterval(frOvTimer);
+      var pct = 12;
+      frOvTimer = window.setInterval(function () {
+        pct += 22;
+        if (bar) bar.style.width = Math.min(pct, 100) + "%";
+        if (pct >= 100) {
+          window.clearInterval(frOvTimer);
+          frOvTimer = null;
+          if (loading) loading.hidden = true;
+          if (done) done.hidden = false;
+        }
+      }, 280);
+    }
+
+    function frRenderChecks() {
+      var host = document.getElementById("frCheckList");
+      if (!host) return;
+      host.innerHTML = FR_CHECKS.map(function (text, i) {
+        var checked = i === 1 || i === 2;
+        return '<label class="fr-check' + (checked ? " on" : "") + '">' +
+          '<input type="checkbox"' + (checked ? " checked" : "") + ' data-fr-check="' + i + '" />' +
+          '<span class="n">' + (i + 1) + ".</span><span>" + escapeHtml(text) + "</span></label>";
+      }).join("");
+      frUpdateCheckCount();
+    }
+
+    function frUpdateCheckCount() {
+      var boxes = document.querySelectorAll("#frCheckList input[type=checkbox]");
+      var n = 0;
+      boxes.forEach(function (el) { if (el.checked) n += 1; });
+      var el = document.getElementById("frListCount");
+      if (el) el.textContent = "已选择 " + n + "/" + boxes.length + " 项";
+    }
+
+    function frRenderRisks(level) {
+      var host = document.getElementById("frRiskList");
+      if (!host) return;
+      var items = FR_RISKS[level] || [];
+      if (!items.length) {
+        host.innerHTML = '<div class="fr-empty">该等级暂无审查项</div>';
+        return;
+      }
+      host.innerHTML = items.map(function (item, idx) {
+        var text = typeof item === "string" ? item : item.text;
+        var anchor = typeof item === "string" ? "" : (item.anchor || "");
+        return '<button type="button" class="fr-risk-item" data-fr-anchor="' + escapeHtml(anchor) + '" data-fr-risk-idx="' + idx + '">' +
+          '<span class="dot"></span><span>' + escapeHtml(text) + '</span><span class="cnt">1</span></button>';
+      }).join("");
+    }
+
+    function frLocateRisk(anchorId, btn) {
+      document.querySelectorAll("#frRiskList .fr-risk-item").forEach(function (el) {
+        el.classList.toggle("active", el === btn);
+      });
+      document.querySelectorAll("#revPanel .fr-anchor.fr-hl").forEach(function (el) {
+        el.classList.remove("fr-hl");
+      });
+      if (!anchorId) return;
+      var target = document.getElementById(anchorId);
+      var scroll = document.querySelector("#revPanel .fr-doc-scroll");
+      if (!target) return;
+      target.classList.add("fr-hl");
+      if (scroll) {
+        var sRect = scroll.getBoundingClientRect();
+        var tRect = target.getBoundingClientRect();
+        scroll.scrollTo({ top: Math.max(0, scroll.scrollTop + (tRect.top - sRect.top) - 36), behavior: "smooth" });
+      } else {
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      window.setTimeout(function () { target.classList.remove("fr-hl"); }, 2600);
+    }
+
+    function frBuildReportToc() {
+      var toc = document.getElementById("frReportToc");
+      var paper = document.getElementById("frReportPaper");
+      if (!toc || !paper) return;
+      toc.innerHTML = '<div class="fr-report-toc-title">目录</div>';
+      var heads = paper.querySelectorAll("h4, .cmp-sec > h4");
+      if (!heads.length) {
+        var empty = document.createElement("div");
+        empty.style.cssText = "padding:8px;font-size:12px;color:#9ca3af";
+        empty.textContent = "暂无章节";
+        toc.appendChild(empty);
+        return;
+      }
+      Array.prototype.forEach.call(heads, function (h, i) {
+        if (!h.id) h.id = "frRepSec" + i;
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = h.textContent || ("章节 " + (i + 1));
+        btn.setAttribute("data-fr-toc", h.id);
+        if (i === 0) btn.className = "on";
+        toc.appendChild(btn);
+      });
+    }
+
+    function openFrReport() {
+      var report = document.getElementById("frReport");
+      var paper = document.getElementById("frReportPaper");
+      var titleEl = document.getElementById("frReportTitle");
+      if (!report || !paper) return;
+      var fileName = (revFile && revFile.name) || "设备采购合同.docx";
+      var roleBtn = document.querySelector('#frStance input[name="frStance"]:checked');
+      var role = roleBtn && roleBtn.value === "乙" ? "乙方" : (roleBtn && roleBtn.value === "中" ? "中立" : "甲方");
+      var model = sampleReview(fileName, role);
+      if (titleEl) titleEl.textContent = "合同审核报告";
+      paper.innerHTML = "<h1>合同审核报告</h1>" + reviewBodyText(model);
+      frBuildReportToc();
+      report.hidden = false;
+      var scroll = document.getElementById("frReportScroll");
+      if (scroll) scroll.scrollTop = 0;
+      document.querySelectorAll("#frPane3 [data-fr-rtab]").forEach(function (el) {
+        el.classList.toggle("active", el.getAttribute("data-fr-rtab") === "report");
+      });
+    }
+
+    function closeFrReport() {
+      var report = document.getElementById("frReport");
+      if (report) report.hidden = true;
+      document.querySelectorAll("#frPane3 [data-fr-rtab]").forEach(function (el) {
+        el.classList.toggle("active", el.getAttribute("data-fr-rtab") === "risk");
+      });
+    }
+
+    function showRevRecord(item) {
+      if (!item) return;
+      revActiveHist = item.id;
+      revFile = { name: item.file, size: 120400, type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
+      closeQaWriteEmbed();
+      document.querySelectorAll("#qaFeats .qa-feat").forEach(function (btn) {
+        btn.classList.toggle("active", btn.getAttribute("data-feat") === "review");
+      });
+      setHistMainVisible(false);
+      setCmpVisible(false);
+      setRevVisible(true);
+      closeResearchDoc();
+      var landing = document.getElementById("frLanding");
+      var work = document.getElementById("frWork");
+      var rules = document.getElementById("frRules");
+      var titleEl = document.getElementById("frDocTitle");
+      if (landing) landing.hidden = true;
+      if (work) work.hidden = false;
+      if (rules) rules.hidden = true;
+      if (titleEl) titleEl.textContent = "《" + (item.title || "设备采购合同") + "》";
+      frSetStep(3);
+      frRenderRisks("mid");
     }
 
     function sampleTechContract(name, role) {
@@ -7054,27 +7995,6 @@
         "<li>报告依据审查当日可以核对的法律法规。法律变更后，其中部分建议可能不再适用。</li></ul></section>";
     }
 
-    function renderRevReport(model) {
-      var host = document.getElementById("revReport");
-      if (!host) return;
-      host.innerHTML = '<article class="cmp-card" id="revReportCard">' +
-        '<header class="cmp-head"><h3>合同审核报告</h3><div class="cmp-save-wrap"><button type="button" class="cmp-save" id="revSaveBtn" aria-label="保存" title="保存" aria-expanded="false" aria-haspopup="true"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7l-4-4z" fill="none" stroke="#000" stroke-width="1.8"/><path d="M7 3v6h8" fill="none" stroke="#000" stroke-width="1.8"/><path d="M7 21v-7h10v7" fill="none" stroke="#000" stroke-width="1.8"/></svg></button><div class="cmp-save-menu" id="revSaveMenu" hidden><button type="button" data-save="word">保存为 Word</button><button type="button" data-save="pdf">保存为 PDF</button></div></div></header>' +
-        '<div class="cmp-doc"><nav class="cmp-toc" aria-label="报告目录"><div class="cmp-toc-title">目录</div><button type="button" class="on" data-toc="revSecInfo">一、基本信息</button><button type="button" data-toc="revSecOverview">二、风险概况</button><button type="button" data-toc="revSecSevere">三、严重风险</button><button type="button" data-toc="revSecMid">四、中等风险</button><button type="button" data-toc="revSecLight">五、一般风险</button><button type="button" data-toc="revSecTip">六、特别提示</button><button type="button" data-toc="revSecMiss">七、缺失条款清单</button><button type="button" data-toc="revSecSuggest">八、修改建议汇总</button><button type="button" data-toc="revSecLaw">九、法规依据</button><button type="button" data-toc="revSecDisc">十、免责声明</button></nav>' +
-        '<div class="cmp-editor-col"><div class="cmp-toolbar" aria-label="正文格式"><button type="button" data-cmd="bold" title="加粗"><b>B</b></button><button type="button" data-cmd="italic" title="斜体"><i>I</i></button><button type="button" data-cmd="underline" title="下划线"><u>U</u></button><button type="button" data-cmd="insertUnorderedList" title="列表">列表</button></div>' +
-        '<div class="cmp-editor" id="revEditor" contenteditable="true" spellcheck="false">' + reviewBodyText(model) + "</div></div></div></article>";
-    }
-
-    function showRevRecord(item) {
-      if (!item) return;
-      revActiveHist = item.id;
-      revFile = { name: item.file, size: 120400, type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
-      refreshRevSlot();
-      renderRevReport(sampleReview(item.file, item.role));
-      renderRevHist();
-      var report = document.getElementById("revReport");
-      if (report) report.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-
     function rememberRev(name) {
       var found = revHistory.filter(function (item) { return item.file === name; })[0];
       if (found) {
@@ -7084,110 +8004,181 @@
         revHistory.unshift({ id: id, title: name.replace(/\.[^.]+$/, ""), file: name, type: "上传合同", role: "甲方", when: "刚刚" });
         revActiveHist = id;
       }
-      renderRevHist();
     }
 
     function initReviewPanel() {
       var input = document.getElementById("revFile");
-      var drop = document.getElementById("revDrop");
-      var pick = document.getElementById("revPick");
-      var clearBtn = document.getElementById("revClear");
-      var run = document.getElementById("revRun");
-      var report = document.getElementById("revReport");
+      var drop = document.getElementById("frDrop");
+      var panel = document.getElementById("revPanel");
       function openPicker() { if (input) input.click(); }
-      if (pick) pick.addEventListener("click", openPicker);
-      if (clearBtn) clearBtn.addEventListener("click", function () {
-        if (input) input.value = "";
-        revFile = null;
-        revActiveHist = "";
-        refreshRevSlot();
-        renderRevHist();
-      });
+      function enterWithFile(file) {
+        revFile = file || { name: "设备采购合同.docx", size: 102400, type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" };
+        rememberRev(revFile.name);
+        var base = (revFile.name || "设备采购合同").replace(/\.[^.]+$/, "");
+        frShowWork("《" + base + "》");
+      }
       if (drop) {
-        drop.addEventListener("click", openPicker);
+        drop.addEventListener("click", function () { enterWithFile(null); });
         drop.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openPicker(); }
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); enterWithFile(null); }
         });
         ["dragenter", "dragover"].forEach(function (name) {
-          drop.addEventListener(name, function (e) {
-            e.preventDefault();
-            drop.classList.add("drag");
-          });
+          drop.addEventListener(name, function (e) { e.preventDefault(); drop.classList.add("drag"); });
         });
         ["dragleave", "drop"].forEach(function (name) {
-          drop.addEventListener(name, function (e) {
-            e.preventDefault();
-            drop.classList.remove("drag");
-          });
+          drop.addEventListener(name, function (e) { e.preventDefault(); drop.classList.remove("drag"); });
         });
         drop.addEventListener("drop", function (e) {
           var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-          if (file) { revFile = file; refreshRevSlot(); }
+          enterWithFile(file || null);
         });
       }
       if (input) input.addEventListener("change", function () {
         var file = input.files && input.files[0];
-        if (file) { revFile = file; refreshRevSlot(); }
+        enterWithFile(file || null);
+        input.value = "";
       });
-      if (run) run.addEventListener("click", function () {
-        if (!revFile) return;
-        run.disabled = true;
-        run.textContent = "正在审核…";
-        var file = revFile;
-        window.setTimeout(function () {
-          renderRevReport(sampleReview(file.name, "甲方"));
-          rememberRev(file.name);
-          if (report) report.scrollIntoView({ behavior: "smooth", block: "nearest" });
-          run.disabled = false;
-          run.textContent = "开始审核";
-        }, 280);
-      });
-      if (report) {
-        report.addEventListener("mousedown", function (e) {
-          if (e.target.closest("[data-cmd]")) e.preventDefault();
-        });
-        report.addEventListener("click", function (e) {
-          var tocBtn = e.target.closest("[data-toc]");
-          if (tocBtn) {
-            var target = document.getElementById(tocBtn.getAttribute("data-toc"));
-            report.querySelectorAll("[data-toc]").forEach(function (el) { el.classList.toggle("on", el === tocBtn); });
-            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-            return;
-          }
-          var cmdBtn = e.target.closest("[data-cmd]");
-          if (cmdBtn) {
-            document.execCommand(cmdBtn.getAttribute("data-cmd"), false, null);
-            var editor = document.getElementById("revEditor");
-            if (editor) editor.focus();
-            return;
-          }
-          var menu = document.getElementById("revSaveMenu");
-          var saveBtn = e.target.closest("#revSaveBtn");
-          if (saveBtn && menu) {
-            var open = menu.hidden;
-            menu.hidden = !open;
-            saveBtn.setAttribute("aria-expanded", open ? "true" : "false");
-            return;
-          }
-          var item = e.target.closest("[data-save]");
-          if (!item) return;
-          if (menu) menu.hidden = true;
-          var btn = document.getElementById("revSaveBtn");
-          if (btn) btn.setAttribute("aria-expanded", "false");
-          if (item.getAttribute("data-save") === "word") saveReportWord("revEditor", "合同审核报告", "合同审核报告.doc");
-          else saveReportPdf("revEditor", "合同审核报告", "合同审核报告.pdf");
-        });
-      }
-      var demoBtn = document.getElementById("revLoadDemo");
-      if (demoBtn) demoBtn.addEventListener("click", function () { showRevRecord(revHistory[0]); });
-      var histList = document.getElementById("revHistList");
-      if (histList) histList.addEventListener("click", function (e) {
-        var btn = e.target.closest("[data-rev-hist]");
+
+      var rulesBtn = document.getElementById("frRulesBtn");
+      if (rulesBtn) rulesBtn.addEventListener("click", function () { frShowRules(); });
+      var rulesBack = document.getElementById("frRulesBack");
+      if (rulesBack) rulesBack.addEventListener("click", function () { frShowLanding(); });
+      var groupList = document.getElementById("frGroupList");
+      if (groupList) groupList.addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-fr-group]");
         if (!btn) return;
-        var item = revHistory.filter(function (row) { return row.id === btn.getAttribute("data-rev-hist"); })[0];
-        showRevRecord(item);
+        frRuleState.group = btn.getAttribute("data-fr-group");
+        frRuleState.ruleId = "";
+        frRenderRuleGroups();
+        frRenderRuleList();
       });
-      renderRevHist();
+      var ruleList = document.getElementById("frRuleList");
+      if (ruleList) ruleList.addEventListener("click", function (e) {
+        var row = e.target.closest("[data-fr-rule]");
+        if (!row) return;
+        if (e.target && e.target.tagName === "INPUT") return;
+        frRuleState.ruleId = row.getAttribute("data-fr-rule");
+        frRenderRuleList();
+      });
+      var ruleSearch = document.getElementById("frRuleSearch");
+      if (ruleSearch) ruleSearch.addEventListener("input", function () {
+        frRuleState.q = ruleSearch.value || "";
+        frRenderRuleList();
+      });
+      var groupNew = document.getElementById("frGroupNew");
+      if (groupNew) groupNew.addEventListener("click", function () { toast("新建规则分组（原型占位）"); });
+      var parseRules = document.getElementById("frParseRules");
+      if (parseRules) parseRules.addEventListener("click", function () { toast("解析规则文档（原型占位）"); });
+      var ruleNew = document.getElementById("frRuleNew");
+      if (ruleNew) ruleNew.addEventListener("click", function () { toast("新建规则（原型占位）"); });
+      var ruleEdit = document.getElementById("frRuleEdit");
+      if (ruleEdit) ruleEdit.addEventListener("click", function () { toast("编辑规则（原型占位）"); });
+      var newBtn = document.getElementById("frNewBtn");
+      if (newBtn) newBtn.addEventListener("click", function () {
+        revFile = null;
+        revActiveHist = "";
+        frShowLanding();
+      });
+
+      document.querySelectorAll("#frStepper .fr-step").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var step = Number(btn.getAttribute("data-fr-step"));
+          if (!step) return;
+          frSetStep(step);
+          if (step === 2) frRenderChecks();
+          if (step === 3) frRenderRisks("mid");
+        });
+      });
+
+      var aiList = document.getElementById("frAiList");
+      if (aiList) aiList.addEventListener("click", function () {
+        frSetStep(2);
+        frRenderChecks();
+      });
+      var kbList = document.getElementById("frKbList");
+      if (kbList) kbList.addEventListener("click", function () { toast("从知识库选择清单（原型占位）"); });
+      var toList = document.getElementById("frToList");
+      if (toList) toList.addEventListener("click", function () {
+        frSetStep(2);
+        frRenderChecks();
+      });
+      var saveList = document.getElementById("frSaveList");
+      if (saveList) saveList.addEventListener("click", function () { toast("已保存至新清单（原型）"); });
+      var toResult = document.getElementById("frToResult");
+      if (toResult) toResult.addEventListener("click", function () {
+        frSetStep(3);
+        frRenderRisks("mid");
+        document.querySelectorAll("#frRiskBar .fr-risk").forEach(function (el) {
+          var on = el.getAttribute("data-risk") === "mid";
+          el.classList.toggle("on", on);
+          el.classList.toggle("mid", on);
+          el.classList.toggle("high", el.getAttribute("data-risk") === "high" && on);
+        });
+      });
+
+      var checkList = document.getElementById("frCheckList");
+      if (checkList) checkList.addEventListener("change", function (e) {
+        var box = e.target.closest("input[type=checkbox]");
+        if (!box) return;
+        var row = box.closest(".fr-check");
+        if (row) row.classList.toggle("on", box.checked);
+        frUpdateCheckCount();
+      });
+
+      var riskBar = document.getElementById("frRiskBar");
+      if (riskBar) riskBar.addEventListener("click", function (e) {
+        var btn = e.target.closest(".fr-risk");
+        if (!btn) return;
+        var level = btn.getAttribute("data-risk");
+        riskBar.querySelectorAll(".fr-risk").forEach(function (el) {
+          el.classList.remove("on", "mid", "high", "low", "pass");
+          if (el === btn) {
+            el.classList.add("on", level);
+          }
+        });
+        frRenderRisks(level);
+      });
+
+      var riskList = document.getElementById("frRiskList");
+      if (riskList) riskList.addEventListener("click", function (e) {
+        var btn = e.target.closest(".fr-risk-item");
+        if (!btn) return;
+        frLocateRisk(btn.getAttribute("data-fr-anchor") || "", btn);
+      });
+
+      var openReport = document.getElementById("frOpenReport");
+      if (openReport) openReport.addEventListener("click", function () { openFrReport(); });
+      var riskTab = document.querySelector('#frPane3 [data-fr-rtab="risk"]');
+      if (riskTab) riskTab.addEventListener("click", function () { closeFrReport(); });
+      var closeReport = document.getElementById("frReportClose");
+      if (closeReport) closeReport.addEventListener("click", function () { closeFrReport(); });
+      var reportToc = document.getElementById("frReportToc");
+      if (reportToc) reportToc.addEventListener("click", function (e) {
+        var btn = e.target.closest("[data-fr-toc]");
+        if (!btn) return;
+        var id = btn.getAttribute("data-fr-toc");
+        var target = document.getElementById(id);
+        var scroll = document.getElementById("frReportScroll");
+        reportToc.querySelectorAll("[data-fr-toc]").forEach(function (el) {
+          el.classList.toggle("on", el === btn);
+        });
+        if (target && scroll) {
+          var sRect = scroll.getBoundingClientRect();
+          var tRect = target.getBoundingClientRect();
+          scroll.scrollTo({ top: Math.max(0, scroll.scrollTop + (tRect.top - sRect.top) - 12), behavior: "smooth" });
+        }
+      });
+
+      var typeSel = document.getElementById("frContractType");
+      if (typeSel) typeSel.addEventListener("change", function () {
+        var typeEl = document.getElementById("frOvType");
+        if (typeEl) typeEl.textContent = typeSel.value;
+      });
+
+      frRenderChecks();
+      frRenderRisks("mid");
+      frShowLanding();
+      if (panel) panel.addEventListener("click", function () { /* keep focus within prototype */ });
     }
 
     document.addEventListener("click", function (e) {
@@ -7224,8 +8215,120 @@
       if (window.App && App.showSceneStep) App.showSceneStep(1);
     }
 
+    var FILL_FORMS = {
+      leave: {
+        title: "请假申请单",
+        sub: "识别到你要请假，已按人事流程生成表单（示例已预填）。",
+        fields: [
+          { key: "name", label: "申请人", value: "张敏", type: "text" },
+          { key: "dept", label: "所属部门", value: "综合办公室", type: "text" },
+          { key: "type", label: "请假类型", value: "年休假", type: "select", options: ["年休假", "事假", "病假", "婚假"] },
+          { key: "days", label: "请假天数", value: "2", type: "text" },
+          { key: "start", label: "开始时间", value: "2026-11-26 09:00", type: "text" },
+          { key: "end", label: "结束时间", value: "2026-11-27 18:00", type: "text" },
+          { key: "reason", label: "请假事由", value: "家中有事需处理，已安排工作交接。", type: "textarea", full: true }
+        ]
+      },
+      meeting: {
+        title: "会议室预约单",
+        sub: "识别到你要订会议室，已按空闲资源生成预约单。",
+        fields: [
+          { key: "topic", label: "会议主题", value: "数字档案室建设周例会", type: "text", full: true },
+          { key: "room", label: "会议室", value: "三楼会议室 A", type: "select", options: ["三楼会议室 A", "五楼报告厅", "二楼洽谈室"] },
+          { key: "host", label: "主持人", value: "李强", type: "text" },
+          { key: "date", label: "会议日期", value: "2026-11-26", type: "text" },
+          { key: "time", label: "时段", value: "14:00–16:00", type: "text" },
+          { key: "people", label: "参会人数", value: "12", type: "text" },
+          { key: "need", label: "设备需求", value: "投影、视频会议", type: "text", full: true }
+        ]
+      },
+      seal: {
+        title: "用印申请单",
+        sub: "识别到你要申请用印，已按办公室用印流程生成表单。",
+        fields: [
+          { key: "doc", label: "用印文件", value: "关于推进数字档案室建设的请示", type: "text", full: true },
+          { key: "seal", label: "印章类型", value: "单位公章", type: "select", options: ["单位公章", "合同专用章", "法人章"] },
+          { key: "copies", label: "用印份数", value: "3", type: "text" },
+          { key: "urgent", label: "紧急程度", value: "普通", type: "select", options: ["普通", "加急", "特急"] },
+          { key: "useDate", label: "用印日期", value: "2026-11-25", type: "text" },
+          { key: "keeper", label: "取件人", value: "王芳", type: "text" },
+          { key: "note", label: "备注说明", value: "需携带审批通过的请示原件核验。", type: "textarea", full: true }
+        ]
+      },
+      travel: {
+        title: "差旅报销单",
+        sub: "识别到你要报销差旅，已按财务规则生成报销草稿。",
+        fields: [
+          { key: "traveler", label: "报销人", value: "赵磊", type: "text" },
+          { key: "trip", label: "出差事由", value: "参加全省数字档案室建设培训", type: "text", full: true },
+          { key: "from", label: "出发地", value: "济南", type: "text" },
+          { key: "to", label: "目的地", value: "青岛", type: "text" },
+          { key: "period", label: "出差期间", value: "2026-11-18 至 2026-11-20", type: "text", full: true },
+          { key: "traffic", label: "交通费（元）", value: "486.00", type: "text" },
+          { key: "hotel", label: "住宿费（元）", value: "760.00", type: "text" },
+          { key: "subsidy", label: "补助（元）", value: "300.00", type: "text" },
+          { key: "total", label: "合计（元）", value: "1546.00", type: "text" },
+          { key: "invoice", label: "发票情况", value: "火车票 2 张、住宿发票 1 张待补传", type: "textarea", full: true }
+        ]
+      }
+    };
+
+    function fillFormFieldsHtml(form) {
+      return '<div class="fill-form-grid">' + form.fields.map(function (f) {
+        var cls = "fill-field" + (f.full ? " full" : "");
+        var ctrl = "";
+        if (f.type === "select") {
+          ctrl = "<select>" + (f.options || []).map(function (op) {
+            return "<option" + (op === f.value ? " selected" : "") + ">" + escapeHtml(op) + "</option>";
+          }).join("") + "</select>";
+        } else if (f.type === "textarea") {
+          ctrl = "<textarea>" + escapeHtml(f.value || "") + "</textarea>";
+        } else {
+          ctrl = '<input type="text" value="' + escapeHtml(f.value || "") + '" />';
+        }
+        return '<label class="' + cls + '"><span>' + escapeHtml(f.label) + "</span>" + ctrl + "</label>";
+      }).join("") + "</div>";
+    }
+
+    function fillFormCardHtml(type) {
+      var form = FILL_FORMS[type] || FILL_FORMS.leave;
+      return '<div class="fill-form-card" data-fill-type="' + type + '">' +
+        '<div class="fill-form-title">' + escapeHtml(form.title) + "</div>" +
+        '<p class="fill-form-sub">' + escapeHtml(form.sub) + "</p>" +
+        fillFormFieldsHtml(form) +
+        '<div class="fill-form-actions">' +
+          '<button type="button" class="fill-btn-primary" data-fill-submit="' + type + '">提交表单</button>' +
+          '<button type="button" class="fill-btn-ghost" data-fill-reset="' + type + '">重置</button>' +
+        "</div></div>";
+    }
+
+    function fillFormDemoHtml(active) {
+      var cur = active || "leave";
+      var tabs = [
+        { id: "leave", name: "请假申请" },
+        { id: "meeting", name: "会议室预约" },
+        { id: "seal", name: "用印申请" },
+        { id: "travel", name: "差旅报销" }
+      ];
+      return "<p>识别到您的意图是<strong>智能填单</strong>。我会根据具体办事诉求生成不同表单，可在对话里直接填写提交（原型示意）。</p>" +
+        '<div class="fill-form-demo">' +
+          '<div class="fill-form-tips">点选办事类型，切换对应表单示例：</div>' +
+          '<div class="fill-form-tabs">' + tabs.map(function (t) {
+            return '<button type="button" data-fill-form="' + t.id + '"' + (t.id === cur ? ' class="on"' : "") + ">" +
+              escapeHtml(t.name) + "</button>";
+          }).join("") + "</div>" +
+          '<div class="fill-form-host" data-fill-host="1">' + fillFormCardHtml(cur) + "</div>" +
+        "</div>";
+    }
+
     function resolvePack(qid, agentKey, question) {
-      if (qid && QA_PACKS[qid]) return QA_PACKS[qid];
+      if (qid && QA_PACKS[qid]) {
+        var pack = QA_PACKS[qid];
+        if (qid === "demoHelp") {
+          return Object.assign({}, pack, { html: fillFormDemoHtml("leave") });
+        }
+        return pack;
+      }
       var q = question || "";
       if (/数字档案室|鲁档字|政策解读|制度解读|实施方案|是否适用|依据哪条|归档范围|保管期限/.test(q)) return QA_PACKS.q5;
       if (/报销|差旅/.test(q)) return QA_PACKS.q1;
@@ -7305,10 +8408,10 @@
       "馆藏知识问答": "例如：帮我找【年度】关于【主题】的【文种，如会议纪要】；有档号可直接写【档号】",
       "制度政策查询": "例如：【制度名称】里【事项】怎么规定？适用范围是什么？也可先上传制度文件再提问",
       "办事流程指引": "例如：【请假/用印/用车】要准备哪些材料？审批环节怎么走？时限是多久？",
-      "智能办事": "例如：帮我预约【时间】的会议室，并同步发起【差旅/报销】申请；也可说「提交用印申请」",
+      "智能填单": "例如：帮我填【请假/用印/会议室预约/差旅报销】单；说明时间、事由后自动生成对应表单",
       "智能撰写": "请写一份【文种：通知/请示/报告】，标题是【 】，主送【 】，重点写【 】；有依据材料可先上传",
       "文档比对": "请比对【原版：文件名或说明】和【修改版：文件名或说明】，重点看【条款/章节： 】；也可先上传两份文件",
-      "合同审核": "请审核这份【合同类型： 】，重点关注【付款/违约/知识产权等： 】；可先上传合同文件",
+      "文件审核": "请审核这份【合同类型： 】，重点关注【付款/违约/知识产权等： 】；可先上传合同文件",
       "深度调研报告": "例如：围绕【调研主题】写一份调研报告，范围是【时间/对象】，已有材料【】；可先上传材料"
     };
 
@@ -8172,10 +9275,10 @@
       archive: "馆藏知识问答",
       policy: "制度政策查询",
       process: "办事流程指引",
-      help: "智能办事",
+      help: "智能填单",
       write: "智能撰写",
       compare: "文档比对",
-      review: "合同审核",
+      review: "文件审核",
       research: "深度调研报告"
     };
     var CAP_AGENTS = { archive: "archive", policy: "policy", process: "process" };
@@ -8202,10 +9305,10 @@
       archive: { q: "馆藏知识问答交互示例", agent: "archive", qid: "demoArchive" },
       policy: { q: "制度政策查询交互示例", agent: "policy", qid: "demoPolicy" },
       process: { q: "办事流程指引交互示例", agent: "process", qid: "demoProcess" },
-      help: { q: "智能办事交互示例", agent: "", qid: "demoHelp" },
+      help: { q: "智能填单交互示例", agent: "", qid: "demoHelp" },
       write: { q: "智能撰写交互示例", agent: "writing", qid: "demoWrite" },
       compare: { q: "文档比对交互示例", agent: "", qid: "demoCompare" },
-      review: { q: "合同审核交互示例", agent: "", qid: "demoReview" },
+      review: { q: "文件审核交互示例", agent: "", qid: "demoReview" },
       research: { q: "深度调研报告交互示例", agent: "", qid: "demoResearch" }
     };
 
@@ -8343,6 +9446,34 @@
     });
 
     chatEl.addEventListener("click", function (e) {
+      var formTab = e.target.closest("[data-fill-form]");
+      if (formTab) {
+        var demo = formTab.closest(".fill-form-demo");
+        if (!demo) return;
+        var type = formTab.getAttribute("data-fill-form");
+        demo.querySelectorAll("[data-fill-form]").forEach(function (btn) {
+          btn.classList.toggle("on", btn === formTab);
+        });
+        var host = demo.querySelector("[data-fill-host]");
+        if (host) host.innerHTML = fillFormCardHtml(type);
+        return;
+      }
+      var formSubmit = e.target.closest("[data-fill-submit]");
+      if (formSubmit) {
+        var formType = formSubmit.getAttribute("data-fill-submit");
+        var formMeta = FILL_FORMS[formType];
+        toast((formMeta ? formMeta.title : "表单") + "已提交（原型）");
+        return;
+      }
+      var formReset = e.target.closest("[data-fill-reset]");
+      if (formReset) {
+        var resetType = formReset.getAttribute("data-fill-reset");
+        var demoBox = formReset.closest(".fill-form-demo");
+        var cardHost = demoBox && demoBox.querySelector("[data-fill-host]");
+        if (cardHost) cardHost.innerHTML = fillFormCardHtml(resetType);
+        toast("已重置为示例预填");
+        return;
+      }
       var docBtn = e.target.closest("[data-open-doc]");
       if (docBtn) {
         openResearchDoc(docBtn.getAttribute("data-open-doc"));
